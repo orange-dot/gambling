@@ -1,7 +1,8 @@
 # Event Versioning Playbook: е-Играч Event Schema Evolution
 
-**Document Version**: 1.0
+**Document Version**: 1.1
 **Date**: 2025-10-25
+**Technology Stack**: C# .NET 9, Dapper, MassTransit
 **Purpose**: Guide for managing event schema changes in event-sourced systems
 **Architecture**: Event Sourcing + CQRS
 
@@ -95,6 +96,7 @@ Every event has a `schemaVersion` field:
 ### Standard Event Format
 
 ```javascript
+// MongoDB BSON representation
 {
   _id: ObjectId(),
   aggregateId: "player-uuid",
@@ -119,6 +121,52 @@ Every event has a `schemaVersion` field:
     userId: "player-uuid",
     // ...
   }
+}
+```
+
+**C# Representation**:
+
+```csharp
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+public class Event
+{
+    [BsonId]
+    public ObjectId Id { get; set; }
+
+    [BsonElement("aggregateId")]
+    public required string AggregateId { get; set; }
+
+    [BsonElement("aggregateType")]
+    public required string AggregateType { get; set; }
+
+    [BsonElement("eventType")]
+    public required string EventType { get; set; }
+
+    [BsonElement("eventVersion")]
+    public int EventVersion { get; set; }
+
+    [BsonElement("schemaVersion")]
+    public int SchemaVersion { get; set; }
+
+    [BsonElement("eventData")]
+    public required BsonDocument EventData { get; set; }
+
+    [BsonElement("metadata")]
+    public required EventMetadata Metadata { get; set; }
+}
+
+public class EventMetadata
+{
+    [BsonElement("timestamp")]
+    public DateTime Timestamp { get; set; }
+
+    [BsonElement("userId")]
+    public required string UserId { get; set; }
+
+    [BsonElement("correlationId")]
+    public string? CorrelationId { get; set; }
 }
 ```
 
@@ -237,59 +285,78 @@ Example entry:
 }
 ```
 
-**Upcaster Code** (TypeScript):
+**Upcaster Code** (C# .NET 9):
 
-```typescript
-interface PlayerRegisteredV1 {
-  playerId: string;
-  verifiedName: string;
-  addressHash: string;
-}
+```csharp
+// Event data models
+public record PlayerRegisteredV1(
+    string PlayerId,
+    string VerifiedName,
+    string AddressHash
+);
 
-interface PlayerRegisteredV2 {
-  playerId: string;
-  verifiedName: string;
-  dateOfBirth: Date | null;  // Nullable for upcasted v1 events
-  addressHash: string;
-}
+public record PlayerRegisteredV2(
+    string PlayerId,
+    string VerifiedName,
+    DateTime? DateOfBirth,  // Nullable for upcasted v1 events
+    string AddressHash
+);
 
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV2 {
-  if (event.schemaVersion === 1) {
-    const v1Data = event.eventData as PlayerRegisteredV1;
+// Upcaster service
+public class PlayerRegisteredUpcaster
+{
+    public PlayerRegisteredV2 Upcast(Event @event)
+    {
+        if (@event.SchemaVersion == 1)
+        {
+            var v1Data = @event.EventData.ToObject<PlayerRegisteredV1>();
 
-    // Upcast: add missing field with default
-    return {
-      ...v1Data,
-      dateOfBirth: null,  // Default: null (fetch from ConsentID later)
-      schemaVersion: 2  // Mark as upcasted
-    };
-  }
+            // Upcast: add missing field with default
+            return new PlayerRegisteredV2(
+                PlayerId: v1Data.PlayerId,
+                VerifiedName: v1Data.VerifiedName,
+                DateOfBirth: null,  // Default: null (fetch from ConsentID later)
+                AddressHash: v1Data.AddressHash
+            );
+        }
 
-  // Already v2, return as-is
-  return event.eventData as PlayerRegisteredV2;
+        // Already v2, deserialize as-is
+        return @event.EventData.ToObject<PlayerRegisteredV2>();
+    }
 }
 ```
 
 **Usage in Event Handler**:
 
-```typescript
-class PlayerAggregate {
-  apply(event: Event): void {
-    switch (event.eventType) {
-      case 'PlayerRegistered':
-        const upcastedEvent = upcastPlayerRegistered(event);
-        this.handlePlayerRegistered(upcastedEvent);
-        break;
-      // ...
-    }
-  }
+```csharp
+public class PlayerAggregate
+{
+    private readonly PlayerRegisteredUpcaster _upcaster = new();
 
-  private handlePlayerRegistered(data: PlayerRegisteredV2): void {
-    this.playerId = data.playerId;
-    this.name = data.verifiedName;
-    this.dateOfBirth = data.dateOfBirth;  // May be null for old events
-    this.addressHash = data.addressHash;
-  }
+    public string PlayerId { get; private set; }
+    public string Name { get; private set; }
+    public DateTime? DateOfBirth { get; private set; }
+    public string AddressHash { get; private set; }
+
+    public void Apply(Event @event)
+    {
+        switch (@event.EventType)
+        {
+            case "PlayerRegistered":
+                var upcastedEvent = _upcaster.Upcast(@event);
+                HandlePlayerRegistered(upcastedEvent);
+                break;
+            // ...
+        }
+    }
+
+    private void HandlePlayerRegistered(PlayerRegisteredV2 data)
+    {
+        PlayerId = data.PlayerId;
+        Name = data.VerifiedName;
+        DateOfBirth = data.DateOfBirth;  // May be null for old events
+        AddressHash = data.AddressHash;
+    }
 }
 ```
 
@@ -321,21 +388,22 @@ class PlayerAggregate {
 
 **Upcaster**:
 
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV2 {
-  if (event.schemaVersion === 1) {
-    const v1Data = event.eventData as PlayerRegisteredV1;
+```csharp
+public PlayerRegisteredV2 UpcastPlayerRegistered(Event @event)
+{
+    if (@event.SchemaVersion == 1)
+    {
+        var v1Data = @event.EventData.ToObject<PlayerRegisteredV1>();
 
-    return {
-      playerId: v1Data.playerId,
-      verifiedName: v1Data.name,  // Rename: name → verifiedName
-      dateOfBirth: null,
-      addressHash: v1Data.addressHash,
-      schemaVersion: 2
-    };
-  }
+        return new PlayerRegisteredV2(
+            PlayerId: v1Data.PlayerId,
+            VerifiedName: v1Data.Name,  // Rename: Name → VerifiedName
+            DateOfBirth: null,
+            AddressHash: v1Data.AddressHash
+        );
+    }
 
-  return event.eventData as PlayerRegisteredV2;
+    return @event.EventData.ToObject<PlayerRegisteredV2>();
 }
 ```
 
@@ -367,48 +435,52 @@ function upcastPlayerRegistered(event: Event): PlayerRegisteredV2 {
 
 **Upcaster**:
 
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV3 {
-  // Handle v1 → v2 (from previous upcaster)
-  let data = upcastToV2(event);
+```csharp
+public PlayerRegisteredV3 UpcastPlayerRegistered(Event @event)
+{
+    // Handle v1 → v2 (from previous upcaster)
+    var data = UpcastToV2(@event);
 
-  // Handle v2 → v3
-  if (event.schemaVersion === 2) {
-    const v2Data = data as PlayerRegisteredV2;
+    // Handle v2 → v3
+    if (@event.SchemaVersion == 2)
+    {
+        return new PlayerRegisteredV3(
+            PlayerId: data.PlayerId,
+            VerifiedName: data.VerifiedName,
+            DateOfBirth: data.DateOfBirth != null
+                ? DateTime.Parse(data.DateOfBirth)  // Parse string to DateTime
+                : null,
+            AddressHash: data.AddressHash
+        );
+    }
 
-    return {
-      ...v2Data,
-      dateOfBirth: v2Data.dateOfBirth
-        ? new Date(v2Data.dateOfBirth)  // Parse string to Date
-        : null,
-      schemaVersion: 3
-    };
-  }
-
-  // Already v3
-  return data as PlayerRegisteredV3;
+    // Already v3
+    return @event.EventData.ToObject<PlayerRegisteredV3>();
 }
 ```
 
 **Chaining Upcasters**:
 
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV3 {
-  let currentVersion = event.schemaVersion;
-  let data = event.eventData;
+```csharp
+public PlayerRegisteredV3 UpcastPlayerRegistered(Event @event)
+{
+    var currentVersion = @event.SchemaVersion;
+    object data = @event.EventData;
 
-  // Chain: v1 → v2 → v3
-  if (currentVersion === 1) {
-    data = upcastV1toV2(data);
-    currentVersion = 2;
-  }
+    // Chain: v1 → v2 → v3
+    if (currentVersion == 1)
+    {
+        data = UpcastV1ToV2(data);
+        currentVersion = 2;
+    }
 
-  if (currentVersion === 2) {
-    data = upcastV2toV3(data);
-    currentVersion = 3;
-  }
+    if (currentVersion == 2)
+    {
+        data = UpcastV2ToV3(data);
+        currentVersion = 3;
+    }
 
-  return data;
+    return (PlayerRegisteredV3)data;
 }
 ```
 
@@ -457,35 +529,41 @@ function upcastPlayerRegistered(event: Event): PlayerRegisteredV3 {
 
 **Upcaster** (synthesize missing event):
 
-```typescript
-function upcastPlayerRegistered(event: Event): Event[] {
-  if (event.schemaVersion === 1) {
-    const v1Data = event.eventData as PlayerRegisteredV1;
+```csharp
+public IEnumerable<Event> UpcastPlayerRegistered(Event @event)
+{
+    if (@event.SchemaVersion == 1)
+    {
+        var v1Data = @event.EventData.ToObject<PlayerRegisteredV1>();
 
-    // Return TWO events to replace one v1 event
-    return [
-      {
-        eventType: "PlayerRegistered",
-        schemaVersion: 2,
-        eventData: {
-          playerId: v1Data.playerId,
-          verifiedName: v1Data.verifiedName
-          // monthlyLimit omitted
-        }
-      },
-      {
-        eventType: "LimitSet",
-        schemaVersion: 1,
-        eventData: {
-          playerId: v1Data.playerId,
-          monthlyLimit: v1Data.monthlyLimit
-        }
-      }
-    ];
-  }
+        // Return TWO events to replace one v1 event
+        yield return new Event
+        {
+            EventType = "PlayerRegistered",
+            SchemaVersion = 2,
+            EventData = new PlayerRegisteredV2(
+                PlayerId: v1Data.PlayerId,
+                VerifiedName: v1Data.VerifiedName,
+                DateOfBirth: null,
+                AddressHash: v1Data.AddressHash
+            )
+        };
 
-  // v2: already split, return as-is
-  return [event];
+        yield return new Event
+        {
+            EventType = "LimitSet",
+            SchemaVersion = 1,
+            EventData = new LimitSet(
+                PlayerId: v1Data.PlayerId,
+                MonthlyLimit: v1Data.MonthlyLimit
+            )
+        };
+    }
+    else
+    {
+        // v2: already split, return as-is
+        yield return @event;
+    }
 }
 ```
 
@@ -501,13 +579,20 @@ function upcastPlayerRegistered(event: Event): Event[] {
 
 **Step 1: Define New Schema (v2)**
 
-```typescript
-interface PlayerRegisteredV2 {
-  playerId: string;
-  verifiedName: string;
-  dateOfBirth: Date | null;
-  addressHash: string;
-  registrationChannel: 'mobile_app' | 'web' | 'kiosk';  // NEW FIELD
+```csharp
+public record PlayerRegisteredV2(
+    string PlayerId,
+    string VerifiedName,
+    DateTime? DateOfBirth,
+    string AddressHash,
+    RegistrationChannel Channel  // NEW FIELD
+);
+
+public enum RegistrationChannel
+{
+    MobileApp,
+    Web,
+    Kiosk
 }
 ```
 
@@ -528,83 +613,166 @@ Add entry to `Event-Catalog.md`:
 
 **Step 3: Write Upcaster**
 
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV3 {
-  // Chain previous upcasters
-  let data = upcastToV2(event);
+```csharp
+public class PlayerRegisteredUpcaster
+{
+    public PlayerRegisteredV3 Upcast(Event @event)
+    {
+        // Chain previous upcasters
+        var data = UpcastToV2(@event);
 
-  // v2 → v3: Add registrationChannel
-  if (event.schemaVersion < 3) {
-    return {
-      ...data,
-      registrationChannel: 'mobile_app',  // Default for old events
-      schemaVersion: 3
-    };
-  }
+        // v2 → v3: Add registrationChannel
+        if (@event.SchemaVersion < 3)
+        {
+            return new PlayerRegisteredV3(
+                PlayerId: data.PlayerId,
+                VerifiedName: data.VerifiedName,
+                DateOfBirth: data.DateOfBirth,
+                AddressHash: data.AddressHash,
+                Channel: RegistrationChannel.MobileApp  // Default for old events
+            );
+        }
 
-  return data as PlayerRegisteredV3;
+        return @event.EventData.ToObject<PlayerRegisteredV3>();
+    }
+
+    private PlayerRegisteredV2 UpcastToV2(Event @event)
+    {
+        // Previous upcaster logic (v1 → v2)
+        if (@event.SchemaVersion == 1)
+        {
+            var v1Data = @event.EventData.ToObject<PlayerRegisteredV1>();
+            return new PlayerRegisteredV2(
+                PlayerId: v1Data.PlayerId,
+                VerifiedName: v1Data.VerifiedName,
+                DateOfBirth: null,
+                AddressHash: v1Data.AddressHash
+            );
+        }
+        return @event.EventData.ToObject<PlayerRegisteredV2>();
+    }
 }
 ```
 
 **Step 4: Update Event Emitters**
 
-```typescript
-// New code: emit v3 events
-function registerPlayer(command: RegisterPlayerCommand): void {
-  const event = {
-    eventType: 'PlayerRegistered',
-    schemaVersion: 3,  // New version
-    eventData: {
-      playerId: generateUuid(),
-      verifiedName: command.name,
-      dateOfBirth: command.dateOfBirth,
-      addressHash: hashAddress(command.address),
-      registrationChannel: command.source  // NEW: capture channel
-    }
-  };
+```csharp
+using MongoDB.Driver;
+using MongoDB.Bson;
 
-  eventStore.append(event);
+// Command handler that emits v3 events
+public class RegisterPlayerCommandHandler
+{
+    private readonly IMongoCollection<BsonDocument> _eventStore;
+
+    public RegisterPlayerCommandHandler(IMongoDatabase database)
+    {
+        _eventStore = database.GetCollection<BsonDocument>("events");
+    }
+
+    public async Task HandleAsync(RegisterPlayerCommand command)
+    {
+        var @event = new BsonDocument
+        {
+            { "aggregateId", command.PlayerId },
+            { "aggregateType", "Player" },
+            { "eventType", "PlayerRegistered" },
+            { "eventVersion", 1 },
+            { "schemaVersion", 3 },  // New version
+            { "eventData", new BsonDocument
+                {
+                    { "playerId", command.PlayerId },
+                    { "verifiedName", command.VerifiedName },
+                    { "dateOfBirth", command.DateOfBirth },
+                    { "addressHash", HashAddress(command.Address) },
+                    { "registrationChannel", command.Source.ToString() }  // NEW: capture channel
+                }
+            },
+            { "metadata", new BsonDocument
+                {
+                    { "timestamp", DateTime.UtcNow },
+                    { "userId", command.PlayerId },
+                    { "correlationId", command.CorrelationId }
+                }
+            }
+        };
+
+        await _eventStore.InsertOneAsync(@event);
+    }
+
+    private string HashAddress(string address)
+    {
+        using var sha256 = System.Security.Cryptography.SHA256.Create();
+        var hash = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(address));
+        return $"sha256:{Convert.ToHexString(hash).ToLower()}";
+    }
 }
 ```
 
 **Step 5: Test**
 
-```typescript
-describe('PlayerRegistered upcasting', () => {
-  it('should upcast v1 to v3', () => {
-    const v1Event = {
-      schemaVersion: 1,
-      eventData: {
-        playerId: 'player-123',
-        verifiedName: 'Petar',
-        addressHash: 'sha256:abc'
-      }
-    };
+```csharp
+using Xunit;
+using FluentAssertions;
+using MongoDB.Bson;
 
-    const upcastedEvent = upcastPlayerRegistered(v1Event);
+public class PlayerRegisteredUpcasterTests
+{
+    private readonly PlayerRegisteredUpcaster _upcaster = new();
 
-    expect(upcastedEvent.schemaVersion).toBe(3);
-    expect(upcastedEvent.eventData.registrationChannel).toBe('mobile_app');
-    expect(upcastedEvent.eventData.dateOfBirth).toBeNull();
-  });
+    [Fact]
+    public void Upcast_ShouldConvertV1ToV3()
+    {
+        // Arrange
+        var v1Event = new Event
+        {
+            SchemaVersion = 1,
+            EventType = "PlayerRegistered",
+            EventData = BsonDocument.Parse(@"{
+                ""playerId"": ""player-123"",
+                ""verifiedName"": ""Petar"",
+                ""addressHash"": ""sha256:abc""
+            }")
+        };
 
-  it('should handle v3 events unchanged', () => {
-    const v3Event = {
-      schemaVersion: 3,
-      eventData: {
-        playerId: 'player-456',
-        verifiedName: 'Ana',
-        dateOfBirth: new Date('1995-05-20'),
-        addressHash: 'sha256:def',
-        registrationChannel: 'kiosk'
-      }
-    };
+        // Act
+        var upcastedEvent = _upcaster.Upcast(v1Event);
 
-    const upcastedEvent = upcastPlayerRegistered(v3Event);
+        // Assert
+        upcastedEvent.PlayerId.Should().Be("player-123");
+        upcastedEvent.VerifiedName.Should().Be("Petar");
+        upcastedEvent.DateOfBirth.Should().BeNull();
+        upcastedEvent.Channel.Should().Be(RegistrationChannel.MobileApp);
+        upcastedEvent.AddressHash.Should().Be("sha256:abc");
+    }
 
-    expect(upcastedEvent).toEqual(v3Event);  // Unchanged
-  });
-});
+    [Fact]
+    public void Upcast_ShouldHandleV3EventsUnchanged()
+    {
+        // Arrange
+        var v3Event = new Event
+        {
+            SchemaVersion = 3,
+            EventType = "PlayerRegistered",
+            EventData = BsonDocument.Parse(@"{
+                ""playerId"": ""player-456"",
+                ""verifiedName"": ""Ana"",
+                ""dateOfBirth"": ""1995-05-20"",
+                ""addressHash"": ""sha256:def"",
+                ""registrationChannel"": ""Kiosk""
+            }")
+        };
+
+        // Act
+        var upcastedEvent = _upcaster.Upcast(v3Event);
+
+        // Assert
+        upcastedEvent.PlayerId.Should().Be("player-456");
+        upcastedEvent.VerifiedName.Should().Be("Ana");
+        upcastedEvent.DateOfBirth.Should().Be(new DateTime(1995, 5, 20));
+        upcastedEvent.Channel.Should().Be(RegistrationChannel.Kiosk);
+    }
+}
 ```
 
 **Step 6: Deploy**
@@ -623,14 +791,15 @@ describe('PlayerRegistered upcasting', () => {
 
 **Step 1: Mark as Deprecated (v2)**
 
-In v2, add `@deprecated` comment:
+In v2, add `[Obsolete]` attribute:
 
-```typescript
-interface PlayerRegisteredV2 {
-  playerId: string;
-  verifiedName: string;
-  nickname?: string;  // @deprecated: Will be removed in v3, use verifiedName
-}
+```csharp
+public record PlayerRegisteredV2(
+    string PlayerId,
+    string VerifiedName,
+    [property: Obsolete("Will be removed in v3, use VerifiedName")]
+    string? Nickname
+);
 ```
 
 **Step 2: Wait 6-12 Months**
@@ -641,31 +810,35 @@ interface PlayerRegisteredV2 {
 
 **Step 3: Remove Field (v3)**
 
-```typescript
-interface PlayerRegisteredV3 {
-  playerId: string;
-  verifiedName: string;
-  // nickname removed
-}
+```csharp
+public record PlayerRegisteredV3(
+    string PlayerId,
+    string VerifiedName
+    // Nickname removed
+);
 ```
 
 **Step 4: Update Upcaster**
 
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV3 {
-  if (event.schemaVersion < 3) {
-    const oldData = event.eventData as PlayerRegisteredV2;
+```csharp
+public class PlayerRegisteredUpcaster
+{
+    public PlayerRegisteredV3 Upcast(Event @event)
+    {
+        if (@event.SchemaVersion < 3)
+        {
+            var oldData = @event.EventData.ToObject<PlayerRegisteredV2>();
 
-    // Strip deprecated field
-    return {
-      playerId: oldData.playerId,
-      verifiedName: oldData.verifiedName,
-      // nickname omitted (removed)
-      schemaVersion: 3
-    };
-  }
+            // Strip deprecated field
+            return new PlayerRegisteredV3(
+                PlayerId: oldData.PlayerId,
+                VerifiedName: oldData.VerifiedName
+                // Nickname omitted (removed)
+            );
+        }
 
-  return event.eventData as PlayerRegisteredV3;
+        return @event.EventData.ToObject<PlayerRegisteredV3>();
+    }
 }
 ```
 
@@ -688,97 +861,252 @@ function upcastPlayerRegistered(event: Event): PlayerRegisteredV3 {
 
 **Test Each Version Transition**:
 
-```typescript
-describe('PlayerRegistered upcasting', () => {
-  describe('v1 → v2', () => {
-    it('should add dateOfBirth with null default', () => {
-      const v1Event = createV1Event();
-      const v2Event = upcastV1toV2(v1Event);
+```csharp
+using Xunit;
+using FluentAssertions;
+using MongoDB.Bson;
 
-      expect(v2Event.dateOfBirth).toBeNull();
-      expect(v2Event.schemaVersion).toBe(2);
-    });
+public class PlayerRegisteredUpcasterTests
+{
+    private readonly PlayerRegisteredUpcaster _upcaster = new();
 
-    it('should preserve existing fields', () => {
-      const v1Event = createV1Event({ verifiedName: 'Petar' });
-      const v2Event = upcastV1toV2(v1Event);
+    // v1 → v2 Tests
+    [Fact]
+    public void UpcastV1ToV2_ShouldAddDateOfBirthWithNullDefault()
+    {
+        // Arrange
+        var v1Event = CreateV1Event();
 
-      expect(v2Event.verifiedName).toBe('Petar');
-    });
-  });
+        // Act
+        var v2Event = _upcaster.UpcastV1ToV2(v1Event);
 
-  describe('v2 → v3', () => {
-    it('should add registrationChannel with default', () => {
-      const v2Event = createV2Event();
-      const v3Event = upcastV2toV3(v2Event);
+        // Assert
+        v2Event.DateOfBirth.Should().BeNull();
+    }
 
-      expect(v3Event.registrationChannel).toBe('mobile_app');
-    });
-  });
+    [Fact]
+    public void UpcastV1ToV2_ShouldPreserveExistingFields()
+    {
+        // Arrange
+        var v1Event = CreateV1Event(verifiedName: "Petar");
 
-  describe('v1 → v3 (chained)', () => {
-    it('should apply all upcasters in sequence', () => {
-      const v1Event = createV1Event();
-      const v3Event = upcastPlayerRegistered(v1Event);
+        // Act
+        var v2Event = _upcaster.UpcastV1ToV2(v1Event);
 
-      expect(v3Event.schemaVersion).toBe(3);
-      expect(v3Event.dateOfBirth).toBeNull();  // From v1→v2
-      expect(v3Event.registrationChannel).toBe('mobile_app');  // From v2→v3
-    });
-  });
-});
+        // Assert
+        v2Event.VerifiedName.Should().Be("Petar");
+    }
+
+    // v2 → v3 Tests
+    [Fact]
+    public void UpcastV2ToV3_ShouldAddRegistrationChannelWithDefault()
+    {
+        // Arrange
+        var v2Event = CreateV2Event();
+
+        // Act
+        var v3Event = _upcaster.UpcastV2ToV3(v2Event);
+
+        // Assert
+        v3Event.Channel.Should().Be(RegistrationChannel.MobileApp);
+    }
+
+    // v1 → v3 Chained Tests
+    [Fact]
+    public void Upcast_ShouldApplyAllUpcastersInSequence()
+    {
+        // Arrange
+        var v1Event = CreateV1Event();
+
+        // Act
+        var v3Event = _upcaster.Upcast(v1Event);
+
+        // Assert
+        v3Event.DateOfBirth.Should().BeNull();  // From v1→v2
+        v3Event.Channel.Should().Be(RegistrationChannel.MobileApp);  // From v2→v3
+    }
+
+    // Helper methods
+    private Event CreateV1Event(string verifiedName = "Test Player")
+    {
+        return new Event
+        {
+            SchemaVersion = 1,
+            EventType = "PlayerRegistered",
+            EventData = BsonDocument.Parse($@"{{
+                ""playerId"": ""player-123"",
+                ""verifiedName"": ""{verifiedName}"",
+                ""addressHash"": ""sha256:abc""
+            }}")
+        };
+    }
+
+    private PlayerRegisteredV2 CreateV2Event()
+    {
+        return new PlayerRegisteredV2(
+            PlayerId: "player-123",
+            VerifiedName: "Test Player",
+            DateOfBirth: new DateTime(1990, 1, 1),
+            AddressHash: "sha256:abc"
+        );
+    }
+}
 ```
 
 ### Integration Tests: Event Replay
 
 **Test Aggregate Rebuilding with Mixed Event Versions**:
 
-```typescript
-describe('Player aggregate event replay', () => {
-  it('should rebuild from mixed event versions', async () => {
-    // Simulate event store with v1, v2, v3 events
-    const events = [
-      createV1Event({ eventType: 'PlayerRegistered' }),  // v1
-      createV2Event({ eventType: 'LimitIncreased' }),    // v2
-      createV3Event({ eventType: 'TransactionAuthorized' }),  // v3
-      createV2Event({ eventType: 'SelfExclusionActivated' })  // v2
-    ];
+```csharp
+using Xunit;
+using FluentAssertions;
 
-    // Replay events to rebuild aggregate
-    const player = new PlayerAggregate();
-    for (const event of events) {
-      player.apply(event);  // Upcasters applied internally
+public class PlayerAggregateIntegrationTests
+{
+    [Fact]
+    public async Task Replay_ShouldRebuildFromMixedEventVersions()
+    {
+        // Arrange: Simulate event store with v1, v2, v3 events
+        var events = new List<Event>
+        {
+            CreateV1Event(eventType: "PlayerRegistered"),     // v1
+            CreateV2Event(eventType: "LimitIncreased"),        // v2
+            CreateV3Event(eventType: "TransactionAuthorized"), // v3
+            CreateV2Event(eventType: "SelfExclusionActivated") // v2
+        };
+
+        // Act: Replay events to rebuild aggregate
+        var player = new PlayerAggregate();
+        foreach (var @event in events)
+        {
+            player.Apply(@event);  // Upcasters applied internally
+        }
+
+        // Assert: Verify aggregate state is correct
+        player.PlayerId.Should().NotBeNullOrEmpty();
+        player.DateOfBirth.Should().BeNull();  // v1 event had no dateOfBirth
+        player.SelfExclusion.Active.Should().BeTrue();
     }
 
-    // Verify aggregate state is correct
-    expect(player.playerId).toBeDefined();
-    expect(player.dateOfBirth).toBeNull();  // v1 event had no dateOfBirth
-    expect(player.selfExclusion.active).toBe(true);
-  });
-});
+    [Fact]
+    public async Task Replay_ShouldHandleAllVersionsWithoutErrors()
+    {
+        // Arrange
+        var events = GenerateMixedVersionEvents(count: 100);
+
+        // Act
+        var player = new PlayerAggregate();
+        Action act = () =>
+        {
+            foreach (var @event in events)
+            {
+                player.Apply(@event);
+            }
+        };
+
+        // Assert: Should not throw any exceptions
+        act.Should().NotThrow();
+    }
+
+    private List<Event> GenerateMixedVersionEvents(int count)
+    {
+        var events = new List<Event>();
+        var random = new Random(42);
+
+        for (int i = 0; i < count; i++)
+        {
+            var version = random.Next(1, 4);  // Random version 1-3
+            events.Add(version switch
+            {
+                1 => CreateV1Event(),
+                2 => CreateV2Event(),
+                _ => CreateV3Event()
+            });
+        }
+
+        return events;
+    }
+}
 ```
 
 ### Load Tests: Upcasting Performance
 
 **Benchmark Event Replay with Upcasting**:
 
-```typescript
-describe('Upcasting performance', () => {
-  it('should replay 10,000 events in < 1 second', async () => {
-    const events = generateEvents(10_000);  // Mix of v1, v2, v3
+```csharp
+using Xunit;
+using FluentAssertions;
+using System.Diagnostics;
 
-    const startTime = Date.now();
+public class UpcastingPerformanceTests
+{
+    [Fact]
+    public void Replay_ShouldProcess10000EventsInUnder1Second()
+    {
+        // Arrange: Mix of v1, v2, v3 events
+        var events = GenerateEvents(10_000);
 
-    const player = new PlayerAggregate();
-    for (const event of events) {
-      player.apply(event);
+        // Act
+        var stopwatch = Stopwatch.StartNew();
+
+        var player = new PlayerAggregate();
+        foreach (var @event in events)
+        {
+            player.Apply(@event);
+        }
+
+        stopwatch.Stop();
+
+        // Assert
+        stopwatch.ElapsedMilliseconds.Should().BeLessThan(1000,
+            "replaying 10,000 events should take less than 1 second");
     }
 
-    const duration = Date.now() - startTime;
+    [Theory]
+    [InlineData(1_000)]
+    [InlineData(5_000)]
+    [InlineData(10_000)]
+    public void Replay_ShouldScaleLinearlyWithEventCount(int eventCount)
+    {
+        // Arrange
+        var events = GenerateEvents(eventCount);
 
-    expect(duration).toBeLessThan(1000);  // < 1 second
-  });
-});
+        // Act
+        var stopwatch = Stopwatch.StartNew();
+
+        var player = new PlayerAggregate();
+        foreach (var @event in events)
+        {
+            player.Apply(@event);
+        }
+
+        stopwatch.Stop();
+
+        // Assert: < 0.1ms per event
+        var avgTimePerEvent = (double)stopwatch.ElapsedMilliseconds / eventCount;
+        avgTimePerEvent.Should().BeLessThan(0.1,
+            $"average time per event should be < 0.1ms (was {avgTimePerEvent:F3}ms)");
+    }
+
+    private List<Event> GenerateEvents(int count)
+    {
+        var events = new List<Event>();
+        var random = new Random(42);
+
+        for (int i = 0; i < count; i++)
+        {
+            var version = random.Next(1, 4);  // Mix of v1, v2, v3
+            events.Add(version switch
+            {
+                1 => CreateV1Event(),
+                2 => CreateV2Event(),
+                _ => CreateV3Event()
+            });
+        }
+
+        return events;
+    }
+}
 ```
 
 ---
@@ -807,50 +1135,101 @@ mongodump --db=event_store --out=/backups/pre-migration-$(date +%Y%m%d)
 
 **Step 2: Test Migration Script on Copy**
 
-```javascript
-// migration-script.js
-const { MongoClient } = require('mongodb');
+```csharp
+// MigrationScript.cs
+using MongoDB.Driver;
+using MongoDB.Bson;
+using System;
+using System.Threading.Tasks;
 
-async function migrateEvents() {
-  const client = await MongoClient.connect('mongodb://localhost:27017');
-  const db = client.db('event_store_COPY');  // Test on copy first
+public class EventMigrationScript
+{
+    public async Task MigrateEventsAsync()
+    {
+        var client = new MongoClient("mongodb://localhost:27017");
+        var db = client.GetDatabase("event_store_COPY");  // Test on copy first
 
-  const events = db.collection('events');
+        var events = db.GetCollection<BsonDocument>("events");
 
-  let migratedCount = 0;
+        var migratedCount = 0;
 
-  const cursor = events.find({ schemaVersion: { $lt: 10 } });  // Old versions
+        // Find old versions
+        var filter = Builders<BsonDocument>.Filter.Lt("schemaVersion", 10);
+        var cursor = await events.FindAsync(filter);
 
-  for await (const event of cursor) {
-    // Apply upcaster
-    const upcastedEvent = upcastToLatestVersion(event);
+        await foreach (var @event in cursor.ToAsyncEnumerable())
+        {
+            // Apply upcaster
+            var upcastedEvent = UpcastToLatestVersion(@event);
 
-    // Replace event (DANGER: modifies immutable data)
-    await events.replaceOne(
-      { _id: event._id },
-      upcastedEvent
-    );
+            // Replace event (DANGER: modifies immutable data)
+            var replaceFilter = Builders<BsonDocument>.Filter.Eq("_id", @event["_id"]);
+            await events.ReplaceOneAsync(replaceFilter, upcastedEvent);
 
-    migratedCount++;
+            migratedCount++;
 
-    if (migratedCount % 10_000 === 0) {
-      console.log(`Migrated ${migratedCount} events...`);
+            if (migratedCount % 10_000 == 0)
+            {
+                Console.WriteLine($"Migrated {migratedCount} events...");
+            }
+        }
+
+        Console.WriteLine($"Migration complete: {migratedCount} events upgraded");
     }
-  }
 
-  console.log(`Migration complete: ${migratedCount} events upgraded`);
+    private BsonDocument UpcastToLatestVersion(BsonDocument @event)
+    {
+        // Apply all upcasting logic to bring event to latest version
+        var currentVersion = @event["schemaVersion"].AsInt32;
+        var eventType = @event["eventType"].AsString;
 
-  await client.close();
+        // Chain upcasters based on event type
+        return eventType switch
+        {
+            "PlayerRegistered" => UpcastPlayerRegisteredToLatest(@event),
+            "TransactionAuthorized" => UpcastTransactionAuthorizedToLatest(@event),
+            _ => @event  // Unknown event type, return as-is
+        };
+    }
+
+    private BsonDocument UpcastPlayerRegisteredToLatest(BsonDocument @event)
+    {
+        // Implementation of upcasting logic
+        // This would chain all version-specific upcasters
+        throw new NotImplementedException("Implement based on specific upcasting rules");
+    }
+
+    private BsonDocument UpcastTransactionAuthorizedToLatest(BsonDocument @event)
+    {
+        // Implementation of upcasting logic
+        throw new NotImplementedException("Implement based on specific upcasting rules");
+    }
 }
 
-migrateEvents().catch(console.error);
+// Program.cs
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        try
+        {
+            var migration = new EventMigrationScript();
+            await migration.MigrateEventsAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Migration failed: {ex.Message}");
+            Environment.Exit(1);
+        }
+    }
+}
 ```
 
 **Step 3: Validate Migration on Copy**
 
 ```bash
 # Run validation script
-node validate-migration.js
+dotnet run --project ValidationScript.csproj
 
 # Check:
 # - All events now schemaVersion: 10
@@ -867,13 +1246,13 @@ node validate-migration.js
 **Step 5: Run Migration on Production**
 
 ```bash
-node migration-script.js --db=event_store --confirm
+dotnet run --project MigrationScript.csproj -- --db event_store --confirm
 ```
 
 **Step 6: Validate Production**
 
 ```bash
-node validate-migration.js --db=event_store
+dotnet run --project ValidationScript.csproj -- --db event_store
 ```
 
 **Step 7: Resume Service**
@@ -957,82 +1336,202 @@ node validate-migration.js --db=event_store
 
 **Tool**: JSON Schema validation before event append
 
-```typescript
-import Ajv from 'ajv';
+```csharp
+using System.ComponentModel.DataAnnotations;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
-const ajv = new Ajv();
+// Define validator using Data Annotations
+public record PlayerRegisteredV3Validator
+{
+    [Required]
+    [RegularExpression(@"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")]
+    public required string PlayerId { get; init; }
 
-// Define schema for PlayerRegistered v3
-const playerRegisteredV3Schema = {
-  type: 'object',
-  properties: {
-    playerId: { type: 'string', format: 'uuid' },
-    verifiedName: { type: 'string', minLength: 1 },
-    dateOfBirth: { type: ['string', 'null'], format: 'date' },
-    addressHash: { type: 'string', pattern: '^sha256:' },
-    registrationChannel: { type: 'string', enum: ['mobile_app', 'web', 'kiosk'] }
-  },
-  required: ['playerId', 'verifiedName', 'addressHash', 'registrationChannel'],
-  additionalProperties: false
-};
+    [Required]
+    [MinLength(1)]
+    public required string VerifiedName { get; init; }
 
-const validate = ajv.compile(playerRegisteredV3Schema);
+    public DateTime? DateOfBirth { get; init; }
 
-// Validate before appending event
-function appendEvent(event: Event): void {
-  if (!validate(event.eventData)) {
-    throw new Error(`Invalid event schema: ${ajv.errorsText(validate.errors)}`);
-  }
+    [Required]
+    [RegularExpression(@"^sha256:")]
+    public required string AddressHash { get; init; }
 
-  eventStore.append(event);
+    [Required]
+    [EnumDataType(typeof(RegistrationChannel))]
+    public required RegistrationChannel RegistrationChannel { get; init; }
+}
+
+// Event store with validation
+public class EventStore
+{
+    private readonly IMongoCollection<BsonDocument> _events;
+
+    public EventStore(IMongoDatabase database)
+    {
+        _events = database.GetCollection<BsonDocument>("events");
+    }
+
+    public async Task AppendEventAsync(BsonDocument @event)
+    {
+        // Validate event schema before appending
+        ValidateEventSchema(@event);
+
+        await _events.InsertOneAsync(@event);
+    }
+
+    private void ValidateEventSchema(BsonDocument @event)
+    {
+        var eventType = @event["eventType"].AsString;
+        var eventData = @event["eventData"].AsBsonDocument;
+
+        // Validate based on event type and version
+        if (eventType == "PlayerRegistered" && @event["schemaVersion"].AsInt32 == 3)
+        {
+            var validator = BsonSerializer.Deserialize<PlayerRegisteredV3Validator>(eventData);
+
+            var validationContext = new ValidationContext(validator);
+            var validationResults = new List<ValidationResult>();
+
+            if (!Validator.TryValidateObject(validator, validationContext, validationResults, true))
+            {
+                var errors = string.Join(", ", validationResults.Select(r => r.ErrorMessage));
+                throw new ValidationException($"Invalid event schema: {errors}");
+            }
+        }
+    }
 }
 ```
 
 ### Event Catalog Generator
 
-**Tool**: Auto-generate Event Catalog from TypeScript interfaces
+**Tool**: Auto-generate Event Catalog from C# source using Reflection
 
-```bash
-# Extract event schemas from code
-npx ts-json-schema-generator \
-  --path 'src/events/*.ts' \
-  --type 'PlayerRegistered*' \
-  --out event-catalog.json
+```csharp
+using System.Reflection;
+using System.Text;
 
-# Generate Markdown documentation
-node scripts/generate-event-catalog.js
+public class EventCatalogGenerator
+{
+    public string GenerateMarkdownCatalog()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("# Event Catalog");
+        sb.AppendLine();
+
+        // Find all event record types
+        var eventTypes = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t.Name.StartsWith("PlayerRegistered") && t.IsClass)
+            .OrderBy(t => t.Name);
+
+        foreach (var eventType in eventTypes)
+        {
+            sb.AppendLine($"## {eventType.Name}");
+            sb.AppendLine();
+
+            var properties = eventType.GetProperties();
+            sb.AppendLine("**Fields**:");
+            foreach (var prop in properties)
+            {
+                var nullable = Nullable.GetUnderlyingType(prop.PropertyType) != null ? "?" : "";
+                var typeName = Nullable.GetUnderlyingType(prop.PropertyType)?.Name ?? prop.PropertyType.Name;
+                sb.AppendLine($"- `{prop.Name}`: {typeName}{nullable}");
+            }
+            sb.AppendLine();
+        }
+
+        return sb.ToString();
+    }
+}
+
+// Usage
+var generator = new EventCatalogGenerator();
+var catalog = generator.GenerateMarkdownCatalog();
+await File.WriteAllTextAsync("docs/Event-Catalog.md", catalog);
 ```
 
 ### Upcaster Test Generator
 
-**Tool**: Generate boilerplate tests for upcasters
+**Tool**: Generate boilerplate tests for upcasters using T4 templates or Source Generators
 
-```bash
-# Generate test file
-node scripts/generate-upcaster-tests.js \
-  --event PlayerRegistered \
-  --fromVersion 1 \
-  --toVersion 3 \
-  --out src/__tests__/upcasters/player-registered.test.ts
+```csharp
+// UpcasterTestGenerator.cs
+using System.Text;
+
+public class UpcasterTestGenerator
+{
+    public string GenerateTestClass(string eventName, int fromVersion, int toVersion)
+    {
+        var sb = new StringBuilder();
+
+        sb.AppendLine("// Auto-generated by UpcasterTestGenerator");
+        sb.AppendLine("using Xunit;");
+        sb.AppendLine("using FluentAssertions;");
+        sb.AppendLine();
+        sb.AppendLine($"public class {eventName}UpcasterTests");
+        sb.AppendLine("{");
+        sb.AppendLine($"    private readonly {eventName}Upcaster _upcaster = new();");
+        sb.AppendLine();
+
+        for (int v = fromVersion; v < toVersion; v++)
+        {
+            sb.AppendLine($"    // v{v} → v{v + 1} Tests");
+            sb.AppendLine("    [Fact]");
+            sb.AppendLine($"    public void UpcastV{v}ToV{v + 1}_ShouldAddMissingFields()");
+            sb.AppendLine("    {");
+            sb.AppendLine("        // TODO: Implement test");
+            sb.AppendLine($"        // Arrange: Create v{v} event");
+            sb.AppendLine($"        // Act: Upcast to v{v + 1}");
+            sb.AppendLine("        // Assert: Verify new fields");
+            sb.AppendLine("    }");
+            sb.AppendLine();
+        }
+
+        sb.AppendLine("}");
+
+        return sb.ToString();
+    }
+}
+
+// Usage
+var generator = new UpcasterTestGenerator();
+var testCode = generator.GenerateTestClass("PlayerRegistered", fromVersion: 1, toVersion: 3);
+await File.WriteAllTextAsync("tests/PlayerRegisteredUpcasterTests.cs", testCode);
 ```
 
 Generated test:
 
-```typescript
-// Auto-generated by upcaster-test-generator
-describe('PlayerRegistered upcasting', () => {
-  describe('v1 → v2', () => {
-    it('should add missing fields', () => {
-      // TODO: Implement test
-    });
-  });
+```csharp
+// Auto-generated by UpcasterTestGenerator
+using Xunit;
+using FluentAssertions;
 
-  describe('v2 → v3', () => {
-    it('should transform field types', () => {
-      // TODO: Implement test
-    });
-  });
-});
+public class PlayerRegisteredUpcasterTests
+{
+    private readonly PlayerRegisteredUpcaster _upcaster = new();
+
+    // v1 → v2 Tests
+    [Fact]
+    public void UpcastV1ToV2_ShouldAddMissingFields()
+    {
+        // TODO: Implement test
+        // Arrange: Create v1 event
+        // Act: Upcast to v2
+        // Assert: Verify new fields
+    }
+
+    // v2 → v3 Tests
+    [Fact]
+    public void UpcastV2ToV3_ShouldAddMissingFields()
+    {
+        // TODO: Implement test
+        // Arrange: Create v2 event
+        // Act: Upcast to v3
+        // Assert: Verify new fields
+    }
+}
 ```
 
 ---
@@ -1045,22 +1544,42 @@ describe('PlayerRegistered upcasting', () => {
 
 **Symptom**: Aggregate state incorrect when specific old event is replayed.
 
-**Solution**: Centralize upcasting in `apply()` method (before dispatching to handler).
+**Solution**: Centralize upcasting in `Apply()` method (before dispatching to handler).
 
-```typescript
-class PlayerAggregate {
-  apply(event: Event): void {
-    // ALWAYS upcast before handling
-    const upcastedEvent = upcastEvent(event);
+```csharp
+public class PlayerAggregate
+{
+    private readonly EventUpcaster _upcaster = new();
 
-    // Dispatch to specific handler
-    switch (upcastedEvent.eventType) {
-      case 'PlayerRegistered':
-        this.handlePlayerRegistered(upcastedEvent);
-        break;
-      // ...
+    public void Apply(Event @event)
+    {
+        // ALWAYS upcast before handling
+        var upcastedEvent = _upcaster.Upcast(@event);
+
+        // Dispatch to specific handler
+        switch (upcastedEvent.EventType)
+        {
+            case "PlayerRegistered":
+                HandlePlayerRegistered(upcastedEvent);
+                break;
+            case "LimitIncreased":
+                HandleLimitIncreased(upcastedEvent);
+                break;
+            // ...
+        }
     }
-  }
+
+    private void HandlePlayerRegistered(Event @event)
+    {
+        var data = @event.EventData.ToObject<PlayerRegisteredV3>();
+        // Handle the event...
+    }
+
+    private void HandleLimitIncreased(Event @event)
+    {
+        var data = @event.EventData.ToObject<LimitIncreasedV2>();
+        // Handle the event...
+    }
 }
 ```
 
@@ -1089,24 +1608,55 @@ class PlayerAggregate {
 **Solution**: Optimize upcaster (cache lookups, avoid I/O, use default values).
 
 **Bad**:
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV2 {
-  if (event.schemaVersion === 1) {
-    // BAD: Database lookup for every event
-    const dateOfBirth = await fetchFromConsentID(event.eventData.consentIdSubjectId);
+```csharp
+public class PlayerRegisteredUpcaster
+{
+    private readonly IConsentIdService _consentIdService;
 
-    return { ...event.eventData, dateOfBirth };
-  }
+    public async Task<PlayerRegisteredV2> UpcastAsync(Event @event)
+    {
+        if (@event.SchemaVersion == 1)
+        {
+            var v1Data = @event.EventData.ToObject<PlayerRegisteredV1>();
+
+            // BAD: Database lookup for every event (blocks event replay)
+            var dateOfBirth = await _consentIdService.FetchDateOfBirthAsync(
+                v1Data.ConsentIdSubjectId);
+
+            return new PlayerRegisteredV2(
+                PlayerId: v1Data.PlayerId,
+                VerifiedName: v1Data.VerifiedName,
+                DateOfBirth: dateOfBirth,
+                AddressHash: v1Data.AddressHash
+            );
+        }
+
+        return @event.EventData.ToObject<PlayerRegisteredV2>();
+    }
 }
 ```
 
 **Good**:
-```typescript
-function upcastPlayerRegistered(event: Event): PlayerRegisteredV2 {
-  if (event.schemaVersion === 1) {
-    // GOOD: Use default, fetch later if needed
-    return { ...event.eventData, dateOfBirth: null };
-  }
+```csharp
+public class PlayerRegisteredUpcaster
+{
+    public PlayerRegisteredV2 Upcast(Event @event)
+    {
+        if (@event.SchemaVersion == 1)
+        {
+            var v1Data = @event.EventData.ToObject<PlayerRegisteredV1>();
+
+            // GOOD: Use default, fetch later if needed
+            return new PlayerRegisteredV2(
+                PlayerId: v1Data.PlayerId,
+                VerifiedName: v1Data.VerifiedName,
+                DateOfBirth: null,  // Default, can be fetched lazily when needed
+                AddressHash: v1Data.AddressHash
+            );
+        }
+
+        return @event.EventData.ToObject<PlayerRegisteredV2>();
+    }
 }
 ```
 
@@ -1114,10 +1664,11 @@ function upcastPlayerRegistered(event: Event): PlayerRegisteredV2 {
 
 ## Document Control
 
-**Version**: 1.0
+**Version**: 1.1
 **Author**: е-Играч Architecture Team
-**Last Updated**: 2025-10-25
+**Last Updated**: 2025-10-26
 **Status**: Ready for Implementation
+**Tech Stack**: C# .NET 9, MongoDB C# Driver, MassTransit
 
 **Related Documents**:
 - [MongoDB Schema Design](./MongoDB-Schema-Design.md)
