@@ -10,15 +10,80 @@ This implementation plan outlines the phased development and deployment of the �
 
 ---
 
+## Architecture Overview
+
+### Event Sourcing & CQRS Architecture
+
+The е-Играч system is built on **Event Sourcing** and **CQRS (Command Query Responsibility Segregation)** principles:
+
+**Core Principles**:
+- All state changes stored as immutable events in MongoDB event store
+- Current state derived by replaying events (with snapshots for performance)
+- Separate read models optimized for queries (updated asynchronously)
+- Complete audit trail built into architecture (every state change is an event)
+- Temporal queries possible (reconstruct system state at any point in time)
+
+**Technology Stack**:
+1. **MongoDB**: Primary and only database
+   - Event store (source of truth)
+   - Read models (CQRS projections)
+   - Snapshots (performance optimization)
+
+2. **Apache Kafka**: Event bus
+   - Publishes events to interested consumers
+   - Guarantees event ordering per player
+   - Enables microservices to react to events independently
+
+3. **Apache Flink**: Stream processing engine
+   - Processes events in real-time
+   - Updates read models from events
+   - Complex event pattern detection (fraud, problem gambling)
+   - Real-time analytics and aggregations
+   - Windowing for time-based calculations
+
+4. **Azure Kubernetes Service (AKS)**: Execution environment
+   - On-premises deployment (no cloud dependencies)
+   - Horizontal pod autoscaling for microservices
+   - StatefulSets for MongoDB, Kafka, Flink
+   - Self-hosted in government datacenter
+
+**Event Flow**:
+```
+[User Action]
+    ↓
+[Command API] → Validate business rules
+    ↓
+[Append Event to MongoDB Event Store]
+    ↓
+[Publish Event to Kafka]
+    ↓
+[Flink Processes Event Stream]
+    ↓ ↓ ↓
+[Update Read Models] [Fraud Detection] [Analytics]
+    ↓                      ↓                 ↓
+[MongoDB Collections]  [Alerts]        [Dashboards]
+```
+
+**Benefits of This Architecture**:
+- **Auditability**: Complete history of all state changes
+- **Debuggability**: Replay events to reproduce issues
+- **Scalability**: Independent scaling of read/write sides
+- **Flexibility**: New projections can be created from existing events
+- **Real-time insights**: Flink processes event stream for analytics
+- **Regulatory compliance**: Immutable audit log by design
+
+---
+
 ## Technology Stack Summary
 
 ### Core Infrastructure
-- **Backend Services**: Node.js/NestJS with TypeScript (microservices architecture)
-- **Database**: PostgreSQL (primary), Redis (caching/sessions), MongoDB (transaction logs)
-- **Message Queue**: Apache Kafka (real-time transaction processing)
-- **API Gateway**: Kong or AWS API Gateway
-- **Container Orchestration**: Kubernetes (K8s)
-- **Cloud Infrastructure**: Hybrid cloud (government datacenter + AWS/Azure for redundancy)
+- **Backend Services**: Node.js/NestJS with TypeScript (microservices architecture with event sourcing)
+- **Database**: MongoDB (primary and only database - event store and read models)
+- **Event Streaming**: Apache Kafka (event bus for event sourcing)
+- **Stream Processing**: Apache Flink (complex event processing, real-time analytics, pattern detection)
+- **API Gateway**: Kong
+- **Container Orchestration**: Azure Kubernetes Service (AKS)
+- **Infrastructure**: On-premises datacenter with AKS (no cloud dependencies)
 
 ### Mobile Applications
 - **Android**: Kotlin with Jetpack Compose (native)
@@ -39,9 +104,10 @@ This implementation plan outlines the phased development and deployment of the �
 
 ### Monitoring & Compliance
 - **Logging**: ELK Stack (Elasticsearch, Logstash, Kibana)
-- **Monitoring**: Prometheus + Grafana
-- **APM**: Datadog or New Relic
-- **Compliance Auditing**: Immutable audit logs with blockchain-anchored hashing
+- **Monitoring**: Prometheus + Grafana (including Flink metrics)
+- **APM**: Azure Application Insights
+- **Stream Processing Monitoring**: Apache Flink Dashboard, Kafka monitoring
+- **Compliance Auditing**: Immutable event store in MongoDB with cryptographic hashing
 
 ---
 
@@ -110,11 +176,12 @@ This implementation plan outlines the phased development and deployment of the �
   - Push notification infrastructure
 
 **Infrastructure**:
-- Kubernetes cluster setup (staging environment)
-- PostgreSQL cluster with high availability
-- Redis cluster for session management
-- API Gateway configuration
-- Basic monitoring and logging
+- Azure Kubernetes Service (AKS) cluster setup (staging environment)
+- MongoDB cluster with replica sets (event store and read models)
+- Apache Kafka cluster (3 brokers minimum)
+- Apache Flink cluster for stream processing
+- API Gateway (Kong) configuration
+- Basic monitoring and logging (Prometheus, Grafana, ELK)
 
 **Security**:
 - End-to-end encryption implementation
@@ -227,11 +294,11 @@ This implementation plan outlines the phased development and deployment of the �
 **Key Deliverables**:
 
 **Scale-Up Infrastructure**:
-- Production Kubernetes cluster expansion (handle 100,000+ users)
-- Multi-region database replication
-- CDN integration for mobile app assets
-- Enhanced DDoS protection
-- Auto-scaling configuration for peak loads
+- Production AKS cluster expansion (handle 100,000+ users)
+- Additional hardware nodes for horizontal scaling
+- MongoDB sharding for distributed data storage
+- Enhanced DDoS protection (hardware appliances)
+- Auto-scaling configuration for peak loads (HPA policies)
 
 **Operator Migration**:
 - Bulk user migration tools (existing operator accounts → Central Registry)
@@ -516,14 +583,14 @@ For a government-mandated security-critical application handling financial trans
 
 ---
 
-### ADR-003: Central Player Registry Data Model - PostgreSQL with Pseudonymization
+### ADR-003: Event Sourcing with MongoDB as Primary Event Store
 
 **Status**: Accepted
 
 **Context**:
 The Central Player Registry is the core of the system, storing:
 - Player identity data (linked to ConsentID)
-- Transaction history across all operators
+- Complete transaction history across all operators
 - Spending limits and self-exclusion status
 - Marketing preferences
 
@@ -531,77 +598,192 @@ Key requirements:
 - GDPR compliance (right to erasure, data minimization, pseudonymization)
 - High-performance transaction validation (< 100ms)
 - Support for 100,000+ concurrent users
-- Auditability and immutability of transaction records
+- Complete auditability and immutability of all state changes
 - Privacy protection (operators should not receive JMBG or full identity data)
 - Cross-operator transaction aggregation in real-time
+- Event replay capability for debugging and compliance audits
+- Temporal queries (state of system at any point in time)
 
 **Decision**:
-Use PostgreSQL as the primary database with a pseudonymization architecture:
+Implement **Event Sourcing** architecture using **MongoDB as the primary and only database**:
 
-1. **Player Identity Table**: Maps ConsentID user to internal Player UUID (one-to-one mapping)
-   - Store: Player UUID (primary key), ConsentID Subject ID, minimal verified attributes (name, date of birth, address hash)
-   - Do NOT store: JMBG, passport numbers, ID card numbers
+**Event Sourcing Architecture**:
+Instead of storing current state, store all state changes as immutable events. Current state is derived by replaying events.
 
-2. **Player Profile Table**: Stores gambling-specific data
-   - Store: Player UUID, monthly spending limit, self-exclusion status, marketing preferences, created/updated timestamps
+**MongoDB Collections**:
 
-3. **Transaction Log Table**: Immutable transaction records
-   - Store: Transaction UUID, Player UUID, Operator ID, amount, timestamp, transaction type, status
-   - Partitioned by month for performance
-   - Write-only (no updates, only inserts)
+1. **events** (Event Store - Source of Truth)
+   ```javascript
+   {
+     _id: ObjectId(),
+     aggregateId: "player-uuid",
+     aggregateType: "Player|Transaction|Limit",
+     eventType: "PlayerRegistered|TransactionAuthorized|LimitIncreased|SelfExclusionActivated",
+     eventData: { /* event-specific payload */ },
+     metadata: {
+       timestamp: ISODate(),
+       userId: "player-uuid",
+       operatorId: "operator-id",
+       ipAddressHash: "hash",
+       correlationId: "request-trace-id"
+     },
+     version: 1, // optimistic locking
+     sequenceNumber: 12345 // global ordering
+   }
+   ```
+   - **Indexes**: aggregateId + version, aggregateType + timestamp, eventType + timestamp
+   - **Immutable**: Never updated or deleted (append-only)
+   - **Sharding**: Shard by aggregateId for horizontal scaling
 
-4. **Operator Accounts Table**: Links operators to players
-   - Store: Operator Account ID, Player UUID, Operator ID, registration token used, linked timestamp
+2. **player_read_model** (CQRS Read Model)
+   ```javascript
+   {
+     _id: "player-uuid",
+     consentIdSubjectId: "consent-id",
+     profile: {
+       verifiedName: "Petar Petrović",
+       dateOfBirth: ISODate("1990-01-01"),
+       addressHash: "hash"
+     },
+     limits: {
+       monthlyLimit: 20000,
+       currentMonthSpending: 5000,
+       lastLimitChange: ISODate(),
+       coolOffEndDate: null
+     },
+     selfExclusion: {
+       active: false,
+       startDate: null,
+       endDate: null,
+       type: null
+     },
+     marketingOptOut: false,
+     accountStatus: "active",
+     lastEventVersion: 42, // last processed event
+     updatedAt: ISODate()
+   }
+   ```
+   - **Purpose**: Fast reads for transaction validation
+   - **Updated**: Asynchronously by Flink event processors
+   - **Indexes**: consentIdSubjectId (unique), limits.currentMonthSpending
 
-5. **Audit Log Table**: Complete immutable audit trail
-   - Store: Event UUID, Player UUID, event type, timestamp, IP address hash, metadata (JSON)
+3. **transaction_read_model** (CQRS Read Model)
+   ```javascript
+   {
+     _id: "transaction-uuid",
+     playerId: "player-uuid",
+     operatorId: "operator-id",
+     amount: 5000,
+     transactionType: "deposit|bet|withdrawal",
+     status: "authorized|completed|rejected",
+     timestamp: ISODate(),
+     monthYear: "2025-10" // for monthly aggregation
+   }
+   ```
+   - **Purpose**: Transaction history queries, monthly spending aggregation
+   - **Indexes**: playerId + timestamp, monthYear + playerId
+   - **TTL Index**: Auto-delete after 7 years (regulatory compliance)
+
+4. **operator_accounts_read_model** (CQRS Read Model)
+   ```javascript
+   {
+     _id: ObjectId(),
+     playerId: "player-uuid",
+     operatorId: "operator-id",
+     operatorAccountId: "operator-specific-id",
+     registrationToken: "token-hash",
+     linkedAt: ISODate()
+   }
+   ```
+
+5. **snapshots** (Performance Optimization)
+   ```javascript
+   {
+     _id: ObjectId(),
+     aggregateId: "player-uuid",
+     aggregateType: "Player",
+     snapshot: { /* full aggregate state */ },
+     version: 100, // event version at snapshot
+     createdAt: ISODate()
+   }
+   ```
+   - **Purpose**: Avoid replaying thousands of events (snapshot every 100 events)
+   - **Rebuild**: Can be deleted and rebuilt from event store
+
+**Event Processing Flow**:
+1. **Command arrives** (e.g., "Authorize Transaction")
+2. **Load aggregate** from snapshot (if exists) + events since snapshot
+3. **Validate command** against current state
+4. **Append event** to events collection (immutable)
+5. **Publish event** to Kafka
+6. **Flink processes event** → updates read models asynchronously
+7. **Return response** to caller
+
+**CQRS (Command Query Responsibility Segregation)**:
+- **Commands** (writes): Go through event store
+- **Queries** (reads): Use read models (optimized for fast reads)
 
 **Consequences**:
 
 *Positive*:
-- GDPR compliant (Player UUID pseudonymizes identity, ConsentID only for authentication)
-- Operators never receive JMBG (privacy win)
-- Mature, battle-tested database (PostgreSQL)
-- ACID compliance for transaction integrity
-- Excellent performance with proper indexing
-- Built-in partitioning for large transaction tables
-- Strong query capabilities for analytics and reporting
-- Open-source with government-friendly licensing
+- **Complete audit trail**: Every state change recorded as event (compliance win)
+- **Temporal queries**: Can reconstruct system state at any point in time
+- **Event replay**: Debug production issues by replaying events
+- **Horizontal scalability**: MongoDB sharding on aggregateId
+- **Flexible schema**: MongoDB document model handles evolving event schemas
+- **GDPR compliance**: Events can be pseudonymized, read models can be deleted/rebuilt
+- **No impedance mismatch**: Events are naturally JSON documents
+- **Microservices friendly**: Services consume events independently
+- **Real-time analytics**: Flink processes event stream for insights
+- **Eventually consistent**: Acceptable for gambling domain (spending limits updated within seconds)
 
 *Negative*:
-- Horizontal scaling more complex than NoSQL (requires read replicas, partitioning strategy)
-- Schema changes require migrations (less flexible than document databases)
-- Potentially expensive for very high write loads (mitigated with partitioning)
+- **Eventual consistency**: Read models lag behind event store (typically < 1 second)
+- **Complexity**: Event sourcing has learning curve, more complex than CRUD
+- **Event schema evolution**: Must handle old event versions (versioning strategy required)
+- **Storage growth**: Event store grows indefinitely (mitigated by archiving old events)
+- **Debugging**: Harder to debug (must understand event flow)
+- **No ad-hoc queries**: Must create read models for new query patterns
 
 **Alternatives Considered**:
 
-1. **MongoDB (Document Database)**
-   - Rejected: Weaker consistency guarantees, ACID transactions less mature, not ideal for financial data
+1. **PostgreSQL with Traditional CRUD**
+   - Rejected: Lacks audit trail, horizontal scaling difficult, schema migrations complex
 
-2. **Cassandra (Wide-Column Store)**
-   - Rejected: Overkill for initial scale, complex operational overhead, weaker query capabilities
+2. **Cassandra for Event Store**
+   - Rejected: Overkill for initial scale, operational complexity, weaker query capabilities
 
-3. **MySQL**
-   - Rejected: Less advanced features than PostgreSQL, inferior JSON support for metadata storage
+3. **Hybrid (PostgreSQL + MongoDB)**
+   - Rejected: Operational complexity of two databases, unclear data ownership
+
+4. **Azure CosmosDB**
+   - Rejected: Vendor lock-in, higher cost, MongoDB compatibility mode has limitations
+
+**Event Versioning Strategy**:
+- **Event Version Field**: Each event has `schemaVersion: 1`
+- **Upcasting**: Old events transformed to new schema on read
+- **Never mutate events**: Add new event types instead of changing existing
 
 **Data Retention Policy**:
-- Active player data: Retained while account is active
-- Transaction logs: 7 years (regulatory requirement)
-- Audit logs: 10 years (government standard)
-- Self-exclusion records: Permanent (even after account deletion, anonymized)
-- Right to erasure: Replace Player UUID with anonymized tombstone, keep transaction amounts for statistical purposes
+- **Event store**: 7 years minimum (regulatory), then archive to cold storage (Azure Blob)
+- **Read models**: Can be deleted and rebuilt from events (no regulatory requirement)
+- **Snapshots**: Ephemeral (can be deleted, rebuilt from events)
+- **Right to erasure**: Pseudonymize events (replace PII with tombstone), delete read models
 
 ---
 
-### ADR-004: Real-Time Transaction Validation Architecture - Event-Driven with Kafka
+### ADR-004: Event-Driven Architecture with Kafka and Apache Flink for Complex Event Processing
 
 **Status**: Accepted
 
 **Context**:
-Transaction validation must occur in real-time when:
+Transaction validation and complex event processing must occur in real-time when:
 - Player deposits funds with online operator
 - Cashier scans QR code at physical location
 - Player attempts to increase spending limit
+- Detecting problem gambling patterns
+- Aggregating spending across operators
+- Enforcing regulatory compliance rules
 
 Requirements:
 - < 100ms latency for transaction approval/rejection
@@ -610,66 +792,158 @@ Requirements:
 - Enforce spending limits atomically (prevent race conditions)
 - Self-exclusion checks must be immediate
 - System must handle 10,000+ transactions per minute (peak sporting events)
-- Graceful degradation if components fail
+- Complex event pattern detection (fraud, problem gambling)
+- Real-time analytics and reporting
+- Event replay for audit and debugging
 
 **Decision**:
-Implement event-driven architecture using Apache Kafka for transaction processing:
+Implement event-driven architecture with **Apache Kafka** (event bus) and **Apache Flink** (stream processing):
 
-**Architecture Flow**:
-1. **Operator API Gateway** receives transaction request (deposit, bet placement)
-2. **Transaction Validator Service** performs synchronous checks:
-   - Player exists and not self-excluded
-   - Initial spending limit check (cached value)
-3. If initial checks pass, publish event to Kafka topic: `transaction-requests`
-4. **Transaction Processor Service** (Kafka consumer):
-   - Retrieves current month spending from Redis cache
-   - Calculates new total with proposed transaction
-   - Checks against spending limit
-   - Publishes result to `transaction-results` topic
-5. **Transaction Validator Service** listens to `transaction-results`, returns response to operator
-6. **Transaction Logger Service** (separate consumer) persists to PostgreSQL asynchronously
+**Architecture Components**:
 
-**Caching Strategy**:
-- Redis stores: Current month spending per player (TTL: 5 minutes, updated on each transaction)
-- Redis stores: Self-exclusion status (TTL: 1 minute, invalidated immediately on status change)
-- PostgreSQL remains source of truth, Redis is performance optimization
+1. **Apache Kafka** (Event Bus)
+   - Topics: `player-events`, `transaction-events`, `limit-events`, `self-exclusion-events`
+   - Partitioning: By playerId (ensures ordering per player)
+   - Retention: 7 days (events persisted in MongoDB for long-term storage)
+   - Replication factor: 3 (high availability)
+
+2. **Apache Flink** (Stream Processing Engine)
+   - Processes events from Kafka in real-time
+   - Updates MongoDB read models (CQRS)
+   - Detects complex patterns (fraud, problem gambling)
+   - Aggregates metrics (spending per player, per operator)
+   - Windowing for time-based analytics (hourly, daily, monthly)
+
+3. **MongoDB** (Event Store + Read Models)
+   - Event store: Immutable source of truth
+   - Read models: Materialized views for fast queries
+
+**Processing Flow**:
+
+```
+[Command API] → [Domain Service] → [Event Store (MongoDB)]
+                                           ↓
+                                    [Publish Event]
+                                           ↓
+                                      [Kafka Topic]
+                                     ↙     ↓     ↘
+                            [Flink Job 1] [Flink Job 2] [Flink Job 3]
+                                 ↓              ↓            ↓
+                     [Update Read Model]  [Fraud Detection]  [Analytics]
+                              ↓                    ↓              ↓
+                        [MongoDB]          [Alert Service]   [Dashboards]
+```
+
+**Flink Processing Jobs**:
+
+1. **Transaction Validator Job**
+   ```java
+   eventStream
+     .keyBy(event -> event.playerId)
+     .process(new TransactionValidatorFunction())
+     // Validates against spending limits in real-time
+     // Updates player_read_model in MongoDB
+     // < 100ms latency target
+   ```
+
+2. **Spending Aggregator Job**
+   ```java
+   eventStream
+     .filter(event -> event.type == "TransactionAuthorized")
+     .keyBy(event -> event.playerId)
+     .window(TumblingEventTimeWindows.of(Time.days(30)))
+     .aggregate(new MonthlySpendingAggregator())
+     // Calculates monthly spending per player
+     // Updates MongoDB read model
+   ```
+
+3. **Problem Gambling Detector Job**
+   ```java
+   eventStream
+     .keyBy(event -> event.playerId)
+     .process(new CEPPatternDetector())
+     // Detects patterns:
+     // - Spending > 80% of limit in first week
+     // - Multiple failed limit increase attempts
+     // - Transactions at unusual hours (3-6 AM)
+     // - Rapid escalation of bet sizes
+     // Triggers interventions
+   ```
+
+4. **Fraud Detection Job**
+   ```java
+   eventStream
+     .keyBy(event -> event.playerId)
+     .process(new FraudDetector())
+     // Detects:
+     // - Multiple QR codes generated simultaneously
+     // - Geographically impossible transactions
+     // - Account sharing patterns
+     // - Velocity anomalies
+   ```
+
+5. **Read Model Projector Job**
+   ```java
+   eventStream
+     .keyBy(event -> event.aggregateId)
+     .process(new ReadModelProjector())
+     // Updates all read models from events
+     // Ensures eventual consistency
+     // Can rebuild read models from scratch
+   ```
+
+**Event Processing Guarantees**:
+- **Exactly-once semantics**: Flink checkpointing + Kafka transactional writes
+- **Event ordering**: Guaranteed per player (keyBy playerId)
+- **Fault tolerance**: Flink state snapshots, automatic recovery
+- **Idempotency**: Event handlers check `lastEventVersion` before applying
 
 **Consequences**:
 
 *Positive*:
-- Sub-100ms response times (Redis cache hits)
-- Horizontal scalability (add more Kafka consumers under load)
-- Decoupled services (transaction validation independent from logging)
-- Event replay capability (audit and debugging)
-- Eventual consistency acceptable (spending limits updated within seconds)
-- Fault tolerance (Kafka retries, dead letter queues for failures)
-- Real-time analytics possible (consume Kafka events for dashboards)
+- **Real-time analytics**: Flink processes millions of events per second
+- **Complex pattern detection**: CEP library for fraud/problem gambling
+- **Horizontal scalability**: Add Flink task managers under load
+- **Separation of concerns**: Each Flink job handles specific domain
+- **Event replay**: Rebuild read models from event store
+- **Stateful processing**: Flink maintains state for aggregations
+- **Watermarking**: Handles out-of-order events
+- **Backpressure handling**: Flink automatically throttles sources
+- **Exactly-once guarantees**: No duplicate processing
+- **Low latency**: Sub-second event processing
 
 *Negative*:
-- Operational complexity (Kafka cluster management)
-- Eventual consistency window (rare edge case: simultaneous transactions might both succeed before cache update)
-- Additional infrastructure cost (Kafka brokers, Redis cluster)
-- Requires expertise in distributed systems
+- **Operational complexity**: Kafka + Flink require specialized expertise
+- **Eventual consistency**: Read models lag ~100-500ms behind events
+- **Resource intensive**: Flink requires memory for state
+- **Learning curve**: Team needs training on stream processing concepts
+- **Testing complexity**: Integration tests for stream processing challenging
 
 **Alternatives Considered**:
 
-1. **Synchronous Database Locks**
-   - Rejected: Poor scalability, high latency under contention, single point of failure
+1. **Kafka Streams Instead of Flink**
+   - Rejected: Less mature CEP library, weaker exactly-once semantics, less flexible deployment
 
-2. **RabbitMQ Instead of Kafka**
-   - Rejected: Lower throughput than Kafka, less suitable for event sourcing and replay
+2. **Spark Streaming**
+   - Rejected: Micro-batching not true real-time, higher latency than Flink
 
-3. **AWS Lambda with SQS**
-   - Rejected: Vendor lock-in, cold start latency issues, cost unpredictability at scale
+3. **Synchronous Processing (No Streaming)**
+   - Rejected: Cannot achieve < 100ms latency, poor scalability, no pattern detection
 
-4. **Direct PostgreSQL with Optimistic Locking**
-   - Rejected: Transaction conflicts under high load, retry storm risk, latency issues
+4. **AWS Kinesis + Lambda**
+   - Rejected: Requires cloud services, vendor lock-in
 
-**Race Condition Mitigation**:
-- Atomic Redis INCR operations for spending accumulation
-- Lua scripts in Redis for multi-step atomic operations
-- Optimistic locking in PostgreSQL for final reconciliation
-- Daily reconciliation job to detect and correct discrepancies
+**Flink Deployment**:
+- **Execution mode**: Kubernetes (Flink Native Kubernetes)
+- **State backend**: RocksDB (embedded) with periodic snapshots to persistent volume
+- **Checkpointing**: Every 60 seconds
+- **High availability**: Flink JobManager HA via Kubernetes
+- **Scaling**: Horizontal pod autoscaling based on Kafka lag
+
+**Monitoring**:
+- Flink Dashboard: Job metrics, backpressure, checkpointing
+- Prometheus: Kafka lag, Flink throughput, latency
+- Grafana: Real-time dashboards for event processing
 
 ---
 
@@ -870,7 +1144,7 @@ Design RESTful API with the following principles:
 
 ---
 
-### ADR-007: Scalability Strategy - Kubernetes with Horizontal Pod Autoscaling
+### ADR-007: On-Premises AKS Deployment with Horizontal Pod Autoscaling
 
 **Status**: Accepted
 
@@ -880,83 +1154,124 @@ System must handle:
 - 10,000+ transactions per minute during peak events (e.g., Champions League finals)
 - Unpredictable load spikes
 - 99.9% uptime requirement (less than 8.76 hours downtime per year)
-- Cost efficiency during low-traffic periods
-
-Current infrastructure options:
-- Traditional VMs in government datacenter
-- Managed Kubernetes (AKS, EKS, GKE)
-- Serverless (AWS Lambda, Azure Functions)
-- Hybrid cloud (government + commercial cloud)
+- Data sovereignty requirements (all data on-premises)
+- No cloud service dependencies
 
 **Decision**:
-Deploy on Kubernetes with horizontal pod autoscaling (HPA):
+Deploy on **on-premises Azure Kubernetes Service (AKS)** with horizontal pod autoscaling (HPA):
 
 **Architecture**:
-- Primary deployment: Managed Kubernetes (Azure AKS) in government-approved cloud region
-- Backup/DR: Government datacenter with Kubernetes cluster
-- Microservices containerized (Docker)
-- Horizontal Pod Autoscaler configured per service:
-  - Transaction Validator: Scale at 70% CPU, max 50 pods
-  - Transaction Processor: Scale at 80% CPU, max 100 pods
-  - API Gateway: Scale at 60% CPU, max 30 pods
-  - User Service: Scale at 70% CPU, max 20 pods
+- **Execution environment**: Self-hosted AKS in government datacenter
+- **Infrastructure**: Bare-metal servers or on-premises VMs
+- **Container runtime**: containerd
+- **Microservices**: All containerized (Docker images)
+- **Networking**: Calico CNI for pod networking
+- **Storage**: Local persistent volumes (SSD storage for MongoDB, Kafka, Flink state)
 
-**Database Scaling**:
-- PostgreSQL primary with 3 read replicas
-- Read-heavy queries routed to replicas
-- Write queries to primary only
-- PgBouncer connection pooling
+**Horizontal Pod Autoscaling (HPA)**:
+- **Command Services** (Event writers):
+  - Player Service: Scale at 70% CPU, max 30 pods
+  - Transaction Service: Scale at 70% CPU, max 50 pods
+  - Limit Service: Scale at 70% CPU, max 20 pods
 
-**Caching Layer**:
-- Redis cluster (6 nodes: 3 primary, 3 replicas)
-- Auto-failover with Redis Sentinel
+- **Query Services** (Read models):
+  - Player Query API: Scale at 60% CPU, max 40 pods
+  - Transaction History API: Scale at 60% CPU, max 30 pods
+  - Analytics API: Scale at 70% CPU, max 20 pods
+
+- **Infrastructure Services**:
+  - API Gateway (Kong): Scale at 60% CPU, max 30 pods
+  - Authentication Service: Scale at 70% CPU, max 20 pods
+
+**Stateful Services** (StatefulSets):
+- **MongoDB Cluster**:
+  - 3-node replica set (primary + 2 secondaries)
+  - Sharding enabled for horizontal scaling
+  - Persistent volumes: 2TB SSD per node
+  - Anti-affinity rules: Each node on separate physical server
+
+- **Apache Kafka Cluster**:
+  - 5 brokers (for high throughput)
+  - 3 ZooKeeper nodes (coordination)
+  - Persistent volumes: 1TB SSD per broker
+  - Replication factor: 3
+
+- **Apache Flink Cluster**:
+  - 1 JobManager (2 replicas for HA)
+  - 10-20 TaskManagers (auto-scaling based on Kafka lag)
+  - State backend: RocksDB on persistent volumes
+  - Checkpointing: Every 60 seconds to persistent storage
 
 **Load Balancing**:
-- Azure Load Balancer (Layer 4) in front of AKS
-- Kong API Gateway (Layer 7) for intelligent routing
+- **External Load Balancer**: MetalLB (bare-metal load balancer)
+- **Layer 7 Routing**: Kong API Gateway with rate limiting
+- **Internal Service Mesh**: Optional Istio for advanced traffic management
+
+**Storage Architecture**:
+- **MongoDB**: Local SSD storage with RAID 10 for redundancy
+- **Kafka**: Separate disk for commit logs (high-throughput SSDs)
+- **Flink State**: NVMe SSDs for low-latency checkpointing
+- **Backups**: Separate storage array for snapshots
 
 **Consequences**:
 
 *Positive*:
-- Automatic scaling during traffic spikes (no manual intervention)
-- Cost optimization (scale down during low traffic, e.g., 3 AM)
-- High availability (pod restarts on failure, multi-AZ deployment)
-- Container portability (can migrate between clouds if needed)
-- Infrastructure as Code (all deployments via Helm charts)
-- Efficient resource utilization (Kubernetes bin packing)
+- **Data sovereignty**: All data remains on-premises
+- **No cloud dependencies**: No external service failures
+- **Cost predictability**: No per-transaction cloud costs
+- **Full control**: Complete control over infrastructure and networking
+- **Automatic scaling**: HPA handles traffic spikes automatically
+- **High availability**: Multi-node deployment with pod restarts on failure
+- **Infrastructure as Code**: All deployments via Helm charts and Terraform
+- **Efficient resource utilization**: Kubernetes bin packing optimizes server usage
 
 *Negative*:
-- Kubernetes operational complexity (requires DevOps expertise)
-- Cloud costs can escalate if not monitored
-- Initial setup overhead (cluster configuration, networking)
-- Potential vendor lock-in (Azure-specific features)
+- **Capital expenditure**: Upfront hardware costs (servers, storage, networking)
+- **Operational complexity**: Requires DevOps team with Kubernetes expertise
+- **Physical capacity limits**: Cannot instantly scale beyond available hardware
+- **Maintenance burden**: Team responsible for hardware failures, updates
+- **Longer procurement**: Hardware procurement can take weeks/months
 
 **Alternatives Considered**:
 
-1. **Traditional VMs with Manual Scaling**
-   - Rejected: Cannot handle unpredictable spikes, over-provisioning wasteful
+1. **Azure Cloud AKS**
+   - Rejected: Data sovereignty concerns, cloud dependency, ongoing costs
 
-2. **Serverless (AWS Lambda)**
-   - Rejected: Cold start latency unacceptable for real-time transactions, cost unpredictability, vendor lock-in
+2. **Traditional VMs with Manual Scaling**
+   - Rejected: Cannot handle unpredictable spikes, inefficient resource utilization
 
-3. **Google Kubernetes Engine (GKE)**
-   - Rejected: Azure preferred due to existing government contracts and data sovereignty
+3. **OpenShift (Red Hat Kubernetes)**
+   - Rejected: Additional licensing costs, AKS preferred for Microsoft ecosystem integration
 
-4. **On-Premises Only (Government Datacenter)**
-   - Rejected: Insufficient for handling peak loads, slower procurement for hardware, higher capital costs
+4. **Nomad (HashiCorp)**
+   - Rejected: Less mature ecosystem than Kubernetes, fewer available integrations
 
-**Cost Optimization**:
-- Spot instances for non-critical services (e.g., batch processing)
-- Reserved instances for baseline load (30% cost savings)
-- Aggressive pod autoscaling policies (scale up fast, scale down slow)
-- Database connection pooling to reduce resource waste
+**Hardware Sizing (Initial Deployment)**:
+- **Worker Nodes**: 10 servers (64 CPU cores, 256GB RAM, 4TB SSD each)
+- **Master Nodes**: 3 servers (16 CPU cores, 64GB RAM, 1TB SSD each)
+- **Storage Cluster**: Dedicated storage array (50TB usable, SSD-backed)
+- **Network**: 10Gbps internal networking, redundant switches
+
+**Capacity Planning**:
+- **Initial capacity**: 50,000 users
+- **Peak capacity**: 100,000 users (with all nodes active)
+- **Scaling headroom**: 30% CPU/memory reserved for spikes
+- **Expansion plan**: Add 2 worker nodes per 20,000 additional users
 
 **Disaster Recovery**:
-- Multi-region replication (primary: West Europe, secondary: North Europe)
-- Automated failover for database (PostgreSQL streaming replication)
-- Kubernetes cluster in government datacenter as tertiary fallback
-- RTO (Recovery Time Objective): 1 hour
-- RPO (Recovery Point Objective): 5 minutes
+- **Secondary datacenter**: Standby AKS cluster in backup location
+- **MongoDB replication**: Async replication to secondary site
+- **Kafka mirroring**: MirrorMaker 2 for cross-datacenter replication
+- **Backup strategy**: Daily MongoDB snapshots, 7-day retention on-site, 30-day cold storage
+- **RTO (Recovery Time Objective)**: 1 hour
+- **RPO (Recovery Point Objective)**: 5 minutes (real-time replication) / 24 hours (cold backup)
+
+**Monitoring & Operations**:
+- **Metrics**: Prometheus (self-hosted) for metrics collection
+- **Visualization**: Grafana dashboards for infrastructure and application metrics
+- **Logging**: ELK stack (self-hosted) for centralized logging
+- **Alerting**: Prometheus Alertmanager with PagerDuty integration
+- **Capacity monitoring**: Track resource utilization, alert at 70% capacity
 
 ---
 
@@ -1001,10 +1316,10 @@ Implement comprehensive data protection strategy:
   - Bank account numbers (not needed, operators handle payments)
 
 **3. Encryption**:
-- Data at rest: AES-256 encryption for database (PostgreSQL Transparent Data Encryption)
-- Data in transit: TLS 1.3 for all communications
+- Data at rest: AES-256 encryption for MongoDB (Encryption at Rest with KMIP)
+- Data in transit: TLS 1.3 for all communications (MongoDB, Kafka, Flink)
 - Token storage: iOS Keychain, Android Keystore (hardware-backed when available)
-- Backup encryption: AES-256 for all database backups
+- Backup encryption: AES-256 for all MongoDB snapshots
 
 **4. Access Controls**:
 - Role-Based Access Control (RBAC) for administrative access
@@ -1074,11 +1389,12 @@ Implement comprehensive data protection strategy:
 - User-facing privacy policy (clear language, accessible from app)
 
 **Data Retention Schedule**:
-- Active user profiles: Retained while account active
-- Transaction records: 7 years (financial regulation)
-- Audit logs: 10 years (government standard)
-- Self-exclusion records: Permanent (anonymized after account deletion)
-- Deleted user tombstones: 7 years (to prevent re-registration during self-exclusion)
+- **Event Store**: 7 years (archived to cold storage after 2 years)
+- **Read Models**: Can be deleted and rebuilt from events (no regulatory requirement)
+- **Snapshots**: 90 days (ephemeral, for performance only)
+- **Self-exclusion events**: Permanent (pseudonymized after account deletion)
+- **Deleted user tombstones**: 7 years (to prevent re-registration during self-exclusion)
+- **Kafka retention**: 7 days (events persisted in MongoDB)
 
 ---
 
@@ -1466,40 +1782,70 @@ Implement digital workflow with integration to Serbian Medical Chamber registry:
 
 ## Conclusion
 
-This implementation plan provides a comprehensive roadmap for deploying the е-Играч system over 18-24 months. The phased approach allows for:
+This implementation plan provides a comprehensive roadmap for deploying the е-Играч system over 18-24 months using modern **Event Sourcing** and **CQRS** architecture. The phased approach allows for:
 
 1. **Risk Mitigation**: Pilot program validates assumptions before full deployment
 2. **Incremental Value**: Users and operators benefit from each phase
 3. **Organizational Readiness**: Time for training, education, and adaptation
-4. **Technical Excellence**: Robust architecture with security and scalability
+4. **Technical Excellence**: Event-driven architecture with complete auditability
+
+**Architectural Highlights**:
+- **Event Sourcing**: All state changes captured as immutable events in MongoDB
+- **Apache Flink**: Real-time stream processing for complex event patterns
+- **On-Premises AKS**: Full data sovereignty, no cloud dependencies
+- **Horizontal Scalability**: Kubernetes-based auto-scaling for peak loads
+- **Complete Audit Trail**: Built into architecture by design (regulatory compliance)
 
 **Critical Success Factors**:
 - ConsentID integration completed on time
 - Operator buy-in and compliance
 - User adoption through education and simplified UX
-- Secure, performant infrastructure
+- DevOps team expertise in Kubernetes, Kafka, Flink, MongoDB
+- Event sourcing best practices and training
 - Regulatory support and legal enforcement
+
+**Technical Prerequisites**:
+1. **Hardware procurement**: On-premises servers for AKS cluster (10 worker nodes + 3 master nodes)
+2. **Team expertise**: Recruit/train team on event sourcing, Flink stream processing, MongoDB
+3. **Infrastructure setup**: AKS, MongoDB replica sets, Kafka cluster, Flink cluster
+4. **Development tools**: Event store libraries, CQRS frameworks, Flink job templates
 
 **Next Steps**:
 1. Secure executive approval and budget allocation
 2. Initiate ConsentID API access negotiations
-3. Recruit core project team (12-15 members)
-4. Begin Phase 0 planning activities
-5. Engage pilot operators
+3. Recruit core project team (15-20 members including Flink/Kafka specialists)
+4. Hardware procurement for on-premises AKS cluster
+5. Begin Phase 0 planning activities
+6. Team training on event sourcing and stream processing
+7. Engage pilot operators
 
-The system, when fully deployed, will provide Serbia with a world-class responsible gambling infrastructure, protecting vulnerable users while enabling licensed operators to conduct business in a regulated, transparent manner.
+The system, when fully deployed, will provide Serbia with a world-class responsible gambling infrastructure built on cutting-edge event-driven architecture, protecting vulnerable users while enabling licensed operators to conduct business in a regulated, transparent manner. The event sourcing approach ensures complete auditability, temporal queries, and the ability to evolve the system by creating new projections from historical events.
 
 ---
 
-**Document Version**: 1.0
+**Document Version**: 2.0
 **Last Updated**: 2025-10-25
 **Author**: е-Играč Implementation Planning Team
-**Status**: Draft for Review
+**Status**: Refined Architecture - Event Sourcing with MongoDB, Flink, On-Premises AKS
+
+**Architecture Approach**: Event Sourcing + CQRS + Stream Processing
+**Database**: MongoDB (only database)
+**Stream Processing**: Apache Flink
+**Event Bus**: Apache Kafka
+**Execution Environment**: On-premises AKS
+
+**Version History**:
+- v1.0: Initial plan with PostgreSQL/traditional architecture
+- v2.0: Refined with event sourcing, MongoDB, Apache Flink, on-premises AKS
 
 **Appendices** (to be developed):
-- Appendix A: Detailed Database Schema
-- Appendix B: API Specification (OpenAPI 3.0)
-- Appendix C: Mobile App Wireframes
-- Appendix D: Cost-Benefit Analysis
-- Appendix E: Vendor Selection Criteria
-- Appendix F: Training Materials Outline
+- Appendix A: MongoDB Event Store Schema & Indexes
+- Appendix B: Event Catalog & Versioning Strategy
+- Appendix C: Flink Job Specifications & Stream Processing Patterns
+- Appendix D: API Specification (OpenAPI 3.0)
+- Appendix E: Mobile App Wireframes
+- Appendix F: AKS Cluster Configuration (Helm Charts, YAML manifests)
+- Appendix G: Hardware Procurement & Cost-Benefit Analysis
+- Appendix H: Event Sourcing & CQRS Training Materials
+- Appendix I: Kafka Topic Design & Partitioning Strategy
+- Appendix J: MongoDB Backup & Recovery Procedures
