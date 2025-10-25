@@ -1,3 +1,8 @@
+---
+layout: default
+title: Obavezna Mobilna Aplikacija za Kockanje
+---
+
 # Obavezna Mobilna Aplikacija za Kockanje: Revolucija u Sprovođenju
 
 ## Izvršna Sinteza

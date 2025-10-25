@@ -1,0 +1,59 @@
+# Jekyll Configuration for KockaID Project
+
+title: "KockaID - Sistem Zaštite od Kockanja"
+description: "Nacionalni sistem za odgovorno kockanje i zaštitu građana Republike Srbije"
+baseurl: "/gambling"
+url: "https://yourusername.github.io"
+
+# Theme
+theme: jekyll-theme-cayman
+# Alternative themes: minima, jekyll-theme-slate, jekyll-theme-midnight
+
+# Markdown processor
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-relative-links
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Relative links configuration
+relative_links:
+  enabled: true
+  collections: false
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name
+
+# Navigation
+navigation:
+  - title: "Početna"
+    url: /
+  - title: "Koncept Sistema"
+    url: /Koncept-Sistema
+  - title: "Obavezna Mobilna Aplikacija"
+    url: /Obavezna-Mobilna-Aplikacija
+  - title: "Analiza Stanja u Srbiji"
+    url: /srbija-analiza-stanja-2025
+  - title: "Analiza Srbije"
+    url: /serbia-gambling
+  - title: "EU Strategije"
+    url: /eu-startegies
+
+# Exclude files
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Include files
+include:
+  - _config.yml

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Koncept Sistema za Zaštitu Igrača
+---
+
 # Koncept Sistema za Zaštitu Igrača
 
 ## Pregled

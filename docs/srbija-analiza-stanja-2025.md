@@ -1,3 +1,8 @@
+---
+layout: default
+title: Regulacija Igara na Sreću u Srbiji - Analiza Stanja 2025
+---
+
 # Regulacija igara na sreću u Srbiji: Moderna regulativa sa kritičnim slabostima u primeni
 
 Srbija je januara 2025. godine implementirala sveobuhvatne izmene Zakona o igrama na sreću koje uvode napredne mehanizme zaštite igrača – **samoisključenje, verifikaciju starosti, limite gotovine i centralni registar** isključenih lica. Međutim, **efektivnost ostaje upitna**: Uprava za igre na sreću sa samo šest inspektora ne može da kontroliše tržište na kome **74% poslovanja pripada sivoj zoni**. Crno tržište obuhvata procenjenih 60.000 nelegalnih automata i 1.500 nelicenciranih kladionica, što državu košta **79,5 miliona evra godišnje**. Istovremeno, **više od 300.000 građana** pokazuje znakove zavisnosti od kockanja, dok sistemska podrška za njihovo lečenje praktično ne postoji. Reforma je donela solidnu legislativu na papiru, ali njena primena zavisi od hitnog jačanja inspekcijskih kapaciteta i razvoja zdravstvene infrastrukture za tretman zavisnosti.

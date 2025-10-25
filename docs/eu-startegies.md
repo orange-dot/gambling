@@ -1,3 +1,8 @@
+---
+layout: default
+title: Gambling Consumer Protection Mechanisms Across Europe
+---
+
 # Gambling Consumer Protection Mechanisms Across Europe: A Comprehensive Overview
 
 **The evolution toward proactive, technology-driven player protection defines Europe's gambling regulation landscape.** Across 30+ European jurisdictions, consumer protection mechanisms have matured dramatically from 2023-2025, transforming from reactive complaint-handling to sophisticated AI-powered early intervention systems. This comprehensive analysis reveals how Europe leads globally in gambling harm prevention, though significant gaps in cross-border coordination persist.

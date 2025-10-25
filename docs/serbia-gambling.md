@@ -1,3 +1,8 @@
+---
+layout: default
+title: GDPR-Compliant Gambling Player Registry System
+---
+
 # GDPR-Compliant Gambling Player Registry System: Complete Technical Specification
 
 ## Executive Summary
