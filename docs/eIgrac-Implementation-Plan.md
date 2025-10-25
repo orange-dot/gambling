@@ -35,16 +35,19 @@ The е-Играч system is built on **Event Sourcing** and **CQRS (Command Quer
    - Enables microservices to react to events independently
 
 3. **Apache Flink**: Stream processing engine
-   - Processes events in real-time
+   - Processes events in real-time (Java implementation)
    - Updates read models from events
    - Complex event pattern detection (fraud, problem gambling)
    - Real-time analytics and aggregations
    - Windowing for time-based calculations
+   - Integrated PyTorch for ML/AI (fraud detection, problem gambling patterns)
 
-4. **Azure Kubernetes Service (AKS)**: Execution environment
-   - On-premises deployment (no cloud dependencies)
+4. **Self-Managed Kubernetes**: Execution environment
+   - On-premises deployment with kubeadm (no cloud dependencies)
    - Horizontal pod autoscaling for microservices
    - StatefulSets for MongoDB, Kafka, Flink
+   - Calico CNI for networking
+   - MetalLB for bare-metal load balancing
    - Self-hosted in government datacenter
 
 **Event Flow**:
@@ -77,13 +80,19 @@ The е-Играч system is built on **Event Sourcing** and **CQRS (Command Quer
 ## Technology Stack Summary
 
 ### Core Infrastructure
-- **Backend Services**: Node.js/NestJS with TypeScript (microservices architecture with event sourcing)
+- **Backend Services**: C# .NET 9 (microservices architecture with event sourcing)
+  - MongoDB C# Driver for data access
+  - MassTransit for message bus (when appropriate)
+  - No MediatR (direct command/event handling)
 - **Database**: MongoDB (primary and only database - event store and read models)
 - **Event Streaming**: Apache Kafka (event bus for event sourcing)
-- **Stream Processing**: Apache Flink (complex event processing, real-time analytics, pattern detection)
+- **Stream Processing**: Apache Flink with Java (complex event processing, real-time analytics, pattern detection)
+- **ML/AI**: PyTorch integrated in Flink jobs (fraud detection, problem gambling detection)
 - **API Gateway**: Kong
-- **Container Orchestration**: Azure Kubernetes Service (AKS)
-- **Infrastructure**: On-premises datacenter with AKS (no cloud dependencies)
+- **Container Orchestration**: Self-Managed Kubernetes (kubeadm)
+- **Infrastructure**: On-premises datacenter with self-managed Kubernetes (no cloud dependencies)
+  - Calico CNI for networking
+  - MetalLB for load balancing
 
 ### Mobile Applications
 - **Android**: Kotlin with Jetpack Compose (native)
@@ -176,7 +185,7 @@ The е-Играч system is built on **Event Sourcing** and **CQRS (Command Quer
   - Push notification infrastructure
 
 **Infrastructure**:
-- Azure Kubernetes Service (AKS) cluster setup (staging environment)
+- Self-managed Kubernetes cluster setup with kubeadm (staging environment)
 - MongoDB cluster with replica sets (event store and read models)
 - Apache Kafka cluster (3 brokers minimum)
 - Apache Flink cluster for stream processing
@@ -294,7 +303,7 @@ The е-Играч system is built on **Event Sourcing** and **CQRS (Command Quer
 **Key Deliverables**:
 
 **Scale-Up Infrastructure**:
-- Production AKS cluster expansion (handle 100,000+ users)
+- Production Kubernetes cluster expansion (handle 100,000+ users)
 - Additional hardware nodes for horizontal scaling
 - MongoDB sharding for distributed data storage
 - Enhanced DDoS protection (hardware appliances)
@@ -1102,7 +1111,7 @@ Design RESTful API with the following principles:
    - Rate limit: 100/sec
 
 **SDK Provided**:
-- Node.js SDK (open-source on GitHub)
+- .NET SDK (open-source on GitHub)
 - PHP SDK (many operators use PHP)
 - Postman collection for testing
 - Sandbox environment with test data
@@ -1144,7 +1153,7 @@ Design RESTful API with the following principles:
 
 ---
 
-### ADR-007: On-Premises AKS Deployment with Horizontal Pod Autoscaling
+### ADR-007: On-Premises Self-Managed Kubernetes Deployment with Horizontal Pod Autoscaling
 
 **Status**: Accepted
 
@@ -1158,14 +1167,16 @@ System must handle:
 - No cloud service dependencies
 
 **Decision**:
-Deploy on **on-premises Azure Kubernetes Service (AKS)** with horizontal pod autoscaling (HPA):
+Deploy on **on-premises self-managed Kubernetes** (using kubeadm) with horizontal pod autoscaling (HPA):
 
 **Architecture**:
-- **Execution environment**: Self-hosted AKS in government datacenter
+- **Execution environment**: Self-managed Kubernetes cluster in government datacenter
+- **Cluster Setup**: kubeadm for cluster initialization
 - **Infrastructure**: Bare-metal servers or on-premises VMs
 - **Container runtime**: containerd
 - **Microservices**: All containerized (Docker images)
 - **Networking**: Calico CNI for pod networking
+- **Load Balancing**: MetalLB for bare-metal load balancing
 - **Storage**: Local persistent volumes (SSD storage for MongoDB, Kafka, Flink state)
 
 **Horizontal Pod Autoscaling (HPA)**:
@@ -1234,14 +1245,14 @@ Deploy on **on-premises Azure Kubernetes Service (AKS)** with horizontal pod aut
 
 **Alternatives Considered**:
 
-1. **Azure Cloud AKS**
-   - Rejected: Data sovereignty concerns, cloud dependency, ongoing costs
+1. **Azure Cloud AKS / AWS EKS / GCP GKE**
+   - Rejected: Data sovereignty concerns, cloud dependency, ongoing costs, regulatory requirements
 
 2. **Traditional VMs with Manual Scaling**
    - Rejected: Cannot handle unpredictable spikes, inefficient resource utilization
 
 3. **OpenShift (Red Hat Kubernetes)**
-   - Rejected: Additional licensing costs, AKS preferred for Microsoft ecosystem integration
+   - Rejected: Additional licensing costs, vendor lock-in
 
 4. **Nomad (HashiCorp)**
    - Rejected: Less mature ecosystem than Kubernetes, fewer available integrations
@@ -1259,7 +1270,7 @@ Deploy on **on-premises Azure Kubernetes Service (AKS)** with horizontal pod aut
 - **Expansion plan**: Add 2 worker nodes per 20,000 additional users
 
 **Disaster Recovery**:
-- **Secondary datacenter**: Standby AKS cluster in backup location
+- **Secondary datacenter**: Standby Kubernetes cluster in backup location
 - **MongoDB replication**: Async replication to secondary site
 - **Kafka mirroring**: MirrorMaker 2 for cross-datacenter replication
 - **Backup strategy**: Daily MongoDB snapshots, 7-day retention on-site, 30-day cold storage
@@ -1791,10 +1802,11 @@ This implementation plan provides a comprehensive roadmap for deploying the е-�
 
 **Architectural Highlights**:
 - **Event Sourcing**: All state changes captured as immutable events in MongoDB
-- **Apache Flink**: Real-time stream processing for complex event patterns
-- **On-Premises AKS**: Full data sovereignty, no cloud dependencies
+- **Apache Flink**: Real-time stream processing for complex event patterns (Java + PyTorch for ML/AI)
+- **On-Premises Self-Managed Kubernetes**: Full data sovereignty, no cloud dependencies
 - **Horizontal Scalability**: Kubernetes-based auto-scaling for peak loads
 - **Complete Audit Trail**: Built into architecture by design (regulatory compliance)
+- **Modern Tech Stack**: C# .NET 9 for services, Java for Flink jobs, Python/PyTorch for ML/AI
 
 **Critical Success Factors**:
 - ConsentID integration completed on time
@@ -1805,38 +1817,49 @@ This implementation plan provides a comprehensive roadmap for deploying the е-�
 - Regulatory support and legal enforcement
 
 **Technical Prerequisites**:
-1. **Hardware procurement**: On-premises servers for AKS cluster (10 worker nodes + 3 master nodes)
-2. **Team expertise**: Recruit/train team on event sourcing, Flink stream processing, MongoDB
-3. **Infrastructure setup**: AKS, MongoDB replica sets, Kafka cluster, Flink cluster
-4. **Development tools**: Event store libraries, CQRS frameworks, Flink job templates
+1. **Hardware procurement**: On-premises servers for Kubernetes cluster (10 worker nodes + 3 master nodes)
+2. **Team expertise**: Recruit/train team on:
+   - C# .NET 9 development
+   - Event sourcing patterns
+   - Apache Flink (Java) stream processing
+   - PyTorch for ML/AI integration
+   - MongoDB administration
+   - Kubernetes (kubeadm, kubectl, Helm)
+3. **Infrastructure setup**: Self-managed Kubernetes, MongoDB replica sets, Kafka cluster, Flink cluster
+4. **Development tools**: Event store libraries, CQRS frameworks, Flink job templates, .NET SDKs
 
 **Next Steps**:
 1. Secure executive approval and budget allocation
 2. Initiate ConsentID API access negotiations
-3. Recruit core project team (15-20 members including Flink/Kafka specialists)
-4. Hardware procurement for on-premises AKS cluster
+3. Recruit core project team (15-20 members including C#/.NET, Flink/Kafka, ML specialists)
+4. Hardware procurement for on-premises Kubernetes cluster
 5. Begin Phase 0 planning activities
-6. Team training on event sourcing and stream processing
+6. Team training on event sourcing, stream processing, and ML integration
 7. Engage pilot operators
 
 The system, when fully deployed, will provide Serbia with a world-class responsible gambling infrastructure built on cutting-edge event-driven architecture, protecting vulnerable users while enabling licensed operators to conduct business in a regulated, transparent manner. The event sourcing approach ensures complete auditability, temporal queries, and the ability to evolve the system by creating new projections from historical events.
 
 ---
 
-**Document Version**: 2.0
-**Last Updated**: 2025-10-25
+**Document Version**: 2.1
+**Last Updated**: 2025-10-26
 **Author**: е-Играč Implementation Planning Team
-**Status**: Refined Architecture - Event Sourcing with MongoDB, Flink, On-Premises AKS
+**Status**: Refined Architecture - Event Sourcing with MongoDB, Flink, Self-Managed Kubernetes, C# .NET 9
 
 **Architecture Approach**: Event Sourcing + CQRS + Stream Processing
-**Database**: MongoDB (only database)
-**Stream Processing**: Apache Flink
-**Event Bus**: Apache Kafka
-**Execution Environment**: On-premises AKS
+
+**Technology Stack**:
+- **Backend Services**: C# .NET 9 (MongoDB C# Driver, MassTransit)
+- **Database**: MongoDB (only database)
+- **Stream Processing**: Apache Flink (Java)
+- **ML/AI**: PyTorch integrated in Flink
+- **Event Bus**: Apache Kafka
+- **Execution Environment**: On-premises self-managed Kubernetes (kubeadm, Calico, MetalLB)
 
 **Version History**:
 - v1.0: Initial plan with PostgreSQL/traditional architecture
 - v2.0: Refined with event sourcing, MongoDB, Apache Flink, on-premises AKS
+- v2.1: Updated tech stack (C# .NET 9, Java for Flink, PyTorch for ML, self-managed K8s)
 
 **Appendices** (to be developed):
 - Appendix A: MongoDB Event Store Schema & Indexes
@@ -1844,7 +1867,7 @@ The system, when fully deployed, will provide Serbia with a world-class responsi
 - Appendix C: Flink Job Specifications & Stream Processing Patterns
 - Appendix D: API Specification (OpenAPI 3.0)
 - Appendix E: Mobile App Wireframes
-- Appendix F: AKS Cluster Configuration (Helm Charts, YAML manifests)
+- Appendix F: Kubernetes Cluster Configuration (kubeadm, Helm Charts, YAML manifests)
 - Appendix G: Hardware Procurement & Cost-Benefit Analysis
 - Appendix H: Event Sourcing & CQRS Training Materials
 - Appendix I: Kafka Topic Design & Partitioning Strategy
