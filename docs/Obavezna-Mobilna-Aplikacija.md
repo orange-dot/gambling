@@ -1714,6 +1714,773 @@ Podaci iz istraživanja:
 
 ---
 
+## DEO 9: Specifični Kontekst Srbije - Kako Aplikacija Rešava Jedinstvene Izazove
+
+### Trenutna Situacija: Kriza Proporcija
+
+**Analiza stanja iz januara 2025. godine otkriva katastrofalne razmere problema:**
+
+#### Dominacija Crnog Tržišta
+
+**Brojke koje šokiraju:**
+- **74% tržišta** posluje u sivoj zoni (proceńa Udruženja JAKTA)
+- **60.000 nelegalnih automata** (naspram 33.000 registrovanih)
+- **1.500 nelegalnih kladionica** (naspram 2.900 legalnih)
+- **79.5 miliona EUR godišnje** izgubljeno kroz nenaplatu (30M automati, 20M kladionice, 29.5M porezi)
+- **10.500 radnika "na crno"** u sivoj ekonomiji
+
+**Posledice:**
+- Nelegalni objekti rade u blizini škola bez ograničenja
+- Nema provere starosti - maloletnici slobodno pristupaju
+- Nema samoisključenja, limita, zaštite
+- Ne garantuju isplate dobitaka
+- Potpuno van bilo kakvog nadzora
+
+#### Kritično Nedovoljni Kapaciteti Nadzora
+
+**Nemoguća misija:**
+- **Samo 6 inspektora** u Upravi za igre na sreću
+- **1 službeno vozilo**
+- Zadatak: Nadzor nad **95.000+ lokacija** (legalne + nelegalne)
+- **1 inspektor na 15.833 lokacija**
+
+**Matematika neuspeha:**
+```
+Ako inspektor radi 250 dana godišnje i poseti 5 lokacija dnevno:
+- 6 inspektora × 250 dana × 5 lokacija = 7.500 kontrola godišnje
+- 95.000 lokacija ÷ 7.500 = Svaka lokacija kontrolisana jednom na 12.6 godina
+
+Realno: Većina nikad ne bude kontrolisana, crno tržište prosperira.
+```
+
+**Direktor Uprave Goran Jadžić javno priznaje:**
+> "Institucija ne može sprovesti obimne kontrole na nacionalnom nivou."
+
+#### Javnozdravstvena Katastrofa
+
+**Epidemija zavisnosti:**
+- **300.000+ građana** pokazuje znakove zavisnosti
+- **50.000 patoloških kockara** kojima je potrebno bolničko lečenje (0.9% punoletne populacije)
+- **200.000-250.000** u riziku da razvije zavisnost
+
+**Mladi u krizi:**
+- **42% mladih** (10-21 godina) igra igre na sreću
+- **6% mladih** su patološki kockari
+- **Najmlađi patološki kockar:** 12 godina (počeo sa 10)
+- **Svaka četvrta mlada osoba** ima problem sa kockom
+- **54%** osoba mlađih od 25 godina se kladilo u kladionicama
+
+**Odsustvo podrške:**
+- SOS centri primaju **samo 60 porodica godišnje**
+- Nema sistemskog pristupa tretmanu
+- Ministarstvo zdravlja "pravi se slepo i gluvo" (Klub ŠANSA)
+- Stigmatizacija sprečava traženje pomoći
+- **Samo 10%** zavisnika traži pomoć
+- **72% građana** ne smatra kockanje zavisnošću
+
+#### Nov Zakon, Ali Bez Primene
+
+**Januar 2025 - Reforme na papiru:**
+- Samoisključenje i centralni registar
+- Obavezna verifikacija starosti (online i fizički)
+- Video nadzor uživo sa pristupom Upravi
+- Limiti gotovine (1.175.000 RSD/mesečno)
+- Prostorna ograničenja (200m od škola)
+- Drastično povećane kazne
+
+**Problem:**
+> "Srbija ima zakon, ali ne i kapacitet da ga sprovede."
+
+**Paradoks:**
+- Tehnologija postoji (centralni sistem, video linkovi, S2S protokol)
+- Propisi su modernizovani
+- **Ali:** 6 inspektora ne može kontrolisati 95.000 lokacija
+- **Rezultat:** 74% tržišta ignoriše zakon potpuno
+
+---
+
+### Kako KockaID Aplikacija Transformiše Nemoguće u Moguće
+
+#### 1. Automatizacija Nadzora: Od 6 Inspektora do Autonomnog Sistema
+
+**Problem:**
+- 6 inspektora fizički ne može biti na 95.000 lokacija
+- Tradicionalan nadzor = čovek ide na teren = nemoguće skalirati
+
+**KockaID Rešenje: Inspektor u Svakom Telefonu**
+
+```
+Stari Model:
+┌─────────────────────────────────────────┐
+│  6 inspektora × 5 lokacija/dan          │
+│  = 7.500 kontrola godišnje              │
+│  = 0.01% kontrola crnog tržišta         │
+└─────────────────────────────────────────┘
+
+Novi Model (KockaID):
+┌─────────────────────────────────────────┐
+│  Svaki igrač = inspektor u džepu        │
+│  500.000 igrača × 365 dana              │
+│  = 182.5 miliona "provera" godišnje     │
+│  = 100% pokrivenost                     │
+└─────────────────────────────────────────┘
+```
+
+**Kako radi:**
+
+```csharp
+public class AutomatskiNadzor
+{
+    // Svaki pokušaj igranja automatski se proverava
+    public async Task<bool> DozvoliPristup(string igracID, string operatorID, string lokacijaID)
+    {
+        // 1. Provera da li je operator licenciran
+        var operator = await ProveriLicencu(operatorID);
+        if (operator == null || !operator.JeLicenciran)
+        {
+            // Automatski alarm ka Upravi
+            await PosaljiAlarm(new
+            {
+                Tip = "NELICENCIRAN_OPERATOR",
+                OperatorID = operatorID,
+                LokacijaID = lokacijaID,
+                IgracID = igracID,
+                Vreme = DateTime.Now,
+                GPSLokacija = await UzmiGPSLokaciju()
+            });
+
+            // Blokiraj pristup igraču
+            return false;
+        }
+
+        // 2. Provera da li je lokacija udaljena od škole
+        var skole = await UzmiObliznjeSkole(lokacijaID, radius: 200);
+        if (skole.Any())
+        {
+            await PosaljiAlarm(new
+            {
+                Tip = "KRSENJE_UDALJENOSTI_OD_SKOLE",
+                LokacijaID = lokacijaID,
+                ObliznjeSkole = skole
+            });
+
+            return false;
+        }
+
+        // 3. Provera da li operator plaća naknade
+        var dugovanja = await ProveriDugovanja(operatorID);
+        if (dugovanja > 0)
+        {
+            await PosaljiAlarm(new
+            {
+                Tip = "NEPLACENE_NAKNADE",
+                OperatorID = operatorID,
+                Iznos = dugovanja
+            });
+        }
+
+        // 4. Verifikacija da transakcija ide kroz centralni sistem
+        var transakcija = await LogirajTransakciju(igracID, operatorID, lokacijaID);
+        await PosaljiUpravi(transakcija); // Real-time reporting
+
+        return true;
+    }
+}
+```
+
+**Efekti:**
+- **Nelegalni operatori trenutno blokirani** - aplikacija ne dozvoljava pristup
+- **Automatska detekcija kršenja** - blizina škola, neplaćene naknade, netačni podaci
+- **Real-time alarmi** - Uprava dobija trenutne notifikacije o kršenjima
+- **Geolokacija evidencija** - GPS koordinate svakog pokušaja igranja
+- **6 inspektora** sada proveravaju samo alarme, ne običu 95.000 lokacija
+
+#### 2. Eliminacija Crnog Tržišta: 60.000 Automata Postaju Neupotrebljivi
+
+**Trenutni Problem:**
+- 60.000 nelegalnih automata rade nesmetano
+- Fizička kontrola nemoguća (6 inspektora)
+- Čak i kad se zatvore, otvaraju se sutra drugde
+
+**KockaID Strategija: Učini Igranje Neupotrebljivim Bez Aplikacije**
+
+```
+Scenario: Petar ulazi u nelegalni automat klub
+
+Pokušaj 1: Pokušava da igra na automatu
+→ Ne može - automat traži QR kod sa KockaID aplikacije za aktivaciju
+→ Petar otvara aplikaciju
+→ Aplikacija detektuje da lokacija NIJE u bazi licenciranih
+→ Odbija generisanje QR koda
+→ Ekran aplikacije: "⛔ NELICENCIRANI OBJEKAT"
+   "Lokacija nije registrovana. Prijavljena Upravi."
+   "Koristite samo licencirane operatore."
+→ GPS koordinate i vreme poslate Upravi
+→ Petar NE MOŽE igrati
+
+Pokušaj 2: Vlasnik kluba pokušava zaobići sistem
+→ Stavlja stare automate koji ne zahtevaju KockaID
+→ Ali: Petar sada NAVIKNUT da igra preko aplikacije (sve legalne kladionice rade tako)
+→ Stariji automati izgledaju sumnjivo i zastarelo
+→ Dodatno: Banke blokiraju kartične transakcije ka nelicenciranim objektima
+→ Petar može samo gotovinu
+→ Ali: Aplikacija prati i gotovinske depozite (mora prijaviti preko aplikacije radi limita)
+→ Ako Petar ne prijavi preko aplikacije → krši svoje limitne što mu aktivira alarm
+
+Pokušaj 3: Vlasnik nudi "popuste" - bez aplikacije
+→ Petar uzima, ali nema zaštite:
+   - Nema garanciju isplate dobitaka
+   - Nema samoisključenja ako razvije problem
+   - Rizikuje kaznu ako ga kontrola uhvati
+→ Mladji igrači (milenijalsi/Gen Z) izbegavaju - preferiraju legalne platforme sa garancijama
+```
+
+**Tržišna Dinamika - Smrt Crnog Tržišta:**
+
+```
+Godina 1 (KockaID obavezan):
+- 80% igrača migrira na legaln operatore (lakše, bezbednije, garancije)
+- Crno tržište gubi 60% prihoda
+- 24.000 od 60.000 nelegalnih automata zatvoreno (neisplativo)
+
+Godina 2:
+- 90% igrača koristi samo KockaID
+- Mladi (42% mladih koji igraju) ne žele rizik nelegalnih
+- Crno tržište: < 20% prihoda
+- 48.000 nelegalnih automata zatvoreno
+
+Godina 3:
+- 95% kanalisanje
+- Crno tržište samo hard-core kriminal + penzioneri koji ne koriste tehnologiju
+- 54.000 nelegalnih automata zatvoreno
+- Država: +79.5M EUR godišnje (nenaplata eliminisana)
+```
+
+#### 3. Zaštita Mladih: Od 42% do < 5%
+
+**Trenutna Katastrofa:**
+- **42% mladih** (10-21 godina) igra igre na sreću
+- **6% mladih** patološki kockari
+- Najmlađi patološki kockar: **12 godina**
+- Verifikacija starosti **postoji u zakonu**, ali se **ne sprovodi** (6 inspektora)
+
+**KockaID: Nemoguće Zaobići Proveru**
+
+```csharp
+public class ZastintaMaloletnika
+{
+    public async Task<RezultatRegistracije> RegistrujKorisnika()
+    {
+        // Korak 1: Skeniranje lične karte (MRZ čitanje)
+        var licnaKarta = await SkenirajLicnuKartu();
+
+        // Korak 2: OCR + MRZ validacija
+        var jmbg = licnaKarta.JMBG;
+        var datumRodjenja = IzvuciDatumIzJMBG(jmbg);
+
+        if (IzracunajGodine(datumRodjenja) < 18)
+        {
+            // TVRD STOP - nema zaobilaženja
+            await LogirajPokusajMaloletnika(jmbg, datumRodjenja);
+            await ObavestiRoditelje(jmbg); // Ako je moguće
+            await ObavestiUpravu(new
+            {
+                Tip = "POKUSAJ_REGISTRACIJE_MALOLETNIKA",
+                JMBG = jmbg,
+                Godine = IzracunajGodine(datumRodjenja),
+                Vreme = DateTime.Now
+            });
+
+            throw new MaloletnikIzuzetak("Morate imati najmanje 18 godina za registraciju.");
+        }
+
+        // Korak 3: Liveness detekcija (spreči korišćenje bratove lične karte)
+        var zivoLice = await IzvrsiLivenessProveru();
+        if (!await UporedjLica(licnaKarta.Fotografija, zivoLice))
+        {
+            await LogirajPokusajLazneIdentifikacije(jmbg);
+            throw new Exception("Lice ne odgovara fotografiji na ličnoj karti.");
+        }
+
+        // Korak 4: Validacija sa državnim registrima
+        var valdacija = await ValidirajSaDrzavnimRegistrom(jmbg);
+        if (!valdacija.Validan)
+        {
+            throw new Exception("Nije moguće verifikovati identitet.");
+        }
+
+        // AKO sve prođe, tek onda dozvoli registraciju
+        return await KreirajNalog(jmbg, licnaKarta);
+    }
+}
+```
+
+**Fizički Objekti:**
+
+```csharp
+public class UlazUKazino
+{
+    public async Task<bool> DozvoliUlaz(string qrKodIgraca)
+    {
+        var igrac = await DekodirajQRKod(qrKodIgraca);
+
+        // Provera starosti
+        if (igrac.Godine < 18)
+        {
+            // Alarm obezbeđenju
+            await AlarmirajObezbeđenje("Maloletnik pokušao ulaz", igrac);
+
+            // Automatski izveštaj Upravi
+            await IzvestajUpravu(new
+            {
+                Tip = "POKUSAJ_ULASKA_MALOLETNIKA",
+                LokacijaID = this.LokacijaID,
+                IgracID = igrac.ID,
+                Godine = igrac.Godine,
+                Vreme = DateTime.Now
+            });
+
+            // Video snimak automatski označen za reviziju
+            await OznaciVideoSnimak(timestamp: DateTime.Now, trajanje: 5); // 5 minuta
+
+            return false; // Ulaz odbijen
+        }
+
+        return true;
+    }
+}
+```
+
+**Efekti:**
+- **Nemoguće zaobići proveru starosti** - biometrija + liveness + državni registri
+- **Automatska detekcija pokušaja** - svaki pokušaj maloletnika logiran
+- **Roditeljske notifikacije** - ako je povezan porodični nalog
+- **Video dokazi** - automatski markirani za reviziju
+
+**Predviđeni Rezultat:**
+- Godina 1: Pad sa 42% na **25%** mladih koji igraju (samo oni sa lažnim ID-ovima)
+- Godina 2: **10%** (sve teže falsifikovati biometriju)
+- Godina 3: **< 5%** (samo hard-core falsifikatori)
+
+#### 4. Sistemska Podrška za 300.000 Zavisnika: Od 60 Porodica do Nacionalnog Programa
+
+**Trenutno Stanje:**
+- **300.000+ građana** sa problemom zavisnosti
+- **50.000** patoloških kockara
+- **Samo 60 porodica godišnje** kroz SOS centre
+- **0.02% doseg** (60 / 300.000)
+
+**KockaID: Integrisan Sistem Podrške**
+
+```csharp
+public class IntegrisanaPodrska
+{
+    // Automatska detekcija rizičnog ponašanja
+    public async Task PratiRizik(string igracID)
+    {
+        var ponasanje = await AnalizirajPosledn ih90Dana(igracID);
+
+        var indikatori = new
+        {
+            UkupnoIzgubljeno = ponasanje.NetoGubitak,
+            BrojSesija = ponasanje.DanaIgranja,
+            ProsecnoVremeSesije = ponasanje.ProsecnoMinuta,
+            EskalacijaUloga = ponasanje.TrendVeličineOpklade,
+            RedepositsAfterLoss = ponasanje.JurenjeGubitaka
+        };
+
+        var rizikSkala = IzracunajRizik(indikatori);
+
+        if (rizikSkala >= 70) // Visok rizik
+        {
+            // Ne čeka da igrač zatraži pomoć - PROAKTIVNO
+            await PonudiPomoc(igracID, rizikSkala);
+        }
+    }
+
+    private async Task PonudiPomoc(string igracID, int rizikSkala)
+    {
+        // 1. In-app notifikacija
+        await PosaljiPoruku(igracID, new
+        {
+            Naslov = "Primećujemo zabrinjavajuće obrasce",
+            Poruka = @"Vaše ponašanje u igranju pokazuje znakove koji mogu ukazivati na razvoj problema.
+
+Nudimo besplatnu pomoć:
+• Razgovor sa stručnjakom (anonimno)
+• Testiranje rizika (5 minuta)
+• Samoisključenje (trenutno)
+• Postavljanje limita (odmah)",
+
+            Akcije = new[]
+            {
+                "Razgovaraj sada (besplatno)",
+                "Postavi limite",
+                "Testiranje rizika",
+                "Samoisključi se"
+            }
+        });
+
+        // 2. Ako ignoriše 3 puta, eskalacija
+        if (await BrojIgnorisanja(igracID) >= 3 && rizikSkala >= 80)
+        {
+            // Obavezan prekid sa ljudskim kontaktom
+            await PrimorujIntervenciju(igracID);
+
+            // Notifikacija porodici (uz saglasnost igrača)
+            if (await ImaPorodicniNalog(igracID))
+            {
+                await ObavestiPorodicu(igracID, rizikSkala);
+            }
+        }
+
+        // 3. Ponudi povezivanje sa stručnjacima
+        await PonudiStručnuPomoc(igracID, new
+        {
+            BesplatniCentri = await UzmiOblizneCentreZaLečenje(igracID),
+            OnlineKonsultacije = "24/7 dostupno",
+            GrupnaPodrška = "Klub ŠANSA sastanci"
+        });
+    }
+}
+```
+
+**Nacionalni Program Podrške Integrisan u Aplikaciju:**
+
+```yaml
+Tier 1: Samopomć (Besplatno, u aplikaciji)
+  - Testovi za procenu rizika (PGSI, DSM-5 criteria)
+  - Edukativni materijali (video, članci)
+  - Self-tracking alati (koliko gubiš, koliko vremena, trendovi)
+  - Community forum (moderisan)
+
+Tier 2: Preventivna Podrška (Besplatno)
+  - 24/7 SOS telefon (direktno iz aplikacije)
+  - Chat sa savetnicima (5-10 min response time)
+  - Video konsultacije (zakazivanje kroz aplikaciju)
+  - Automatski pozivi pri visokom riziku
+
+Tier 3: Klinička Podrška (Subvencionisano)
+  - Mreža od 10 regionalnih centara (novi - finansirani iz naknade)
+  - Ambulantno lečenje (50% pokriva KockaID fond)
+  - Bolničko lečenje (partneri: Sunce, Vita, Drajzerova)
+  - Follow-up program (6-12 meseci)
+
+Tier 4: Porodična Podrška
+  - Edukacija članova porodice
+  - Porodično savetovanje
+  - Finansijsko planiranje (debt recovery)
+```
+
+**Finansiranje:**
+
+```
+Izvori:
+1. Naknada na operatore (1% od GGY = €5M godišnje)
+2. Državni budžet (health budget)
+3. EU fondovi (javno zdravlje)
+
+Alokacija:
+- 40% (€2M): Razvoj i održavanje 10 regionalnih centara
+- 30% (€1.5M): 24/7 SOS linija + online konsultacije
+- 20% (€1M): Prevencija i edukacija (škole, kampanje)
+- 10% (€0.5M): Istraživanja i evaluacija programa
+```
+
+**Projekcija Dosega:**
+
+```
+Godina 1:
+- Tier 1 (self-help): 100.000 korisnika (33% od 300K)
+- Tier 2 (SOS): 10.000 kontakata (porast sa 60!)
+- Tier 3 (klinika): 1.000 tretmana (vs 60 trenutno)
+
+Godina 3:
+- Tier 1: 200.000 (67%)
+- Tier 2: 30.000
+- Tier 3: 5.000
+- UKUPNO: 78% doseg (vs 0.02% trenutno)
+```
+
+#### 5. Fiskalna Transformacija: Od -79.5M EUR do +100M EUR
+
+**Trenutno Stanje:**
+- **-79.5M EUR** godišnje izgubljeno (nenaplata od crnog tržišta)
+- Legalni operatori uplaćuju **~47M EUR**
+- **Ukupni potencijal:** ~126M EUR (47M + 79.5M)
+
+**KockaID Efekat:**
+
+```
+PRE KockaID (Trenutno):
+┌────────────────────────────────────┐
+│ Legalno tržište: 26%               │
+│ Prihod državi: 47M EUR             │
+├────────────────────────────────────┤
+│ Crno tržište: 74%                  │
+│ Prihod državi: 0 EUR               │
+│ Izgubljeno: -79.5M EUR             │
+├────────────────────────────────────┤
+│ NETO: 47M EUR                      │
+└────────────────────────────────────┘
+
+POSLE KockaID (Godina 3):
+┌────────────────────────────────────┐
+│ Legalno tržište: 90%               │
+│ Prihod državi: 113M EUR            │
+│ (47M × 3.5x zbog kanalisanja)      │
+├────────────────────────────────────┤
+│ Crno tržište: 10%                  │
+│ Izgubljeno: -13M EUR               │
+├────────────────────────────────────┤
+│ NETO: 100M EUR                     │
+│                                    │
+│ PORAST: +53M EUR (+113%)           │
+└────────────────────────────────────┘
+```
+
+**Dodatne Fiskalne Koristi:**
+
+```yaml
+Direktni Prihodi:
+  - Naknade od operatora: +66M EUR (sa 47M)
+  - Porezi na dobitke: +15M EUR (više isplaćenih dobitaka)
+  - Naknada za KockaID: +5M EUR (1% GGY levy)
+  UKUPNO: +86M EUR (vs 47M)
+
+Indirektne Uštede:
+  - Zdravstvo (manje zavisnika): +10M EUR
+  - Smanjeni kriminal: +7M EUR
+  - Povećana produktivnost: +10M EUR
+  UKUPNO: +27M EUR
+
+TOTAL: +113M EUR godišnje
+```
+
+**ROI za Državu:**
+
+```
+Investicija:
+- Razvoj aplikacije: 1.05M EUR (year 1)
+- Operativni troškovi: 1.5M EUR/godišnje
+- Proširenje Uprave (50 inspektora): 2M EUR/godišnje
+UKUPNO: 4.5M EUR/godišnje
+
+Povraćaj:
+- Dodatni prihod: +53M EUR godišnje (vs trenutno)
+- Društvene uštede: +27M EUR godišnje
+
+NETO: +75.5M EUR godišnje
+
+ROI: 1,678% (75.5M / 4.5M)
+```
+
+---
+
+### Implementaciona Strategija za Srbiju
+
+#### FAZA 0: Priprema (Meseci -6 do 0)
+
+**Političko Okruženje:**
+- Usvajanje izmena Zakona o igrama na sreću (obavezuje KockaID)
+- Formiranje projektnog tima (Uprava + Ministarstvo finansija + IT ekipa)
+- Ugovor sa razvojnom kućom (tendre ili javna nabavka)
+- EU fondi aplikacija (digitalna transformacija, javno zdravlje)
+
+**Infrastruktura:**
+- Proširenje Uprave sa 6 na **30 zaposlenih** (prioritet: IT stručnjaci)
+- Azure cloud setup (ili lokalni data centar)
+- API standardi (objavljeni za operatore)
+
+**Budžet:**
+- €1.05M razvoj (iz budžeta ili EU fondova)
+- €2M proširenje Uprave
+- **UKUPNO:** €3M
+
+#### FAZA 1: Pilot (Meseci 1-6)
+
+**Obim:**
+- 5.000 dobrovoljnih korisnika (regrutovani preko legalnih operatora)
+- 5 operatora (najveći: Mozzart, Meridianbet, Maxbet, Admiral, Superbet)
+- Samo online kockanje
+
+**Cilj:**
+- Testirati UX
+- Debugirati tehničke probleme
+- Prikupiti feedback
+- Demonstrirati koristi (medijska kampanja)
+
+**Success Metrics:**
+- < 3% tehnički failure rate
+- > 85% user satisfaction
+- 0 kritičnih bezbednosnih incidenata
+- Registracija < 3 minuta prosečno
+
+#### FAZA 2: Obavezno Online (Meseci 7-12)
+
+**Obim:**
+- SVI online operatori (21 kompanija)
+- Procenjeno 200.000-300.000 igrača (od ~500K aktivnih)
+- 6-mesečni grace period za migraciju
+
+**Ključne Aktivnosti:**
+- **Mesec 7:** Obavezna integracija za nove igrače (stari mogu nastaviti 6 meseci)
+- **Mesec 9:** Deadline za SDK integraciju operatora
+- **Mesec 12:** Obavezna migracija svih - stari nalozi bez KockaID se zatvaraju
+
+**Edukativna Kampanja:**
+- TV reklame (RTS, Pink, Prva)
+- Social media (Instagram, Facebook, TikTok - targetira mlade)
+- Influenseri (sportisti, javne ličnosti)
+- Poruka: "Zaštiti se. Kockaj pametno. Koristi KockaID."
+
+**Budžet:** €100K kampanja
+
+#### FAZA 3: Fizički Objekti (Meseci 13-18)
+
+**Obim:**
+- 2.900 kladionica
+- 33.000+ automata
+- 10 kazina
+
+**Izazovi:**
+- Starija demografija (ne koristi pametne telefone) → Kioski rešenje
+- Gotovinska kultura → Edukacija + podsticaji
+- Mali operatori → Tehnička podrška + subvencije za hardver
+
+**Rešenja:**
+- **Kioski na ulazima:** Printaju privremeni QR kod (važi 24h) za ne-smartphone korisnike
+- **Obuka osoblja:** 1-dnevni treninzi za rad sa KockaID sistemom
+- **Hardver subvencije:** €500 po lokaciji za QR skenere (ukupno €1.45M)
+
+**Compliance Deadline:**
+- Mesec 15: Obavezna instalacija QR sistema
+- Mesec 18: Operatori bez KockaID = privremena zabrana
+
+#### FAZA 4: Eliminacija Crnog Tržišta (Meseci 19-36)
+
+**Ofanziva:**
+- **Nacionalna racija** (koordinacija: Uprava + MUP + Tužilaštvo)
+- **1.000 inspekcija mesečno** (50 novih inspektora + policija)
+- **Zaplenjen nelicenciran oprema** → Uništenje ili aukcija
+- **Krivična gonjenja** vlasnika (ne samo prekršajne)
+
+**Finansijski Udar:**
+- **Banke blokiraju** kartične transakcije ka nelicenciranim objektima
+- **ISP blokiraju** online nelicencirane operatore (DNS + DPI)
+- **App Store / Google Play** blokiraju offshore aplikacije
+
+**Medijska Kampanja:**
+- "Ne rizikuj - ilegalni automati ne garantuju isplate"
+- "Kockaj legalno, kockaj bezbedno"
+- Prikazivanje zatvaranja nelegalnih objekata (odvraćanje)
+
+**Target:**
+- Godina 2: Crno tržište ↓ na 40% (sa 74%)
+- Godina 3: Crno tržište ↓ na 20%
+- Godina 5: Crno tržište < 10%
+
+#### FAZA 5: Regionalna Ekspanzija (Godina 3+)
+
+**Bilateralni Sporazumi:**
+- **Hrvatska** (već postoji saradnja u drugim oblastima)
+- **Slovenija** (EU članica, napredni sistemi)
+- **Bosna i Hercegovina** (bliska tržišta)
+- **Crna Gora** (turizam, casino sektor)
+
+**Koristi:**
+- Priznavanje samoisključenja između zemalja
+- Prekogranično praćenje limita
+- Zajedničke kampanje protiv offshore operatora
+
+---
+
+### Ključni Faktori Uspeha u Srpskom Kontekstu
+
+#### 1. Politička Volja (Najkritičnije)
+
+**Što je Potrebno:**
+- **Javna podrška Vlade** - Premijer/Ministar finansija moraju biti "lice" reforme
+- **Zakonska obaveznost** - Amandmani na Zakon (ne samo podzakonski akti)
+- **Otpornost na lobi** - Operatori crnog tržišta imaće političke veze
+
+**Rizici:**
+- Korupcija - nelegalni operatori nude mito za "gašenje" kontrola
+- Politički pritisci - lokalni moćnici brane "svoje" objekte
+- Javna percepcija - "Dosta nam je nadzora, to je kontrola"
+
+**Strategija:**
+- **Transparentnost** - Javni izveštaji mesečno (koliko zatvoreno, koliko naplaćeno)
+- **Javne racije** - TV prenosi zatvaranja (pokazuje ozbiljnost)
+- **Success stories** - Intervjui sa zavisnicima koji su se oporavili kroz KockaID podršku
+
+#### 2. Brzina Implementacije
+
+**Zašto Brzo:**
+- Crno tržište će pokušati da se prilagodi
+- Korupcijske mreže će se organizovati
+- Operatori će lobirati za odlaganja
+
+**Plan:**
+- FAZA 1 (pilot): 6 meseci - NE DUŽE
+- FAZA 2 (online): 6 meseci - Čvrsti deadlines
+- FAZA 3 (fizički): 6 meseci - Paralelno sa fazom 2
+
+**Ukupno:** 18 meseci od starta do pune implementacije
+
+#### 3. Jačanje Uprave
+
+**Od 6 na 100 Zaposlenih (u 3 godine):**
+
+```yaml
+Godina 1 (Pilot + Online):
+  Inspektori: 6 → 30 (+24)
+  IT stručnjaci: 0 → 10
+  Analitičari podataka: 0 → 5
+  Pravnici: 2 → 5
+  UKUPNO: 50 zaposlenih
+
+Godina 2 (Fizički + Racije):
+  Inspektori: 30 → 60 (+30)
+  Cyber security: 2
+  Customer support (SOS linija): 10
+  UKUPNO: 72 zaposlenih
+
+Godina 3 (Održavanje + Regionalno):
+  Inspektori: 60 → 80 (+20)
+  Međunarodna saradnja: 5
+  Istraživači (program evaluacija): 3
+  UKUPNO: 100 zaposlenih
+```
+
+**Budžet:**
+- Prosečna plata: €2.000/mesec (konkurentno)
+- 100 zaposlenih × €2.000 × 12 = €2.4M godišnje
+- **Finansiranje:** Iz naknade operatora (trenutno 47M, očekivano 100M+)
+
+#### 4. Javna Kampanja
+
+**Segmentirana Poruka:**
+
+**Za Mlade (18-30):**
+- Social media (Instagram, TikTok)
+- Influenseri (fudbaleri, reperi)
+- Poruka: "Kockaj pametno, ne glupo. Koristi KockaID."
+
+**Za Starije (50+):**
+- TV reklame (RTS, Happy, Pink)
+- Radio
+- Poruka: "Zaštitite svoju porodicu. Legalno kockanje je bezbedno."
+
+**Za Roditelje:**
+- Škole (predavanja)
+- Zdravstvene ustanove
+- Poruka: "42% mladih kocka. Zaštitite svoje dete."
+
+**Budžet:** €5M (3 godine)
+
+---
+
 ## ZAKLJUČAK: Transformacija Paradigme Sprovođenja
 
 ### Trenutni Sistemi: "Veruj Ali Ne Proveravaj"
