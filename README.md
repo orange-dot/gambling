@@ -1,10 +1,27 @@
-# KockaID - Sistem Zaštite od Kockanja
+# е-Играч - Sistem Zaštite od Kockanja
 
-Nacionalni sistem za odgovorno kockanje i zaštitu građana Republike Srbije.
+**Građanska inicijativa** za odgovorno kockanje i zaštitu građana Republike Srbije.
+
+> **⚠️ Važna napomena**: е-Играč je **predlog grupe građana sa iskustvom u oblasti igara na sreću**, NE zvanična inicijativa Ministarstva finansija.
+
+Ovaj repository sadrži tehničku dokumentaciju, analize i predlog implementacije obavezne mobilne aplikacije za odgovorno kockanje u Srbiji.
 
 ## Dokumentacija
 
+### GitHub Pages Sajt (Latinica)
 Kompletan dokumentacioni sajt je dostupan na GitHub Pages.
+
+### HTML Dokumentacija (Ćirilica)
+Svi dokumenti su dostupni i u HTML formatu na **srpskoj ćirilici** u folderu [`html/`](html/):
+- [index.html](html/index.html) - Početna stranica
+- [eIgrac-Aplikacija.html](html/eIgrac-Aplikacija.html) - Mobilna aplikacija
+- [eIgrac-Improvements.html](html/eIgrac-Improvements.html) - Napredna unapređenja i analiza
+- [Obavezna-Mobilna-Aplikacija.html](html/Obavezna-Mobilna-Aplikacija.html) - Detaljna analiza
+- [srbija-analiza-stanja-2025.html](html/srbija-analiza-stanja-2025.html) - Analiza stanja u Srbiji
+- [serbia-gambling.html](html/serbia-gambling.html) - GDPR-compliant registry
+- [eu-startegies.html](html/eu-startegies.html) - EU strategije
+
+Originalni fajlovi na latinici dostupni su u [`html/latin/`](html/latin/).
 
 ## Pokretanje Dokumentacionog Sajta Lokalno
 
@@ -58,17 +75,27 @@ gambling/
 ├── .github/
 │   └── workflows/
 │       └── jekyll-gh-pages.yml    # GitHub Actions workflow za deployment
-├── docs/                          # Jekyll sajt (GitHub Pages source)
+├── docs/                          # Jekyll sajt (GitHub Pages source - latinica)
 │   ├── _config.yml               # Jekyll konfiguracija
 │   ├── _layouts/
 │   │   └── default.html          # Custom layout sa navigacijom
 │   ├── index.md                  # Početna stranica
-│   ├── Koncept-Sistema.md        # Koncept centralnog sistema
-│   ├── Obavezna-Mobilna-Aplikacija.md  # Analiza obavezne mobilne app
+│   ├── eIgrac-Aplikacija.md      # Mobilna aplikacija
+│   ├── eIgrac-Improvements.md    # Napredna unapređenja i analiza
+│   ├── Obavezna-Mobilna-Aplikacija.md  # Detaljna analiza
 │   ├── srbija-analiza-stanja-2025.md   # Analiza stanja u Srbiji
 │   ├── serbia-gambling.md        # GDPR-compliant registry spec
 │   ├── eu-startegies.md          # EU strategije
 │   └── Gemfile                   # Ruby dependencies
+├── html/                          # HTML dokumentacija (ćirilica)
+│   ├── latin/                    # Originalni fajlovi (latinica)
+│   ├── index.html
+│   ├── eIgrac-Aplikacija.html
+│   ├── eIgrac-Improvements.html
+│   ├── Obavezna-Mobilna-Aplikacija.html
+│   ├── srbija-analiza-stanja-2025.html
+│   ├── serbia-gambling.html
+│   └── eu-startegies.html
 └── README.md                     # Ovaj fajl
 ```
 
@@ -85,10 +112,38 @@ gambling/
 
 ### Ključni Dokumenti
 
-- **[Koncept Sistema](docs/Koncept-Sistema.md)** - Detaljan koncept centralnog državnog sistema
-- **[Obavezna Mobilna Aplikacija](docs/Obavezna-Mobilna-Aplikacija.md)** - Analiza kako app rešava enforcement probleme
+- **[Mobilna Aplikacija е-Играč](docs/eIgrac-Aplikacija.md)** - Osnovni koncept mobilne aplikacije
+- **[Napredna Unapređenja](docs/eIgrac-Improvements.md)** - Detaljna analiza sa izvorima i metodologijom
+- **[Obavezna Mobilna Aplikacija](docs/Obavezna-Mobilna-Aplikacija.md)** - Kako app rešava enforcement probleme
 - **[Analiza Stanja u Srbiji](docs/srbija-analiza-stanja-2025.md)** - Trenutno stanje i statistike
 - **[EU Strategije](docs/eu-startegies.md)** - Najbolje prakse iz EU
+- **[GDPR-Compliant Registry](docs/serbia-gambling.md)** - Specifikacija registra
+
+## O Podacima i Izvorima
+
+### Napomena o Statistikama
+
+Dokumentacija koristi podatke iz različitih izvora:
+
+**Verifikovani podaci:**
+- Broj inspektora (6) - javno potvrđeno od strane direktora Uprave za igre na sreću
+- Broj legalnih automata (33.000+) i kladionica (2.900+) - zvanični podaci
+- Zakonski okvir - Zakon o igrama na sreću i izmene iz 2025. godine
+
+**Industrijske procene:**
+- **~74% sivog tržišta** - procena Udruženja priređivača igara na sreću (JAKTA)
+  - JAKTA navodi da je sivo tržište između 50-70% legitimnog tržišta
+  - Tačan zvaničan izvor za cifru 74% nije javno dostupan
+- **60.000 nelegalnih automata** - industrijska procena
+- **300.000+ građana sa problemom zavisnosti** - procena Kluba ŠANSA
+
+**Projektovane brojke:**
+- ROI projekcije, troškovi razvoja, operativni budžet - bazirano na analogijama sa drugim tržištima
+- Tehnička arhitektura i kapaciteti - konceptualne procene
+
+Detaljnije informacije o izvorima dostupne su u [dodatku dokumenta eIgrac-Improvements](docs/eIgrac-Improvements.md#dodatak-izvori-metodologija-i-napomene).
+
+> **⚠️ Važno**: Ovaj projekat je **konceptualna analiza i predlog sistema**, ne finalna studija izvodljivosti. Preporučuje se nezavisna verifikacija svih brojki i pilot program pre potpune implementacije.
 
 ## Getting Started (Development)
 

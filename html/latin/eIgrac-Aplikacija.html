@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>е-Играч: Mobilna Aplikacija - Osnovna Funkcionalnost</title>
+  <meta name="description" content="Građanska inicijativa za sistem zaštite od kockanja u Srbiji">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .home-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .home-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-button">🏠 Home</a>
+
+  <header>
+    <h1>е-Играч</h1>
+    <p>Mobilna Aplikacija - Osnovna Funkcionalnost</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#pregled-građanske-inicijative">Pregled Građanske Inicijative</a></li>
+      <li><a href="#problem-zavisnosti-od-igara-na-sreću">Problem Zavisnosti od Igara na Sreću</a></li>
+      <li><a href="#osnovne-funkcije-е-играč-aplikacije">Osnovne Funkcije е-Играč Aplikacije</a></li>
+      <li><a href="#tehnički-stack">Tehnički Stack</a></li>
+      <li><a href="#glavne-prednosti-е-играч-sistema">Glavne Prednosti е-Играч Sistema</a></li>
+      <li><a href="#razlika-е-играč-vs-mini-aplikacije-operatora">Razlika е-Играč vs. Mini Aplikacije Operatora</a></li>
+      <li><a href="#korisničko-iskustvo---tipični-scenariji">Korisničko Iskustvo - Tipični Scenariji</a></li>
+      <li><a href="#implementaciona-strategija">Implementaciona Strategija</a></li>
+      <li><a href="#zaključak">Zaključak</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>е-Играч: Mobilna Aplikacija za Odgovornu Igru</h1>
+
+
+    <h2 id="pregled-građanske-inicijative">Pregled Građanske Inicijative</h2>
+
+
+    <blockquote>
+      <p><strong>Napomena</strong>: е-Играč је predlog <strong>grupe građana sa iskustvom u oblasti igara na sreću</strong>, NE zvanična inicijativa Ministarstva finansija.</p>
+    </blockquote>
+
+
+    <p><strong>е-Играč</strong> je predložena mobilna aplikacija koju bi razvilo Ministarstvo finansija Republike Srbije, a koja omogućava:</p>
+
+
+    <ol>
+      <li><strong>Vezu sa Centralnim Registrom Igrača</strong> - jedinstvena evidencija svih igrača i transakcija</li>
+      <li><strong>Obaveznu autentifikaciju</strong> - samo punoletni građani i nerezidenti mogu aktivirati aplikaciju</li>
+      <li><strong>Implementaciju alata odgovorne igre</strong> - mesečni limiti, samoisključenje, zabrana marketinga</li>
+      <li><strong>Transparentan pregled potrošnje</strong> - uvid u sve transakcije kod svih priređivača</li>
+      <li><strong>Sprečavanje kockanja maloletnika</strong> - tehnička kontrola starosti</li>
+    </ol>
+
+    <hr>
+
+
+    <h2 id="problem-zavisnosti-od-igara-na-sreću">Problem Zavisnosti od Igara na Sreću</h2>
+
+
+    <p>Prema postojećim istraživanjima, Zakon o igrama na sreću u tekućem obliku, nažalost, ne sprečava učestvovanje maloletnika u igrama (iako to zabranjuje), ni pojavu zavisnosti od igara na sreću kod velikog broja građana Srbije, uključujući i maloletnike.</p>
+
+
+    <p>Predlog grupe građana sa iskustvom u ovoj oblasti je da se uvede kombinovano pravno-tehničko rešenje koje bi, daljim otežavanjem igre kod stranih priređivača, izbegavanjem igre iz bankarske pozajmice, uvođenjem zakonom propisanih alata odgovorne igre, Centralnog Registra Igrača i opšteg i ličnog maksimuma mesečnog ograničenja, smanjilo negativne efekte igara na sreću - i istovremeno povećalo sprovodivost buduće regulative.</p>
+
+
+    <p>Jedan od elemenata rešenja je i obavezna mobilna aplikacija za igrače, koju opisuje ovaj dokument.</p>
+
+
+    <hr>
+
+
+    <h2 id="osnovne-funkcije-е-играč-aplikacije">Osnovne Funkcije е-Играč Aplikacije</h2>
+
+
+    <h3>1. Aktivacija Aplikacije</h3>
+
+
+    <h4>Za građane Srbije:</h4>
+
+
+    <p><strong>Instalacija i aktivacija:</strong></p>
+
+    <ul>
+      <li>Igrač instalira aplikaciju na svoj mobilni telefon (Android/iOS)</li>
+      <li>Aplikacija za aktivaciju traži email adresu registrovanu u eID.gov.rs</li>
+      <li>Aplikacija zahteva <strong>ConsentID prijavu visoke pouzdanosti</strong></li>
+    </ul>
+
+    <p><strong>Tehnički detalji:</strong></p>
+
+    <ul>
+      <li>Nakon prijave, aplikacija dobija "refresh token" koji omogućava dugotrajnu sesiju bez ponovne prijave</li>
+      <li>Koristi se OAuth2 protokol</li>
+      <li>Procedura kao kod većine mobilnih aplikacija koje koriste OAuth2</li>
+    </ul>
+
+    <h4>Za nerezidente:</h4>
+
+
+    <p><strong>Registracija preko kasino blagajnika:</strong></p>
+
+    <ul>
+      <li>Nerezidenti registruju aplikaciju skeniranjem QR koda koji dobiju od blagajnika u kazinu</li>
+      <li>Blagajnik ih registruje na osnovu podataka iz pasoša</li>
+      <li>Jednom registrovana aplikacija važi za sve priređivače</li>
+    </ul>
+
+    <p><strong>Proces aktivacije:</strong></p>
+
+
+    <pre><code>┌──────────────────────────────────────────┐
+│  Aktivacija е-Играч (Građani Srbije)     │
+├──────────────────────────────────────────┤
+│                                          │
+│  1. Igrač otvara е-Играч aplikaciju      │
+│  2. Unosi email registrovan u eID.gov.rs │
+│  3. Preusmerava se na ConsentID prijavu  │
+│  4. Autentifikuje se (kao na eUprava)    │
+│  5. Aplikacija dobija token i aktivira se│
+│                                          │
+│  Provera starosti: Automatska kroz       │
+│  ConsentID - maloletnici ne mogu         │
+└──────────────────────────────────────────┘</code></pre>
+
+
+    <hr>
+
+
+    <h3>2. Mesečno Ograničenje Potrošnje (OBAVEZNO)</h3>
+
+
+    <p><strong>Igrač mora podesiti mesečno ograničenje potrošnje pre početka igre.</strong></p>
+
+
+    <h4>Pravila podešavanja limita:</h4>
+
+
+    <p><strong>Smanjenje ograničenja:</strong></p>
+
+    <ul>
+      <li>Primenjuje se <strong>odmah</strong></li>
+    </ul>
+
+    <p><strong>Povećanje ograničenja:</strong></p>
+
+    <ul>
+      <li>Primenjuje se nakon <strong>"perioda hlađenja glave"</strong> (predlog: 72 sata)</li>
+      <li>Sprečava igrače da prave ishitrene odluke u trenutku kada su "obuzeti igrom"</li>
+    </ul>
+
+    <h4>Opšti i lični maksimum:</h4>
+
+
+    <p><strong>Opšta maksimalna vrednost ograničenja:</strong></p>
+
+    <ul>
+      <li>Minimalna zarada na nivou Republike × zakonski utvrđeni koeficijent</li>
+    </ul>
+
+    <p><strong>Lična maksimalna vrednost ograničenja:</strong></p>
+
+    <ul>
+      <li>Prijavljeni prihod u prethodnoj godini × zakonski utvrđeni koeficijent</li>
+      <li>Primenjuje se ako je veća od opšte maksimalne vrednosti</li>
+    </ul>
+
+    <p><strong>Za limite veće od ovih vrednosti:</strong></p>
+
+    <p>Igrač mora da:</p>
+
+    <ul>
+      <li>Kompletira zakonom propisanu proceduru</li>
+      <li>Priloži dokaze o imovinskom stanju</li>
+      <li>Uplati odgovarajuću administrativnu taksu</li>
+    </ul>
+
+    <hr>
+
+
+    <h3>3. Uplata Tiketa u Radnjama (QR Kod Sistem)</h3>
+
+
+    <p><strong>Proces uplate:</strong></p>
+
+
+    <ol>
+      <li><strong>Priprema:</strong> Igrač pripremi tiket kao i obično i preda ga blagajniku sa novcem</li>
+      <li><strong>Unos:</strong> Blagajnik primi tiket i novac i unese detalje u sistem</li>
+      <li><strong>Zahtev za QR kod:</strong> Kada blagajnik potvrdi unos, sistem traži da skenira QR kod sa igrčevog mobilnog telefona</li>
+      <li><strong>Generisanje QR koda:</strong> Igrač otvara е-Играч aplikaciju i klikne "Prikaži QR kod"</li>
+      <li><strong>Skeniranje:</strong> Blagajnik skenira QR kod</li>
+      <li><strong>Provera:</strong> Sistem za igre na sreću traži odobrenje od Centralnog Registra Igrača:</li>
+      <li><strong>Rezultat:</strong></li>
+    </ol>
+
+    <h4>Bezbednosne karakteristike:</h4>
+
+
+    <ul>
+      <li><strong>QR kod ističe nakon 60 sekundi</strong></li>
+      <li><strong>Svaka transakcija dobija jedinstveni broj</strong> u Centralnom Registru Igrača</li>
+    </ul>
+
+    <p><strong>Ova funkcija je nedostupna igračima u periodu samoisključenja.</strong></p>
+
+
+    <pre><code>┌───────────────────────────────────────────────┐
+│  Tok Uplate Tiketa                            │
+├───────────────────────────────────────────────┤
+│                                               │
+│  Igrač              Blagajnik       Centralni │
+│    │                   │            Registar  │
+│    │                   │                │     │
+│    │─── Pripremi tiket ──>            │     │
+│    │                   │                │     │
+│    │                   │─── Unesi u sistem    │
+│    │                   │                │     │
+│    │<── Traži QR kod ──┤                │     │
+│    │                   │                │     │
+│    │─── Prikaže QR ────>                │     │
+│    │                   │                │     │
+│    │                   │─── Skeniraj QR ────> │
+│    │                   │                │     │
+│    │                   │<── Proveri limit ────┤
+│    │                   │<── Proveri isključen─┤
+│    │                   │<── ODOBRENO/ODBIJENO │
+│    │                   │                │     │
+│    │<── Potvrda/Odbijanje ──┤          │     │
+│                                               │
+└───────────────────────────────────────────────┘</code></pre>
+
+
+    <hr>
+
+
+    <h3>4. Registracija Online Računa (Token za Jednokratnu Upotrebu)</h3>
+
+
+    <p>Igrač povezuje račun za online igre sa Centralnim Registrom Igrača <strong>samo jednom</strong>:</p>
+
+    <ul>
+      <li>U trenutku registracije novog računa</li>
+      <li>Ili reaktivacijom postojećih računa (nakon stupanja na snagu nove regulative)</li>
+    </ul>
+
+    <h4>Proces registracije:</h4>
+
+
+    <ol>
+      <li><strong>Generisanje tokena:</strong> Igrač otvara е-Играč aplikaciju i bira "Registracija online računa"</li>
+      <li><strong>Dobijanje koda:</strong> Aplikacija generiše token za jednokratnu upotrebu (npr. <code>7f9-248-680-423</code>)</li>
+      <li><strong>Unos kod priređivača:</strong> Igrač unosi ovaj token na sajtu priređivača pri registraciji</li>
+      <li><strong>Verifikacija:</strong> Priređivač šalje token ka Centralnom Registru Igrača za verifikaciju</li>
+      <li><strong>Povratak podataka:</strong> Centralni Registar vraća:</li>
+    </ol>
+
+    <h4>Zaštita privatnosti:</h4>
+
+
+    <p><strong>Šta priređivač dobija:</strong></p>
+
+    <ul>
+      <li>Ime, prezime</li>
+      <li>Adresa prebivališta</li>
+      <li>Jedinstveni identifikator igrača za transakcije (pseudonimizovano)</li>
+    </ul>
+
+    <p><strong>Šta priređivač NE SME držati:</strong></p>
+
+    <p>Regulativa može propisati da priređivač mora uništiti:</p>
+
+    <ul>
+      <li>JMBG</li>
+      <li>Broj lične karte</li>
+      <li>Broj pasoša</li>
+      <li>Druge "jake identifikatore" opšteg tipa</li>
+    </ul>
+
+    <p><strong>Benefiti:</strong></p>
+
+    <ul>
+      <li>Igrač ne deli JMBG sa mnogim privatnim kompanijama</li>
+      <li>Smanjenje rizika od curenja osetljivih podataka</li>
+      <li>Priređivač dobija samo minimum potrebnih informacija</li>
+      <li>Automatska verifikacija identiteta bez potrebe za dodatnom proveru</li>
+    </ul>
+
+    <hr>
+
+
+    <h3>5. Pregled Potrošnje</h3>
+
+
+    <p>Igrač može u bilo kom trenutku videti:</p>
+
+
+    <p><strong>Ukupna potrošnja:</strong></p>
+
+    <ul>
+      <li>Ukupna potrošnja u tekućem mesecu</li>
+      <li>Preostali limit do kraja meseca</li>
+    </ul>
+
+    <p><strong>Pregled po priređivaču:</strong></p>
+
+    <ul>
+      <li>Potrošnja kod svakog priređivača pojedinačno</li>
+      <li>Ukupan broj uplata kod svakog priređivača</li>
+    </ul>
+
+    <p><strong>Pojedinačne transakcije:</strong></p>
+
+    <p>Za svaku transakciju igrač vidi:</p>
+
+    <ul>
+      <li>Datum i vreme</li>
+      <li>Iznos uplate</li>
+      <li>Ime priređivača</li>
+      <li><strong>Jedinstveni broj transakcije u Centralnom Registru</strong></li>
+    </ul>
+
+    <p><strong>Obaveza priređivača:</strong></p>
+
+    <p>Priređivač je dužan da na priznanici (radnje) ili online pregledu uplate (online) prikaže jedinstveni broj transakcije iz Centralnog Registra Igrača.</p>
+
+
+    <hr>
+
+
+    <h3>6. Samoisključenje</h3>
+
+
+    <p>Igrač koji zaključi da ima problem zavisnosti može sebi zabraniti igru na određeni period:</p>
+
+
+    <p><strong>Dostupni periodi:</strong></p>
+
+    <ul>
+      <li>3 meseca</li>
+      <li>6 meseci</li>
+      <li>12 meseci</li>
+      <li>5 godina</li>
+      <li>10 godina</li>
+      <li>Trajno samoisključenje</li>
+    </ul>
+
+    <h4>Tokom perioda samoisključenja:</h4>
+
+
+    <p><strong>Sprovođenje zabrane:</strong></p>
+
+    <ul>
+      <li>Sistemi za igre na sreću ovlašćenih priređivača <strong>odbijaju sve uplate</strong></li>
+      <li>QR kod u radnjama vraća odbijanje transakcije</li>
+      <li>Online nalozi ne dozvoljavaju depozite</li>
+    </ul>
+
+    <p><strong>Pristup računima:</strong></p>
+
+    <ul>
+      <li>Igrač i dalje može da se prijavi na online sisteme</li>
+      <li>Cilj prijave: <strong>Samo da povuče preostali depozit ili dobitke</strong></li>
+      <li>Nove uplate nisu moguće</li>
+    </ul>
+
+    <p><strong>Zabrana marketinga:</strong></p>
+
+    <ul>
+      <li>Priređivačima zakon zabranjuje da šalju marketinške poruke igračima u samoisključenju</li>
+      <li>Kršenje ove zabrane podleže kaznama</li>
+    </ul>
+
+    <h4>Ukidanje samoisključenja pre isteka perioda:</h4>
+
+
+    <p><strong>Strogi uslovi:</strong></p>
+
+    <ul>
+      <li>Moguće <strong>samo po odobrenju lekara specijaliste</strong> za bolesti zavisnosti</li>
+      <li>Cilj: Sprečavanje ishitrenih odluka tokom krize</li>
+      <li>Zaštita igrača od impulsivnih reakcija</li>
+    </ul>
+
+    <p><strong>Procedura:</strong></p>
+
+    <ol>
+      <li>Igrač podnosi zahtev</li>
+      <li>Potreban je pregled kod lekara specijaliste</li>
+      <li>Lekar daje ili ne daje saglasnost</li>
+      <li>Samo uz saglasnost lekara moguće je poništenje pre kraja perioda</li>
+    </ol>
+
+    <hr>
+
+
+    <h3>7. Zabrana Marketinških Poruka</h3>
+
+
+    <p><strong>Mogućnost nezavisna od samoisključenja:</strong></p>
+
+    <p>Igrač može zabraniti priređivačima da mu šalju marketinške poruke čak i ako nije u periodu samoisključenja.</p>
+
+
+    <p><strong>Pravna snaga:</strong></p>
+
+    <p>Priređivačima je ovaj zahtev <strong>iste zakonske snage</strong> kao i zabrana marketinških poruka u periodu samoisključenja.</p>
+
+
+    <p><strong>Šta obuhvata:</strong></p>
+
+    <ul>
+      <li>Email poruke o ponudama</li>
+      <li>SMS notifikacije</li>
+      <li>Push notifikacije</li>
+      <li>Pozivi sa promocijama</li>
+      <li>Bilo koja druga direktna marketinška komunikacija</li>
+    </ul>
+
+    <p><strong>Sprovođenje:</strong></p>
+
+    <ul>
+      <li>Priređivač je dužan da poštuje ovaj zahtev</li>
+      <li>Kršenje podleže kaznama kao i kršenje zabrane u samoisključenju</li>
+    </ul>
+
+    <hr>
+
+
+    <h2 id="tehnički-stack">Tehnički Stack</h2>
+
+
+    <p>е-Играč aplikacija koristi sledeće tehnologije:</p>
+
+
+    <h3>Autentifikacija i Identitet</h3>
+
+
+    <p><strong>ConsentID OAuth2:</strong></p>
+
+    <ul>
+      <li>Državna autentifikaciona platforma</li>
+      <li>Visoka pouzdanost identifikacije</li>
+      <li>Integracija sa eID.gov.rs sistemom</li>
+    </ul>
+
+    <p><strong>Refresh Token Mehanizam:</strong></p>
+
+    <ul>
+      <li>Dugotrajne sesije bez ponovne prijave</li>
+      <li>OAuth2 standard</li>
+      <li>Bezbedno čuvanje tokena</li>
+    </ul>
+
+    <h3>Mobilne Platforme</h3>
+
+
+    <p><strong>Android aplikacija:</strong></p>
+
+    <ul>
+      <li>Nativna Android aplikacija</li>
+      <li>Podrška za najnovije verzije Android OS-a</li>
+    </ul>
+
+    <p><strong>iOS aplikacija:</strong></p>
+
+    <ul>
+      <li>Nativna iOS aplikacija</li>
+      <li>Podrška za iPhone i iPad uređaje</li>
+    </ul>
+
+    <h3>Komunikacija</h3>
+
+
+    <p><strong>REST API:</strong></p>
+
+    <ul>
+      <li>Standardizovana API komunikacija</li>
+      <li>Siguran HTTPS prenos podataka</li>
+      <li>Rate limiting i zaštita od zloupotrebe</li>
+    </ul>
+
+    <p><strong>QR Kod Tehnologija:</strong></p>
+
+    <ul>
+      <li>Dinamički QR kodovi</li>
+      <li>Vremensko ograničenje (60 sekundi validnost)</li>
+      <li>Enkripcija podataka u QR kodu</li>
+    </ul>
+
+    <h3>Bezbednost</h3>
+
+
+    <p><strong>Šifrovanje podataka:</strong></p>
+
+    <ul>
+      <li>End-to-end enkripcija komunikacije</li>
+      <li>Sigurno čuvanje osetljivih podataka na uređaju</li>
+      <li>TLS/SSL za sve mrežne komunikacije</li>
+    </ul>
+
+    <p><strong>Biometrijska autentifikacija:</strong></p>
+
+    <ul>
+      <li>Touch ID / Face ID (iOS)</li>
+      <li>Fingerprint / Face Unlock (Android)</li>
+      <li>Dodatni sloj zaštite za osetljive operacije</li>
+    </ul>
+
+    <hr>
+
+
+    <h2 id="glavne-prednosti-е-играч-sistema">Glavne Prednosti е-Играч Sistema</h2>
+
+
+    <h3>Centralizovana Kontrola</h3>
+
+
+    <p><strong>Jedinstveni prolaz za sve priređivače:</strong></p>
+
+    <ul>
+      <li>Jedna aplikacija za sva kockanja</li>
+      <li>Automatska integracija sa svim licenciranim priređivačima</li>
+      <li>Nema potrebe za instalacijom više aplikacija</li>
+    </ul>
+
+    <p><strong>Centralni Registar Igrača:</strong></p>
+
+    <ul>
+      <li>Svi igrači registrovani na jednom mestu</li>
+      <li>Sve transakcije logirane centralno</li>
+      <li>Real-time praćenje limita između priređivača</li>
+    </ul>
+
+    <h3>Zaštita Igrača</h3>
+
+
+    <p><strong>Automatska provera starosti:</strong></p>
+
+    <ul>
+      <li>Tehnička nemogućnost aktivacije za maloletnike</li>
+      <li>Integracija sa državnim registrima</li>
+      <li>Bez mogućnosti zaobilaženja</li>
+    </ul>
+
+    <p><strong>Efikasno samoisključenje:</strong></p>
+
+    <ul>
+      <li>Važi kod svih licenciranih priređivača automatski</li>
+      <li>Trenutno sprovođenje</li>
+      <li>Nema potrebe da igrač traži isključenje kod svakog priređivača pojedinačno</li>
+    </ul>
+
+    <p><strong>Transparentnost potrošnje:</strong></p>
+
+    <ul>
+      <li>Igrač vidi tačno koliko troši</li>
+      <li>Pregled svih transakcija na jednom mestu</li>
+      <li>Upozorenja kada se približava limitu</li>
+    </ul>
+
+    <h3>Olakšanje za Priređivače</h3>
+
+
+    <p><strong>Automatska verifikacija:</strong></p>
+
+    <ul>
+      <li>Priređivač ne mora implementirati sopstveni KYC</li>
+      <li>Automatska provera starosti</li>
+      <li>Smanjenje regulatornih rizika</li>
+    </ul>
+
+    <p><strong>Smanjenje troškova:</strong></p>
+
+    <ul>
+      <li>Nema potrebe za sopstvenim sistemima verifikacije</li>
+      <li>Jednostavna integracija preko API-ja</li>
+      <li>Država preuzima odgovornost za proveru identiteta</li>
+    </ul>
+
+    <p><strong>Usklađenost sa zakonom:</strong></p>
+
+    <ul>
+      <li>Automatska usklađenost sa svim zakonskim zahtevima</li>
+      <li>Centralno praćenje samoisključenja</li>
+      <li>Automatsko logovanje transakcija</li>
+    </ul>
+
+    <hr>
+
+
+    <h2 id="razlika-е-играč-vs-mini-aplikacije-operatora">Razlika е-Играč vs. Mini Aplikacije Operatora</h2>
+
+
+    <h3>Trenutni Model (Bez е-Играч):</h3>
+
+
+    <p><strong>Fragmentisano okruženje:</strong></p>
+
+    <ul>
+      <li>Svaki operator ima svoju aplikaciju</li>
+      <li>Igrač mora skinuti 5-10 aplikacija za različite operatore</li>
+      <li>Nema centralne kontrole</li>
+      <li>Limiti važe samo kod jednog operatora</li>
+      <li>Samoisključenje mora se tražiti kod svakog operatora posebno</li>
+    </ul>
+
+    <p><strong>Problemi:</strong></p>
+
+    <ul>
+      <li>Igrači zaobilaze limite otvaranjem naloga kod više operatora</li>
+      <li>Nema centralnog pregleda potrošnje</li>
+      <li>Samoisključenje je neefikasno</li>
+      <li>Provera starosti nekonsistentna</li>
+    </ul>
+
+    <h3>Novi Model (Sa е-Играč):</h3>
+
+
+    <p><strong>Centralizovano okruženje:</strong></p>
+
+    <ul>
+      <li><strong>Jedna aplikacija za sve priređivače</strong></li>
+      <li>Centralna kontrola preko Centralnog Registra Igrača</li>
+      <li>Operatori mogu nuditi "mini aplikacije" unutar е-Играч platforme</li>
+    </ul>
+
+    <p><strong>Prednosti:</strong></p>
+
+    <ul>
+      <li>Nemoguće zaobići limite preko više naloga</li>
+      <li>Centralni pregled cele potrošnje</li>
+      <li>Samoisključenje automatski važi kod svih</li>
+      <li>Konzistentna provera starosti</li>
+    </ul>
+
+    <p><strong>Arhitektura:</strong></p>
+
+
+    <pre><code>┌──────────────────────────────────────────────────────┐
+│           Stari Model (Trenutni)                     │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│  Igrač → Aplikacija Operatora 1 (Direktan pristup)  │
+│  Igrač → Aplikacija Operatora 2 (Direktan pristup)  │
+│  Igrač → Sajt Operatora (Direktan pristup)          │
+│  Igrač → Fizički Kazino (Ulaz)                      │
+│                                                      │
+│  Problem: Nema centralne tačke sprovođenja          │
+└──────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────┐
+│           Novi Model (Obavezna Aplikacija)           │
+├──────────────────────────────────────────────────────┤
+│                                                      │
+│              ┌─────────────────┐                    │
+│              │  Državna App    │                    │
+│              │  "е-Играч"      │                    │
+│              │                 │                    │
+│              │  - Vezan uređaj │                    │
+│              │  - Biometrija   │                    │
+│              │  - Centralna    │                    │
+│              │    autent.      │                    │
+│              └────────┬────────┘                    │
+│                       │                              │
+│         ┌─────────────┼─────────────┐               │
+│         │             │             │               │
+│    ┌────▼───┐   ┌────▼───┐   ┌────▼────┐          │
+│    │ Op. 1  │   │ Op. 2  │   │ Casino  │          │
+│    │(mini)  │   │(mini)  │   │ (QR kod)│          │
+│    └────────┘   └────────┘   └─────────┘          │
+│                                                      │
+│  Operatori nemaju samostalne aplikacije - samo      │
+│  "mini aplikacije" unutar е-Играč platforme         │
+└──────────────────────────────────────────────────────┘</code></pre>
+
+
+    <hr>
+
+
+    <h2 id="korisničko-iskustvo---tipični-scenariji">Korisničko Iskustvo - Tipični Scenariji</h2>
+
+
+    <h3>Scenario 1: Prvi Put Korisnik</h3>
+
+
+    <p><strong>Marko (25 godina) želi da se registruje za online kockanje:</strong></p>
+
+
+    <ol>
+      <li><strong>Preuzimanje:</strong> Preuzima е-Играч aplikaciju sa App Store / Google Play</li>
+      <li><strong>Aktivacija:</strong> Otvara aplikaciju, unosi svoj email sa eID.gov.rs</li>
+      <li><strong>Autentifikacija:</strong> Preusmerava se na ConsentID prijavu (kao eUprava)</li>
+      <li><strong>Potvrda identiteta:</strong> Prijavljuje se sa svojim državnim identitetom</li>
+      <li><strong>Postavljanje limita:</strong> Aplikacija traži da postavi mesečni limit (OBAVEZNO)</li>
+      <li><strong>Registracija kod operatora:</strong> Ide na sajt Mozzart-a, klikne "Registruj se"</li>
+      <li><strong>Unos tokena:</strong> Mozzart traži token iz е-Играч aplikacije</li>
+      <li><strong>Generisanje:</strong> Marko otvara aplikaciju, generiše token (npr. <code>7f9-248-680-423</code>)</li>
+      <li><strong>Završetak:</strong> Unosi token na Mozzart sajtu, račun automatski verifikovan</li>
+      <li><strong>Igranje:</strong> Marko može da igra, svi depoziti prolaze kroz е-Играč kontrolu</li>
+    </ol>
+
+    <h3>Scenario 2: Uplata Tiketa u Radnji</h3>
+
+
+    <p><strong>Ana (32 godine) želi da uplati tiket u kladionici:</strong></p>
+
+
+    <ol>
+      <li><strong>Priprema:</strong> Ana popuni tiket i donese 1.000 dinara</li>
+      <li><strong>Predaja:</strong> Preda tiket i novac blagajniku</li>
+      <li><strong>Unos:</strong> Blagajnik unese tiket u sistem</li>
+      <li><strong>Zahtev:</strong> Sistem traži QR kod</li>
+      <li><strong>Otvaranje aplikacije:</strong> Ana otvara е-Играч na telefonu</li>
+      <li><strong>Generisanje QR:</strong> Klikne "Prikaži QR kod"</li>
+      <li><strong>Skeniranje:</strong> Blagajnik skenira QR sa Aninog telefona</li>
+      <li><strong>Provera:</strong> Centralni Registar proverava:</li>
+      <li><strong>Potvrda:</strong> Ana dobija priznanicu sa jedinstvenim brojem transakcije</li>
+      <li><strong>Pregled:</strong> Ana može u aplikaciji videti ovu transakciju i preostali limit</li>
+    </ol>
+
+    <h3>Scenario 3: Samoisključenje</h3>
+
+
+    <p><strong>Milan (28 godina) shvata da ima problem sa kockanjem:</strong></p>
+
+
+    <ol>
+      <li><strong>Odluka:</strong> Odlučuje da se samoisključi na 6 meseci</li>
+      <li><strong>Aktivacija:</strong> Otvara е-Играч aplikaciju</li>
+      <li><strong>Izbor:</strong> Bira "Samoisključenje" iz menija</li>
+      <li><strong>Period:</strong> Bira period: 6 meseci</li>
+      <li><strong>Potvrda:</strong> Aplikacija traži potvrdu (objašnjava posledice)</li>
+      <li><strong>Aktiviranje:</strong> Milan potvrđuje, samoisključenje aktivno</li>
+      <li><strong>Automatsko sprovođenje:</strong></li>
+      <li><strong>Dan 30:</strong> Milan pokušava da igra, ali sve aplikacije odbijaju</li>
+      <li><strong>Kontakt podrške:</strong> Poziva podršku, ali mu kažu da mora čekati 6 meseci</li>
+      <li><strong>Dan 180:</strong> Samoisključenje ističe, Milan dobija notifikaciju</li>
+      <li><strong>Period hlađenja:</strong> Mora čekati još 7 dana pre nego što može ponovo igrati</li>
+      <li><strong>Resetovanje limita:</strong> Limiti se resetuju na podrazumevane vrednosti</li>
+    </ol>
+
+    <hr>
+
+
+    <h2 id="implementaciona-strategija">Implementaciona Strategija</h2>
+
+
+    <h3>Faza 1: Pilot Program (Meseci 1-6)</h3>
+
+
+    <p><strong>Obim:</strong></p>
+
+    <ul>
+      <li>1.000-5.000 dobrovoljnih korisnika (beta testeri)</li>
+      <li>3-5 licenciranih operatora (dobrovoljci)</li>
+      <li>Samo online kockanje (još nema fizičkih kazina)</li>
+    </ul>
+
+    <p><strong>Cilj:</strong></p>
+
+    <ul>
+      <li>Testiranje korisničkog iskustva</li>
+      <li>Otkrivanje tehničkih problema</li>
+      <li>Prikupljanje povratnih informacija</li>
+      <li>Optimizacija procesa</li>
+    </ul>
+
+    <p><strong>Kriterijumi uspeha:</strong></p>
+
+    <ul>
+      <li>Manje od 5% stopa tehničkih neuspeha</li>
+      <li>Više od 80% zadovoljstvo korisnika</li>
+      <li>0 bezbednosnih incidenata</li>
+      <li>Regulatorno odobrenje za sledeću fazu</li>
+    </ul>
+
+    <h3>Faza 2: Obavezno Online (Meseci 7-12)</h3>
+
+
+    <p><strong>Obim:</strong></p>
+
+    <ul>
+      <li>SVI online operatori obavezni da integrišu е-Играč</li>
+      <li>Procenjeno 50.000-100.000 igrača</li>
+      <li>Aktivno sprovođenje limita između operatora</li>
+    </ul>
+
+    <p><strong>Ključne aktivnosti:</strong></p>
+
+    <ul>
+      <li>Migracija postojećih igrača (period prilagođavanja od 6 meseci)</li>
+      <li>Stare aplikacije operatora zastarele (preusmerenje ka е-Играč)</li>
+      <li>Edukativna kampanja za korisnike</li>
+    </ul>
+
+    <p><strong>Rok za usklađenost:</strong></p>
+
+    <ul>
+      <li>Operatori moraju integrisati sistem u roku od 6 meseci</li>
+      <li>Kazne za neusklađenost nakon krajnjeg roka</li>
+    </ul>
+
+    <h3>Faza 3: Integracija Fizičkih Kazina (Meseci 13-18)</h3>
+
+
+    <p><strong>Obim:</strong></p>
+
+    <ul>
+      <li>Prijava QR kodom u svim kazinima</li>
+      <li>Integracija sa klađionicama</li>
+      <li>Praćenje gotovine između objekata</li>
+    </ul>
+
+    <p><strong>Izazovi:</strong></p>
+
+    <ul>
+      <li>Starija demografija (potrebni kioski + pomoć osoblja)</li>
+      <li>Kultura bazirana na gotovini</li>
+      <li>Manjim objektima može nedostajati infrastruktura</li>
+    </ul>
+
+    <p><strong>Rešenja:</strong></p>
+
+    <ul>
+      <li>Kioski na ulazu kazina za korisnike bez pametnih telefona</li>
+      <li>Program obuke osoblja (1 nedelja)</li>
+      <li>Subvencije za hardver za male operatore</li>
+    </ul>
+
+    <hr>
+
+
+    <h2 id="zaključak">Zaključak</h2>
+
+
+    <p>е-Играч mobilna aplikacija predstavlja sveobuhvatno rešenje za implementaciju mera odgovorne igre u Srbiji. Sistem kombinuje:</p>
+
+
+    <ul>
+      <li><strong>Državnu autentifikaciju</strong> (ConsentID) za pouzdanu proveru identiteta</li>
+      <li><strong>Centralni Registar Igrača</strong> za efikasno sprovođenje limita i samoisključenja</li>
+      <li><strong>Moderne tehnologije</strong> (QR kodovi, biometrija, OAuth2) za bezbednost</li>
+      <li><strong>Jednostavno korisničko iskustvo</strong> sa jednom aplikacijom za sve priređivače</li>
+    </ul>
+
+    <p>Ključne prednosti sistema:</p>
+
+    <ul>
+      <li>Automatska zaštita maloletnika</li>
+      <li>Efikasno samoisključenje kod svih priređivača</li>
+      <li>Transparentan pregled potrošnje</li>
+      <li>Obavezni mesečni limiti sa "periodom hlađenja"</li>
+      <li>Smanjenje fragmentacije trenutnog sistema</li>
+    </ul>
+
+    <p><strong>Napomena:</strong> Ovaj dokument opisuje osnovne funkcionalnosti sistema. Za napredna unapređenja, tehničke specifikacije arhitekture, analizu troškova i koristi, kao i detaljnu implementacionu strategiju, konsultujte dokument "eIgrac-Improvements.md".</p>
+
+
+    <hr>
+
+
+    <p><strong>Za više informacija:</strong></p>
+
+    <ul>
+      <li>Napredna unapređenja: <code>eIgrac-Improvements.md</code></li>
+      <li>Analiza trenutnog stanja u Srbiji: <code>srbija-analiza-stanja-2025.md</code></li>
+      <li>Originalni dokument: <code>Obavezna-Mobilna-Aplikacija.md</code></li>
+    </ul>
+
+  </main>
+
+  <footer>
+    <p><a href="index.html">← Nazad na početnu stranicu</a></p>
+    <p style="text-align: center;">&copy; 2025 е-Играч - Građanska Inicijativa</p>
+  </footer>
+
+  <a href="#" class="back-to-top">↑</a>
+</body>
+</html>

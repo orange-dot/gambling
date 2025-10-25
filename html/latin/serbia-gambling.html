@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GDPR-Usklađen Sistem Registra Igrača</title>
+  <meta name="description" content="Kompletna tehnička specifikacija za GDPR-usklađen sistem registra igrača na sreću za Srbiju">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .home-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+      z-index: 1000;
+    }
+    .home-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-button">🏠 Home</a>
+
+
+  <header>
+    <h1>GDPR-Usklađen Sistem Registra Igrača</h1>
+    <p>Kompletna Tehnička Specifikacija za Srbiju</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#executive-summary">Izvršni Rezime</a></li>
+      <li><a href="#data-subject-rights">Prava Subjekta Podataka</a></li>
+      <li><a href="#player-protection">Zaštita Igrača</a></li>
+      <li><a href="#architecture">Tehnička Arhitektura</a></li>
+      <li><a href="#serbian-compliance">Usklađenost sa Srpskim Zakonima</a></li>
+      <li><a href="#implementation">Plan Implementacije</a></li>
+      <li><a href="#cost-analysis">Analiza Troškova</a></li>
+      <li><a href="#recommendations">Preporuke</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>GDPR-Usklađen Sistem Registra Igrača: Kompletna Tehnička Specifikacija</h1>
+
+    <h2 id="executive-summary">Izvršni Rezime</h2>
+
+    <p>Ovaj dokument pruža proizvodnu tehničku specifikaciju za GDPR-usklađen sistem registra igrača na sreću za Srbiju, dizajniran da se skalira od 1.000 igrača (nivo zajednice) do miliona igrača (nacionalni nivo). Sistem balansira zahteve EU GDPR-a sa srpskim domaćim zakonima o igrama na sreću i zaštiti podataka, primenjujući međunarodne najbolje prakse u zaštiti igrača.</p>
+
+    <hr>
+
+    <h2 id="data-subject-rights">DEO 3: Implementacija Prava Subjekta Podataka</h2>
+
+    <h3>3.5 Pravo na Pristup (Član 15)</h3>
+
+    <p><strong>Zahtevi za Implementaciju:</strong></p>
+
+    <p><strong>Rok za Odgovor:</strong> 30 dana (može se produžiti na 90 dana ako je kompleksno)</p>
+
+    <p><strong>Informacije koje Treba Pružiti:</strong></p>
+    <ul>
+      <li>Potvrda obrade</li>
+      <li>Kategorije ličnih podataka</li>
+      <li>Svrhe obrade</li>
+      <li>Primaoci ili kategorije primalaca</li>
+      <li>Periodi čuvanja</li>
+      <li>Prava subjekta podataka</li>
+      <li>Pravo na podnošenje pritužbe Povereniku</li>
+      <li>Izvor podataka (ako nisu od igrača)</li>
+      <li>Detalji automatizovanog donošenja odluka</li>
+    </ul>
+
+    <p><strong>Implementacija u Registru Igrača:</strong></p>
+
+    <pre><code>1. Igrač podnosi zahtev za pristup preko API-ja ili portala
+2. Verifikacija identiteta (dvofaktorska autentifikacija)
+3. Sistem generiše sveobuhvatan paket podataka:
+   - Profil igrača (JSON)
+   - Istorija transakcija (CSV)
+   - Limiti i isključenja (JSON)
+   - Saglasnosti (JSON sa kompletnom istorijom)
+   - Evidencije revizije (CSV - redaktovano za treće strane)
+   - Dokument o svrhama obrade (PDF)
+4. Enkriptovanje paketa ključem ili lozinkom igrača
+5. Omogućavanje preuzimanja 30 dana
+6. Evidentiranje zahteva za pristup u revizionom tragu
+7. Obaveštavanje igrača o završetku</code></pre>
+
+    <p><strong>Portal za Samoposluživanje:</strong></p>
+    <ul>
+      <li>Kontrolna tabla igrača koja prikazuje istoriju transakcija (poslednja 3 meseca)</li>
+      <li>Potrošnja limita u realnom vremenu</li>
+      <li>Aktivne saglasnosti</li>
+      <li>Dugme za potpuni izvoz podataka</li>
+    </ul>
+
+    <h3>3.6 Pravo na Ispravku (Član 16)</h3>
+
+    <p><strong>Implementacija:</strong></p>
+
+    <pre><code>1. Igrač identifikuje netačno polje podataka
+2. Pruža ispravljenu vrednost + prateću dokumentaciju
+3. Sistem proverava ispravku prema KYC zahtevima
+4. Ako je polje niskog rizika (greška u adresi): Trenutna izmena
+5. Ako je polje visokog rizika (datum rođenja, broj lične karte): Ručni pregled + ponovna verifikacija
+6. Ažuriranje svih sistema i obaveštavanje igrača
+7. Kaskadno slanje ispravki svim operaterima ako je centralizovani registar
+8. Evidentiranje ispravke u revizionom tragu</code></pre>
+
+    <p><strong>Ograničenja:</strong></p>
+    <ul>
+      <li>Ne može se promeniti broj lične karte bez ponovne verifikacije</li>
+      <li>Ne može se promeniti datum rođenja ako utiče na verifikaciju starosti</li>
+      <li>Ne može se promeniti istorija transakcija (nepromenjiva)</li>
+    </ul>
+
+    <h3>3.7 Pravo na Brisanje (Član 17)</h3>
+
+    <p><strong>Srpski Kontekst - Ograničena Primena:</strong></p>
+
+    <p><strong>Zakonsko Čuvanje Podataka:</strong></p>
+    <ul>
+      <li>Srpski zakon o igrama na sreću zahteva višegodišnje čuvanje podataka (tačan period čuvanja treba verifikovati u aktuelnom tekstu Zakona o igrama na sreću - Sl. glasnik RS br. 18/2020 i 94/2024)</li>
+      <li>Odnosi se na: Baze podataka igrača, evidencije transakcija, evidencije ulaska/izlaska</li>
+    </ul>
+
+    <p><strong>Kada se Primenjuje Brisanje:</strong></p>
+    <ul>
+      <li>Marketinški podaci (odmah)</li>
+      <li>Neobavezni kolačići (odmah)</li>
+      <li>Podaci izvan 5-godišnjeg perioda čuvanja</li>
+      <li>Nezakonito obrađeni podaci</li>
+    </ul>
+
+    <p><strong>Implementacija Delimičnog Brisanja:</strong></p>
+
+    <pre><code>Igrač zahteva brisanje:
+1. Provera obaveza čuvanja
+2. Identifikacija podataka za brisanje vs. zadržanih podataka:
+
+   TRENUTNO BRISANJE:
+   - Marketinške preferencije
+   - Opciona polja profila (pol, preferencije)
+   - Keširani podaci
+   - Neobavezni kolačići za praćenje
+
+   ZADRŽANO (5 godina):
+   - Osnovni podaci o identitetu (ime, datum rođenja, broj lične karte)
+   - Evidencije transakcija
+   - KYC dokumenti
+   - Evidencije samoisključenja
+   - Evidencije revizije
+
+3. Pseudonimizacija zadržanih podataka gde je moguće
+4. Dodavanje na listu za suzbijanje marketinga
+5. Dokumentovanje primenjenih izuzetaka
+6. Obaveštavanje igrača o delimičnom brisanju
+7. Zakazivanje potpunog brisanja nakon isteka 5 godina</code></pre>
+
+    <h3>3.10 Bezbednosne Mere (Član 32)</h3>
+
+    <p><strong>Enkripcija:</strong></p>
+
+    <p><strong>Podaci u Mirovanju:</strong></p>
+    <ul>
+      <li>Azure Cosmos DB: Automatska AES-256 enkripcija</li>
+      <li>Azure Storage: AES-256 enkripcija</li>
+      <li>Ključevi koje upravlja korisnik (opciono) preko Azure Key Vault</li>
+      <li>Enkripcija na nivou polja za matične brojeve</li>
+    </ul>
+
+    <p><strong>Podaci u Tranzitu:</strong></p>
+    <ul>
+      <li>TLS 1.3 za svu API komunikaciju</li>
+      <li>Certificate pinning za mobilne aplikacije</li>
+      <li>mTLS za komunikaciju operator-operator</li>
+      <li>VPN/Privatne Krajnje Tačke za administratorski pristup</li>
+    </ul>
+
+    <p><strong>Kontrola Pristupa Zasnovana na Ulogama (RBAC):</strong></p>
+
+    <pre><code>Administrator Registra:
+- Potpuni pristup sistemu
+- Upravljanje korisnicima
+- Izmene konfiguracije
+
+Službenik za Zaštitu Podataka:
+- Čitanje svih ličnih podataka
+- Upravljanje GDPR zahtevima
+- Pristup evidencijama revizije
+
+Operator (Licenciran):
+- Verifikacija igrača
+- Provere isključenja
+- Čitanje statusa igrača
+
+Osoblje Podrške Igračima:
+- Čitanje profila igrača
+- Ažuriranje kontakt detalja
+- Pregled istorije transakcija
+
+Revizor:
+- Evidencije revizije samo za čitanje
+- Izveštaji o usklađenosti
+- Bez izmene podataka igrača
+
+Igrač (Samoposluživanje):
+- Čitanje sopstvenih podataka
+- Ažuriranje preferencija
+- Postavljanje limita
+- Zahtev za isključenje</code></pre>
+
+    <hr>
+
+    <h2 id="player-protection">DEO 4: Smernice za Implementaciju Zaštite Igrača</h2>
+
+    <h3>4.1 Implementacija Sistema Samoisključenja</h3>
+
+    <p><strong>Tehnički Zahtevi:</strong></p>
+
+    <p><strong>1. Opcije Višestrukih Trajanja:</strong></p>
+    <ul>
+      <li>24 sata (minimum - srpski zahtev)</li>
+      <li>7 dana</li>
+      <li>30 dana</li>
+      <li>6 meseci</li>
+      <li>1 godina</li>
+      <li>5 godina</li>
+      <li>Trajno (neograničeno)</li>
+    </ul>
+
+    <p><strong>2. Nepovratnost:</strong></p>
+    <ul>
+      <li>Ne može se otkazati tokom perioda</li>
+      <li>Sistemski nametnute brave</li>
+      <li>Operator nema mogućnost poništavanja</li>
+      <li>Jedini izuzetak: Sudska odluka ili direktiva Poverenika</li>
+    </ul>
+
+    <p><strong>3. Period Hlađenja Nakon Isteka:</strong></p>
+    <ul>
+      <li>7 dana podrazumevano (UK GamStop standard)</li>
+      <li>Unapred obaveštenje: 7 dana i 24 sata pre isteka</li>
+      <li>Potrebno aktivno uklanjanje (nije automatsko)</li>
+    </ul>
+
+    <p><strong>4. Sprovođenje Kod Svih Operatera:</strong></p>
+
+    <pre><code>Igrač se samoisključuje:
+1. Trenutni API poziv ka centralnom registru
+2. Registar emituje svim licenciranim operaterima preko webhook-ova
+3. Operateri moraju blokirati u roku od 24 sata (srpski zahtev)
+4. Verifikacija u realnom vremenu pri prijavljivanju/depozitu
+5. Pokušaji kršenja se evidentiraju i prijavljuju</code></pre>
+
+    <p><strong>Primer API Integracije:</strong></p>
+
+    <pre><code>async function checkExclusion(nationalId, dateOfBirth) {
+  const response = await fetch('https://api.playerregistry.rs/v1/exclusion-checks', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + accessToken,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      nationalIdNumber: nationalId,
+      dateOfBirth: dateOfBirth,
+      operatorId: 'operator_abc123'
+    })
+  });
+
+  const result = await response.json();
+
+  if (result.data.excluded) {
+    // Blokiraj igrača od kockanja
+    displayExclusionMessage(result.data.exclusionDetails.endDate);
+    logAttemptedBreach(nationalId);
+    return false;
+  }
+
+  return true; // Dozvoli igru
+}</code></pre>
+
+    <h3>4.2 Implementacija Upravljanja Limitima</h3>
+
+    <p><strong>Holandski Model (Diferenciran po Starosti):</strong></p>
+
+    <pre><code>Starost 18-24:
+- Osnovna: €150/mesečno
+- Maksimalna: €300/mesečno (sa proverom dužne pažnje)
+
+Starost 25+:
+- Osnovna: €350/mesečno
+- Maksimalna: €700/mesečno
+- Iznad €700: Potrebna potpuna provera finansijske stabilnosti</code></pre>
+
+    <p><strong>Španski Model (Centralizovan):</strong></p>
+
+    <pre><code>Dnevno: €600
+Nedeljno: €1.500
+Mesečno: €3.000
+Povećanja: 3 dana perioda hlađenja
+Frekvencija: Maksimum jedna promena po kvartalu</code></pre>
+
+    <p><strong>Logika Implementacije:</strong></p>
+
+    <pre><code>def check_deposit_limit(player_id, proposed_amount, currency):
+    limits = get_player_limits(player_id, limit_type='deposit')
+
+    for limit in limits:
+        period = limit['period']  # dnevno, nedeljno, mesečno
+        max_amount = limit['amount']
+        current_consumption = calculate_consumption(player_id, period)
+
+        if current_consumption + proposed_amount > max_amount:
+            return {
+                'allowed': False,
+                'reason': f'{period} limit prekoračen',
+                'limit': max_amount,
+                'current': current_consumption,
+                'proposed': proposed_amount,
+                'exceeded_by': (current_consumption + proposed_amount) - max_amount
+            }
+
+    return {'allowed': True}</code></pre>
+
+    <p><strong>Pravila za Izmenu Limita:</strong></p>
+
+    <pre><code>SMANJENJE:
+- Stupaju na snagu odmah
+- Bez perioda hlađenja
+- Igrač može smanjiti bilo kada
+
+POVEĆANJE:
+- 24-72 sata perioda hlađenja (zavisi od jurisdikcije)
+- Španija: 3 dana
+- UK: minimum 24 sata
+- Obaveštenje igrača o izmeni na čekanju
+- Može se otkazati povećanje tokom perioda hlađenja
+- Stupaju na snagu nakon isteka perioda hlađenja
+- Potrebna procena dužne pažnje ako je značajno povećanje
+
+UKLANJANJE:
+- Tretira se kao povećanje na beskonačnost
+- Isti period hlađenja kao za povećanje
+- Može zahtevati dodatnu potvrdu</code></pre>
+
+    <h3>4.4 Detekcija Problematičnog Kockanja i Intervencija</h3>
+
+    <p><strong>Indikatori Rizika (Bihejvioralni Markeri):</strong></p>
+
+    <p><strong>Indikatori Intenziteta:</strong></p>
+    <ul>
+      <li>Aktivnih dana mesečno > 20</li>
+      <li>Trajanje sesije > 2 sata kontinuirano</li>
+      <li>Kockanje kasno noću (23h-6h)</li>
+      <li>Dnevno kockanje 7+ uzastopnih dana</li>
+      <li>Ukupno 6+ sati kockanja dnevno</li>
+    </ul>
+
+    <p><strong>Finansijski Indikatori:</strong></p>
+    <ul>
+      <li>Povećana frekvencija depozita</li>
+      <li>Višestruki depoziti u roku od 1 sata</li>
+      <li>Eskalacija iznosa depozita (>50% povećanje)</li>
+      <li>Neuspele/odbijene transakcije</li>
+      <li>Ponašanje jurenja gubitaka (brzi ponovljeni depoziti nakon gubitaka)</li>
+    </ul>
+
+    <p><strong>Okvir za Intervenciju:</strong></p>
+
+    <p><strong>Nivo 1 - Nizak Rizik (Skor 15-29):</strong></p>
+    <ul>
+      <li>Automatizovane provere realnosti (svakih 60 min)</li>
+      <li>Edukativne poruke o odgovornom kockanju</li>
+      <li>Predlog postavljanja limita</li>
+      <li>Nedeljni izveštaj o aktivnosti</li>
+    </ul>
+
+    <p><strong>Nivo 2 - Umereni Rizik (Skor 30-49):</strong></p>
+    <ul>
+      <li>Povećane provere realnosti (svakih 30 min)</li>
+      <li>Personalizovane povratne informacije o obrascima trošenja</li>
+      <li>Predložena smanjenja limita (specifični iznosi)</li>
+      <li>Poziv na alat za samoocenjivanje</li>
+      <li>Smanjene marketinške komunikacije</li>
+      <li>Kontakt korisničke službe putem email-a</li>
+    </ul>
+
+    <p><strong>Nivo 3 - Visok Rizik (Skor 50-69):</strong></p>
+    <ul>
+      <li>Obavezan period hlađenja od 24 sata</li>
+      <li>Privremena smanjenja limita (25% od trenutnog)</li>
+      <li>Potreban kontakt sa korisničkom službom pre nastavka</li>
+      <li>Blokada bonusa i promocija</li>
+      <li>Pojačano praćenje (dnevne provere)</li>
+      <li>Informacije o upućivanju na tretman</li>
+    </ul>
+
+    <p><strong>Nivo 4 - Kritičan (Skor 70+):</strong></p>
+    <ul>
+      <li>Trenutna suspenzija naloga (minimum 24-72 sata)</li>
+      <li>Obavezna finansijska procena</li>
+      <li>Potreban video poziv sa timom za odgovorno kockanje</li>
+      <li>Razmatranje isključenja iniciranog od strane operatera</li>
+      <li>Direktno upućivanje provajderu tretmana</li>
+      <li>Opcija kontakta sa porodicom (uz saglasnost)</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="architecture">DEO 5: Tehnička Arhitektura za Skaliranje</h2>
+
+    <h3>5.1 Arhitektura Mikroservisa</h3>
+
+    <p><strong>Dekompozicija Servisa:</strong></p>
+
+    <pre><code>┌─────────────────────────────────────────────────────────────┐
+│                  Sloj API Gateway-a                          │
+│              (Azure API Management)                          │
+│  • Autentifikacija/Autorizacija                              │
+│  • Ograničavanje Brzine                                      │
+│  • Rutiranje Zahteva                                         │
+│  • Verzionisanje API-ja                                      │
+└─────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┼───────────────┐
+              │               │               │
+┌─────────────▼─────┐  ┌─────▼──────┐  ┌────▼──────────┐
+│  Servis za        │  │ Servis za  │  │  Servis za    │
+│  Identitet Igrača │  │ Isključenje│  │   Limite      │
+│                   │  │            │  │               │
+│ • Registracija    │  │ • Samoisklj│  │ • Depozit     │
+│ • KYC/Verifikacija│  │ • Hlađenje │  │ • Gubici      │
+│ • Upravlj. Profil.│  │ • Provere  │  │ • Vreme/Sesija│
+│ • Upravlj. Status │  │   kod svih │  │ • Sprovođenje │
+└───────────────────┘  └────────────┘  └───────────────┘
+
+┌───────────────────┐  ┌────────────┐  ┌───────────────┐
+│    Servis za      │  │   GDPR     │  │  Servis za    │
+│   Saglasnost      │  │  Servis    │  │  Odgovorno    │
+│                   │  │            │  │   Kockanje    │
+│ • Upravlj. Saglasn│  │ • DSAR-i   │  │ • Skorovanje  │
+│ • Market. Prefer. │  │ • Izvoz    │  │   Rizika      │
+│ • Povlačenje      │  │ • Brisanje │  │ • Intervencije│
+└───────────────────┘  └────────────┘  └───────────────┘
+
+┌───────────────────┐  ┌────────────┐  ┌───────────────┐
+│  Servis za        │  │  Servis za │  │  Servis za    │
+│  Obaveštenja      │  │  Reviziju  │  │  Analitiku    │
+│                   │  │            │  │               │
+│ • Webhook-ovi     │  │ • Logovanje│  │ • Izveštavanje│
+│ • Email-ovi       │  │ • Usklađen.│  │ • Kontrolne T.│
+│ • SMS             │  │ • Forenzika│  │ • ML Modeli   │
+└───────────────────┘  └────────────┘  └───────────────┘
+              │               │               │
+              └───────────────┼───────────────┘
+                              │
+┌─────────────────────────────▼─────────────────────────┐
+│                    Sloj Podataka                       │
+│  • Cosmos DB (Igrači, Isključenja, Limiti, Saglasn.)  │
+│  • Azure SQL (Transakcije, Finansije)                  │
+│  • Redis Keš (Sesije, Pretraživanja)                   │
+│  • Blob Storage (Dokumenti, Izvozi)                    │
+└────────────────────────────────────────────────────────┘</code></pre>
+
+    <h3>5.2 Strategija Skaliranja po Broju Korisnika</h3>
+
+    <p><strong>Faza 1: 1.000-10.000 Igrača (Nivo Zajednice)</strong></p>
+
+    <p><strong>Infrastruktura:</strong></p>
+    <pre><code>- Azure Kubernetes Service: 3 čvora (Standard_D2s_v3)
+- Cosmos DB: 1.000 RU/s autoskaliranje
+- Redis: Osnovni nivo (250MB)
+- Azure SQL: S2 (50 DTU)
+- API Management: Developer nivo
+- Skladištenje: LRS
+- Jedan region: West Europe</code></pre>
+
+    <p><strong>Trošak:</strong> ~$800/mesečno</p>
+
+    <p><strong>Ciljevi Performansi:</strong></p>
+    <ul>
+      <li>API latencija P95: < 200ms</li>
+      <li>Upiti baze podataka P95: < 50ms</li>
+      <li>Dostupnost: 99.9%</li>
+    </ul>
+
+    <p><strong>Faza 2: 10.000-100.000 Igrača (Regionalni)</strong></p>
+
+    <p><strong>Infrastruktura:</strong></p>
+    <pre><code>- AKS: 6 čvorova (Standard_D4s_v3) sa autoskaliranjem
+- Cosmos DB: 5.000 RU/s autoskaliranje
+- Redis: Standardni nivo (2.5GB) sa replikacijom
+- Azure SQL: S4 (200 DTU) sa read replikom
+- API Management: Standardni nivo
+- Skladištenje: GRS
+- Regioni: West Europe (primarni) + UK South (read replika)</code></pre>
+
+    <p><strong>Trošak:</strong> ~$3.000-5.000/mesečno</p>
+
+    <p><strong>Faza 3: 100.000-1M Igrača (Nacionalni)</strong></p>
+
+    <p><strong>Infrastruktura:</strong></p>
+    <pre><code>- AKS: 20 čvorova (Standard_D8s_v3) preko 3 zone dostupnosti
+- Cosmos DB: 20.000 RU/s autoskaliranje, više-regionalno pisanje
+- Redis: Premium nivo (26GB) sa klasteringom i geo-replikacijom
+- Azure SQL: P4 (500 DTU) sa 2 read replike
+- API Management: Premium nivo (više-regionalno)
+- Skladištenje: GRS sa RA
+- Regioni: West Europe, UK South, East US (3-regiona active-active)</code></pre>
+
+    <p><strong>Trošak:</strong> ~$15.000-25.000/mesečno</p>
+
+    <p><strong>Ciljevi Performansi:</strong></p>
+    <ul>
+      <li>API latencija P95: < 100ms globalno</li>
+      <li>Upiti baze podataka P95: < 20ms</li>
+      <li>Dostupnost: 99.99%</li>
+      <li>Propusnost: 10.000 zahteva/sek</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="serbian-compliance">DEO 6: Lista Zakonske Usklađenosti za Srbiju</h2>
+
+    <h3>6.1 Neposredni Zahtevi (Q1 2025)</h3>
+
+    <p><strong>Sistem Samoisključenja (NOVO - Zakon nov. 2024):</strong></p>
+    <ul>
+      <li>Implementirati opciju trajnog isključenja</li>
+      <li>Implementirati privremeno isključenje (minimum 24 sata)</li>
+      <li>API integracija u realnom vremenu za blokiranje kod svih operatera</li>
+      <li>Mehanizam izveštavanja Upravi za igre na sreću</li>
+      <li>Verifikacija igrača pri prijavljivanju/depozitu</li>
+    </ul>
+
+    <p><strong>IT Komunikacioni Sistem:</strong></p>
+    <ul>
+      <li>Veza za video nadzor u realnom vremenu sa Upravom</li>
+      <li>Ogledalna baza podataka u Srbiji ILI potpuna baza podataka u Srbiji</li>
+      <li>Poboljšana oprema za praćenje transakcija</li>
+      <li>Laboratorijska sertifikacija za sve sisteme</li>
+    </ul>
+
+    <p><strong>Zahtevi za Bazu Podataka Igrača (Član 51):</strong></p>
+    <ul>
+      <li>Evidentiranje imena, prezimena, datuma rođenja, mesta rođenja</li>
+      <li>Adresa prebivališta/boravišta</li>
+      <li>Broj lične karte ili pasoša</li>
+      <li>Datum i vreme ulaska/izlaska (za fizičke lokacije)</li>
+      <li>Pismena izjava svakog igrača</li>
+      <li>Višegodišnje čuvanje podataka (tačan period čuvanja naveden u Zakonu o igrama na sreću)</li>
+      <li>Non-stop video nadzor (minimum 30 dana čuvanja, produženo na 90 dana od 2024. godine)</li>
+    </ul>
+
+    <p><strong>Usklađenost sa Zaštitom Podataka:</strong></p>
+    <ul>
+      <li>Imenovanje Službenika za Zaštitu Podataka (ako je potrebno)</li>
+      <li>Politika privatnosti objavljena i dostupna</li>
+      <li>Informacije prema GDPR članu 13 pružene pri registraciji</li>
+      <li>Procedure obaveštavanja o kršenju podataka (72-satno obaveštenje Poverenika)</li>
+      <li>Održavanje evidencija o aktivnostima obrade</li>
+      <li>Dokumentovanje pravnog osnova za svu obradu</li>
+    </ul>
+
+    <p><strong>Finansijski Limiti (NOVO - nov. 2024):</strong></p>
+    <ul>
+      <li>Limit gotovinskih transakcija: 1.175.000 RSD (~€10.000) po igraču za 30 dana</li>
+      <li>Sistem za praćenje kumulativnih gotovinskih transakcija</li>
+      <li>Mehanizam sprovođenja</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="implementation">DEO 7: Plan Implementacije</h2>
+
+    <h3>Meseci 1-3: Osnove</h3>
+
+    <p><strong>Nedelja 1-4: Podešavanje Infrastrukture</strong></p>
+    <ul>
+      <li>Obezbeđivanje Azure resursa (Cosmos DB, AKS, APIM, Redis)</li>
+      <li>Konfiguracija mreže (VNet-ovi, NSG-ovi, Privatne Krajnje Tačke)</li>
+      <li>Postavljanje CI/CD pipeline-a (Azure DevOps)</li>
+      <li>Implementacija praćenja (Application Insights, Log Analytics)</li>
+    </ul>
+
+    <p><strong>Nedelja 5-8: Razvoj Osnovnih Servisa</strong></p>
+    <ul>
+      <li>Servis za Identitet Igrača (registracija, verifikacija, profil)</li>
+      <li>Implementacija šeme baze podataka u Cosmos DB</li>
+      <li>Servis za autentifikaciju (OAuth 2.0 + JWT)</li>
+      <li>Konfiguracija API Gateway-a</li>
+    </ul>
+
+    <p><strong>Nedelja 9-12: Funkcionalnosti Zaštite Igrača</strong></p>
+    <ul>
+      <li>Servis za samoisključenje</li>
+      <li>Upravljanje periodom hlađenja</li>
+      <li>Osnovno upravljanje limitima (limiti depozita)</li>
+      <li>Servis za upravljanje saglasnostima</li>
+    </ul>
+
+    <p><strong>Isporuke:</strong></p>
+    <ul>
+      <li>Funkcionalni API za registraciju igrača i osnovno upravljanje</li>
+      <li>Operativni sistem samoisključenja</li>
+      <li>Potpuno operativno razvojno okruženje</li>
+      <li>~1.000 test igrača u sistemu</li>
+    </ul>
+
+    <h3>Meseci 4-6: Skaliranje i Usklađenost</h3>
+
+    <p><strong>Nedelja 13-16: GDPR Implementacija</strong></p>
+    <ul>
+      <li>Portal za prava subjekta podataka (pristup, ispravka, brisanje)</li>
+      <li>Korisnički interfejs za upravljanje saglasnostima</li>
+      <li>Servis za reviziono logovanje</li>
+      <li>Alati i kontrolne table za Službenika za Zaštitu Podataka</li>
+    </ul>
+
+    <p><strong>Nedelja 17-20: Napredni Limiti</strong></p>
+    <ul>
+      <li>Limiti gubitaka</li>
+      <li>Limiti vremena/sesija</li>
+      <li>Tok rada za izmenu limita sa periodom hlađenja</li>
+      <li>Koordinacija limita preko perioda</li>
+    </ul>
+
+    <p><strong>Nedelja 21-24: Integracija i Testiranje</strong></p>
+    <ul>
+      <li>Webhook sistem za obaveštenja operatera</li>
+      <li>API za verifikaciju kod svih operatera</li>
+      <li>Change Feed procesori</li>
+      <li>Testiranje opterećenja (10.000 konkurentnih korisnika)</li>
+      <li>Sigurnosno penetraciono testiranje</li>
+    </ul>
+
+    <p><strong>Isporuke:</strong></p>
+    <ul>
+      <li>GDPR-usklađen sistem</li>
+      <li>Potpun paket zaštite igrača</li>
+      <li>Spremna integracija za operatere</li>
+      <li>Može podržati 10.000-50.000 igrača</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="cost-analysis">DEO 8: Analiza Troškova</h2>
+
+    <h3>Troškovi Razvoja (Jednokratno)</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Kategorija</th>
+          <th>Procena</th>
+          <th>Napomene</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Razvojni tim (12 meseci)</td>
+          <td>$600.000</td>
+          <td>6 programera × $100K/godišnje</td>
+        </tr>
+        <tr>
+          <td>Arhitektura/DevOps</td>
+          <td>$120.000</td>
+          <td>1 arhitekta, 1 DevOps inženjer</td>
+        </tr>
+        <tr>
+          <td>Upravljanje projektom</td>
+          <td>$80.000</td>
+          <td>1 PM × 8 meseci</td>
+        </tr>
+        <tr>
+          <td>Pravni/konsultant za usklađenost</td>
+          <td>$50.000</td>
+          <td>GDPR, stručnjak za srpsko pravo</td>
+        </tr>
+        <tr>
+          <td>Sigurnosna revizija</td>
+          <td>$30.000</td>
+          <td>Penetraciono testiranje, sertifikacija</td>
+        </tr>
+        <tr>
+          <td>Laboratorijska sertifikacija</td>
+          <td>$20.000</td>
+          <td>RNG, sertifikacija sistema</td>
+        </tr>
+        <tr>
+          <td><strong>Ukupan Razvoj</strong></td>
+          <td><strong>$900.000</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Operativni Troškovi (Godišnje)</h3>
+
+    <p><strong>Godina 1 (1.000-10.000 igrača):</strong></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Kategorija</th>
+          <th>Mesečno</th>
+          <th>Godišnje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Azure infrastruktura</td>
+          <td>$800</td>
+          <td>$9.600</td>
+        </tr>
+        <tr>
+          <td>Osoblje (2 operatera, 1 podrška)</td>
+          <td>$15.000</td>
+          <td>$180.000</td>
+        </tr>
+        <tr>
+          <td>Licenciranje/softver</td>
+          <td>$500</td>
+          <td>$6.000</td>
+        </tr>
+        <tr>
+          <td>Pravni/usklađenost</td>
+          <td>$2.000</td>
+          <td>$24.000</td>
+        </tr>
+        <tr>
+          <td><strong>Ukupno Godina 1</strong></td>
+          <td><strong>$18.300</strong></td>
+          <td><strong>$219.600</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2 id="recommendations">DEO 10: Kritične Preporuke</h2>
+
+    <h3>Obavezno ✅</h3>
+
+    <ol>
+      <li><strong>Početi sa lokalizacijom servera u Srbiji</strong> - Neophodan zakonski zahtev</li>
+      <li><strong>Implementirati samoisključenje odmah</strong> - Novi zahtev za 2024, visok prioritet</li>
+      <li><strong>Dizajnirati za GDPR od prvog dana</strong> - Naknadna prilagođavanja su skupa i rizična</li>
+      <li><strong>Koristiti Cosmos DB partition key /playerId</strong> - Optimalno za registar igrača</li>
+      <li><strong>Implementirati više-regionalno rano</strong> - Kritično za oporavak od katastrofe</li>
+      <li><strong>Automatizovati GDPR zahteve</strong> - Obim će se povećavati tokom vremena</li>
+      <li><strong>Proaktivno se angažovati sa Upravom za igre na sreću</strong> - Izgraditi odnos</li>
+      <li><strong>Implementirati sveobuhvatno reviziono logovanje</strong> - 7 godina čuvanja za usklađenost</li>
+      <li><strong>Koristiti OAuth 2.0 + mTLS za operatere</strong> - Industrijski standard bezbednosti</li>
+      <li><strong>Dnevno pratiti skorove rizika igrača</strong> - Rana intervencija sprečava štetu</li>
+    </ol>
+
+    <h3>Zabranjeno ❌</h3>
+
+    <ol>
+      <li><strong>Ne koristiti email ili matični broj kao partition key</strong> - Stvara hot particije</li>
+      <li><strong>Ne čuvati matične brojeve u otvorenom tekstu</strong> - Koristiti heširanje ili enkripciju</li>
+      <li><strong>Ne preskakati DPIA za obradu visokog rizika</strong> - Zakonski zahtev</li>
+      <li><strong>Ne dozvoljavati opoziv samoisključenja tokom perioda</strong> - Poništava svrhu</li>
+      <li><strong>Ne implementirati povećanje limita bez perioda hlađenja</strong> - Neuspeh zaštite igrača</li>
+      <li><strong>Ne zanemarivati podršku za srpski jezik</strong> - Lokalni zahtev</li>
+      <li><strong>Ne koristiti cloud servise van Srbije</strong> - Potrebna lokalizacija servera</li>
+      <li><strong>Ne graditi bez change feed-a</strong> - Obaveštenja u realnom vremenu su neophodna</li>
+      <li><strong>Ne zanemarivati invalidaciju keša</strong> - Zastareli podaci uzrokuju probleme usklađenosti</li>
+      <li><strong>Ne lansirati bez laboratorijske sertifikacije</strong> - Zahtev za licencu</li>
+    </ol>
+
+    <hr>
+
+    <h2>ZAKLJUČAK</h2>
+
+    <p>Ova sveobuhvatna specifikacija pruža kompletan nacrt za izgradnju GDPR-usklađenog sistema registra igrača na sreću za Srbiju koji:</p>
+
+    <ul>
+      <li><strong>Skalira</strong> od 1.000 do miliona igrača sa dokazanom Azure arhitekturom</li>
+      <li><strong>Usklađen</strong> sa GDPR-om, srpskim zakonom o igrama na sreću i međunarodnim najboljim praksama</li>
+      <li><strong>Štiti</strong> igrače kroz samoisključenje, limite i funkcionalnosti odgovornog kockanja</li>
+      <li><strong>Radi</strong> sa latencijom ispod 100ms i dostupnošću od 99.99% na nacionalnom nivou</li>
+      <li><strong>Obezbeđuje</strong> osetljive podatke sa više-slojnom odbranom i enkripcijom</li>
+      <li><strong>Evoluira</strong> od registra zajednice do zvaničnog vladinom sistema</li>
+    </ul>
+
+    <p><strong>Metrike Uspeha:</strong></p>
+
+    <ul>
+      <li><strong>Tehničke:</strong> 99.99% dostupnost, < 100ms P95 latencija, 0 kršenja podataka</li>
+      <li><strong>Usklađenost:</strong> 0 GDPR kršenja, 100% usklađenost sa srpskim regulativama</li>
+      <li><strong>Zaštita Igrača:</strong> < 1% stopa kršenja samoisključenja, opadanje stopa problematičnog kockanja</li>
+      <li><strong>Operativne:</strong> < 30 dana za završetak DSAR-a, < 5 minuta za oporavak od katastrofe</li>
+      <li><strong>Poslovne:</strong> 80%+ usvajanje od strane operatera, priznat kao zvanični vladinih registar</li>
+    </ul>
+
+    <p>Ovaj sistem će služiti kao osnova za odgovorno kockanje u Srbiji, štiteći ranjive igrače dok omogućava legalno, regulisano tržište igara na sreću.</p>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 е-Играч - Sistem Zaštite od Kockanja</p>
+    <p>Građanska inicijativa za smanjenje štete, zaštitu igrača i prakse odgovornog kockanja</p>
+  </footer>
+
+  <a href="#" class="back-to-top">↑</a>
+
+</body>
+</html>

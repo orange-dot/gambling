@@ -1,0 +1,596 @@
+/* е-Играч Documentation - Dark Theme with Serbian Colors */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Serbian Flag Colors - Dark Theme */
+  --serbian-blue: #0C4076;
+  --serbian-blue-light: #1a5a9e;
+  --serbian-red: #C6363C;
+  --serbian-red-light: #d64850;
+  --serbian-white: #f5f5f5;
+
+  /* Dark Theme Base */
+  --primary-color: var(--serbian-blue);
+  --primary-dark: var(--serbian-blue-light);
+  --secondary-color: var(--serbian-red);
+  --text-color: #e4e4e7;
+  --text-light: #a1a1aa;
+  --background: #0f1419;
+  --background-alt: #1a1f2e;
+  --background-card: #161b22;
+  --border-color: #30363d;
+  --code-bg: #0d1117;
+  --code-text: #f0f6fc;
+  --success: #3fb950;
+  --warning: #d29922;
+  --danger: var(--serbian-red);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  line-height: 1.7;
+  color: var(--text-color);
+  background: var(--background-alt);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, var(--serbian-blue) 0%, var(--serbian-red) 100%);
+  color: var(--serbian-white);
+  padding: 3rem 2rem;
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 3px solid var(--serbian-white);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+/* Navigation */
+nav {
+  background: var(--background-card);
+  padding: 1rem 2rem;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  border-bottom: 3px solid var(--primary-color);
+  border-top: 1px solid var(--border-color);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+nav a:hover {
+  background: var(--primary-color);
+  color: var(--serbian-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* Main Content */
+main {
+  background: var(--background-card);
+  margin: 2rem;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  min-height: 80vh;
+  border: 1px solid var(--border-color);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--serbian-white);
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.5rem;
+  border-bottom: 4px solid var(--secondary-color);
+  padding-bottom: 0.75rem;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+strong {
+  font-weight: 600;
+  color: var(--serbian-white);
+}
+
+em {
+  font-style: italic;
+  color: var(--text-light);
+}
+
+/* Links */
+a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--serbian-red-light);
+  text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+  margin: 1rem 0 1.5rem 2rem;
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+li {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+/* Blockquotes */
+blockquote {
+  background: linear-gradient(135deg, var(--serbian-blue) 0%, var(--serbian-red) 100%);
+  color: var(--serbian-white);
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  border-left: 6px solid var(--serbian-red);
+  border-radius: 8px;
+  font-style: italic;
+  box-shadow: var(--shadow);
+}
+
+blockquote p {
+  margin-bottom: 0.5rem;
+}
+
+blockquote strong {
+  color: var(--serbian-white);
+  font-weight: 700;
+}
+
+/* Code */
+code {
+  background: var(--code-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', Consolas, Monaco, monospace;
+  font-size: 0.9em;
+  color: var(--serbian-red-light);
+  border: 1px solid var(--border-color);
+}
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow);
+  line-height: 1.5;
+}
+
+pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: 0.95rem;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: var(--background-card);
+  box-shadow: var(--shadow);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+thead {
+  background: linear-gradient(135deg, var(--serbian-blue) 0%, var(--serbian-red) 100%);
+  color: var(--serbian-white);
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  color: var(--serbian-white);
+}
+
+tr:nth-child(even) {
+  background: var(--background-alt);
+}
+
+tr:hover {
+  background: rgba(12, 64, 118, 0.1);
+  transition: background 0.3s ease;
+}
+
+tbody strong {
+  color: var(--serbian-white);
+}
+
+/* Alert Boxes */
+.alert {
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border-left: 6px solid;
+  box-shadow: var(--shadow);
+}
+
+.alert-warning {
+  background: rgba(210, 153, 34, 0.2);
+  border-color: var(--warning);
+  color: #ffd666;
+}
+
+.alert-danger {
+  background: rgba(198, 54, 60, 0.2);
+  border-color: var(--danger);
+  color: #ff8a8f;
+}
+
+.alert-info {
+  background: rgba(26, 90, 158, 0.2);
+  border-color: var(--primary-dark);
+  color: #79c0ff;
+}
+
+.alert-success {
+  background: rgba(63, 185, 80, 0.2);
+  border-color: var(--success);
+  color: #7ee787;
+}
+
+.alert strong {
+  color: inherit;
+}
+
+.alert p {
+  color: inherit;
+}
+
+.alert ul, .alert ol {
+  color: inherit;
+}
+
+.alert li {
+  color: inherit;
+}
+
+/* Footer */
+footer {
+  background: var(--background-card);
+  color: var(--serbian-white);
+  padding: 3rem 2rem;
+  margin-top: 4rem;
+  text-align: center;
+  border-top: 4px solid var(--serbian-red);
+  border-bottom: 4px solid var(--serbian-blue);
+}
+
+footer p {
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+
+footer a {
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+footer a:hover {
+  color: var(--serbian-red-light);
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, var(--serbian-blue) 0%, var(--serbian-red) 100%);
+  color: var(--serbian-white);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  border: 2px solid var(--border-color);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(198, 54, 60, 0.4);
+}
+
+/* Horizontal Rule */
+hr {
+  border: none;
+  border-top: 2px solid var(--border-color);
+  margin: 3rem 0;
+}
+
+/* Card Grid Layouts */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  border: 2px solid var(--serbian-blue);
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--background-alt);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--serbian-red);
+  box-shadow: 0 4px 12px rgba(198, 54, 60, 0.2);
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: var(--serbian-red);
+}
+
+.card h4 {
+  color: var(--primary-dark);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card h4 {
+  color: var(--serbian-red);
+  margin-bottom: 0.5rem;
+}
+
+.doc-link {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--serbian-blue-light);
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.doc-link:hover {
+  color: var(--serbian-red-light);
+  transform: translateX(5px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  main {
+    padding: 2rem;
+    margin: 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 2rem 1rem;
+  }
+
+  header h1 {
+    font-size: 1.75rem;
+  }
+
+  nav {
+    padding: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  main {
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 0.75rem;
+  }
+
+  .back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  pre {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  :root {
+    --text-color: #000;
+    --background: #fff;
+    --background-card: #fff;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  header, nav, footer, .back-to-top {
+    display: none;
+  }
+
+  main {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: white;
+    color: black;
+  }
+
+  h1, h2, h3, h4, h5, h6, p, strong {
+    color: black;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  pre, blockquote {
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+  }
+
+  table {
+    border: 1px solid #000;
+  }
+}

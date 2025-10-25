@@ -1,15 +1,21 @@
 ---
 layout: default
-title: KockaID - Početna
+title: е-Играч - Početna
 ---
 
-# KockaID - Sistem Zaštite od Kockanja
+# е-Играч - Sistem Zaštite od Kockanja
 
-Nacionalni sistem za odgovorno kockanje i zaštitu građana Republike Srbije
+**Građanska inicijativa za odgovorno kockanje i zaštitu građana Republike Srbije**
+
+> **⚠️ Важно**: е-Играч је **предлог групе грађана**, НЕ званична иницијатива Министарства финансија.
 
 ## O Projektu
 
-KockaID je sveobuhvatna platforma dizajnirana za promociju odgovornog kockanja i zaštitu ranjivih korisnika kroz monitoring, intervenciju i self-management alate. Sistem je osmišljen specifično za potrebe Republike Srbije i rešava jedinstvene izazove sa kojima se suočava naša zemlja.
+е-Играч je predlog za sveobuhvatnu platformu dizajniranu za promociju odgovornog kockanja i zaštitu ranjivih korisnika kroz monitoring, intervenciju i self-management alate. Sistem je osmišljen specifično za potrebe Republike Srbije i rešava jedinstvene izazove sa kojima se suočava naša zemlja.
+
+**Inicijativa**: Grupa građana sa iskustvom u oblasti igara na sreću
+**Status**: Predlog upućen nadležnim institucijama
+**Cilj**: Kombinovati pravno-tehničko rešenje za efikasnije sprovođenje Zakona o igrama na sreću
 
 ## Trenutno Stanje u Srbiji
 
@@ -21,7 +27,7 @@ KockaID je sveobuhvatna platforma dizajnirana za promociju odgovornog kockanja i
 
 ## Rešenje: Obavezna Mobilna Aplikacija
 
-KockaID aplikacija koristi device binding, biometrijsku autentifikaciju i real-time nadzor da automatski enforcuje postojeće politike i eliminiše crno tržište.
+е-Играч aplikacija koristi device binding, biometrijsku autentifikaciju i real-time nadzor da automatski enforcuje postojeće politike i eliminiše crno tržište.
 
 ---
 
@@ -42,7 +48,7 @@ Sveobuhvatna analiza kako obavezna mobilna aplikacija rešava probleme enforceme
 - Top 10 problema enforcementa u EU sistemima
 - Kako aplikacija rešava svaki problem (višestruki nalozi, crno tržište, self-exclusion breaches)
 - Tehnička arhitektura (C#/.NET, MongoDB, native iOS/Android)
-- **Specifični kontekst Srbije** - kako KockaID rešava jedinstvene izazove
+- **Specifični kontekst Srbije** - kako е-Играч rešava jedinstvene izazove
 - Implementaciona strategija u 5 faza
 - Cost-benefit analiza (260x ROI)
 
