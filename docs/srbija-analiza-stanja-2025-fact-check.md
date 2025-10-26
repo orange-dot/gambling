@@ -1,5 +1,4 @@
----
-title: Fact-check – "Regulacija igara na srecu u Srbiji: Analiza stanja 2025"
+title: "Fact-check – \"Regulacija igara na srecu u Srbiji: Analiza stanja 2025\""
 date: 2025-10-26
 ---
 
