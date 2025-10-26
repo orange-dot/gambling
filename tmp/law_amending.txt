@@ -1,0 +1,1515 @@
+LAW 
+AMENDING THE LAW ON GAMES OF CHANCE 
+(„Official Gazette RS“ no.94/2024) 
+ 
+Article 1 
+In law on Games of Chance (“Official Gazette RS”, no. 18/20), in Article 4: 
+„for which the consent was granted by the minister in charge of finances 
+(hereinafter; minister of finance)” is replaced by: “in accordance with provisions 
+hereof”. 
+Article 2 
+In Article 6, paragraph 6 is amended to read: 
+“It is the obligation of every organiser to display a poster, measuring 100 x 
+80 centimetres, near the entrance doors or in close proximity to them, both 
+inside and outside the building where games of chance are organised. The poster 
+must contain relevant information on the prevention of addiction, as well as the 
+contact details of the institution certified by the ministry in charge of health for 
+the treatment of addiction to games of chance.” 
+In paragraph 7, after words: „must be conducted” the text: „in accordance 
+with regulations governing advertising” is added. 
+Paragraph 8 is amended to read: 
+“Organisers of special games of chance by means of electronic 
+communication are required to submit data to the Administration or provide 
+access to data about players who have self -excluded themselves in accordance 
+with this law.”  
+Article 3 
+In Article 8, after paragraph 4, a paragraph 5 is added that reads:  
+"The right to organise special games of chance cannot be transferred to 
+legal entities whose approval for organising special games of chance on machines 
+or special games of chance - betting has previously been revoked in accordance 
+with Article 123 of this law.” 
+Article 4 
+After Article 8, the Article 8a and the title of that article are added, that 
+read:  
+“Transfer of the Right to Organise in the Case of Status Changes 
+Article 8a 
+The organiser, except organisers holding license for organisation of games 
+of chance in casinos, which as a part of status change of merger, carried out in 
+accordance with the law governing companies (hereinafter: acquiring organiser), 
+acquires assets and liabilities of another organiser (hereinafter: transferring 
+organiser) and meets the requirements provided by this article, with prior 
+consent of the Administration, will obtain the rights from approvals and consents 
+granted to the transferring organiser.   
+Rights of the transferring organiser referred to in paragraph 1 above are 
+transferred to the acquiring organiser from the date of status change pursuant to 
+legislating governing registration of business entities and are valid until expiry of 
+the period for which the acquiring organiser is granted the approval for 
+organisation of special games of chance, which he obtained before the status 
+change.   
+Notwithstanding paragraph 2 above, if rights originally granted to the 
+transferring organiser are transferred to the acquiring organiser by status change 
+of merger, in accordance with paragraph 1 above, and the acquiring organiser did 
+not have the approval for any kind of organisation before the status change, 
+after transferring to the acquiring organiser such rights remain valid until expiry 
+of the period for which they were granted to the transferring organiser before the 
+status change.   
+The acquiring organiser submits the request for prior consent referred to 
+in paragraph 1 above, in electronic form through information -communication 
+system of the Administration within 30 days from the date draft agreement on 
+status change has been published, in accordance with legislation governing 
+companies.  
+The following must be provided with the request referred to in paragraph 4 
+above:   
+1) information about name and address of registered offices of the 
+organiser participating in status change;  
+2) copy of documentation published about the status change;  
+3) list of locations of slot machine clubs and betting shops of the 
+transferring organiser where the acquiring organiser intends to continue 
+organising special games of chance, with specification of labels issued in 
+accordance with Article 88 hereof;  
+4) list of machines of the transferring organiser which the acquiring 
+organiser intends to continue using with specification of labels of certified 
+laboratory referred to in Article 73 hereof;  
+5) information about approval for organisation of games of chance through 
+means of electronic communication, if the acquiring organiser intends to continue 
+with organisation by means of electronic communication based on the approval 
+previously granted to the transferring organiser.  
+Based on the submitted request referred to in Article 4 above, the 
+Administration will within 30 days grant the prior consent or deny the request for 
+prior consent for transferring the rights from the approval and consent originally 
+granted to the transferring organiser.  
+In the case of obtaining the prior consent, as referred to in paragraph 6 
+above, the acquiring organiser is obliged to ensure the conditions for conducting 
+the activities in accordance with provisions hereof related to the rights from the 
+approvals and consents that have been transferred to the acquiring organiser 
+based on the prior consent referred to in paragraph 6 above within 60 days from 
+the date of registration of status change according to legislation governing 
+registration of companies and provide evidence of this to the Administration 
+within the same period.  
+Notwithstanding paragraph 7 above, the acquiring organiser is required, in 
+relation to the status change, to ensure the alignment, connection and the 
+exchange of data from Article 63, paragraph 1, Article 80, paragraph 1 and 
+Article 95, paragraph 1 hereof within 15 days from the date of registration of the 
+status change in accordance with legislation governing registration of companies.  
+Based on the prior consent referred to in paragraph 6 and evidence 
+referred to in paragraphs 7 and 8 above, the Administration issues a decision 
+within 30 days.   
+In case of transferring the rights for organisation of games of chance in 
+case of status changes referred to in this Article, the restrictions in terms of 
+distance between two slot machine clubs or between the slot machine club and 
+betting shop or casino, as set forth in Article 67, paragraph 3 and Article 82, 
+paragraph 3 hereof, will not apply to the location for with the transferring 
+organiser had the approval for organisation of special games of chance on 
+machines and organisation of special games of chance - betting at the time of 
+submitting the request for prior consent referred to in paragraph 4 above.” 
+Article 5 
+In Article 9, point 9 words: “of finance” are replaced by: “in charge of 
+finance (hereinafter: minister of finance)”. 
+In point 11 words: „random event algorithm” are replaced by: „random 
+number generator (RNG).” 
+In point 12 word: „paying” is replaced by: „wagering”. 
+In point 14 word: “bets” is replaced by: „wagers related to the games of 
+chance - betting, or games of chance through means of electronic 
+communication”.  
+In point 15 words: „in which participant bets” are replaced by: „in which 
+participant places a bet”, and word: „bets” is replaced with: „wagers”.  
+In point 17), full stop in the end is replaced with semicolon. 
+After point 17), points 18 to 32), are added that read:  
+“18) pay -in-pay-out desk equipment is electronic or electromechanical 
+device with integrated software for monitoring pay -ins, pay -outs and bets, as 
+well as any other monitoring devices used in the pay-in-pay-out desk; 
+19) betting terminal is an electronic or electromechanical device that 
+serves as a self-service pay-in-pay-out desk in a betting shop; 
+20) bet slip is certificate of bet place on betting game of chance, which can 
+be in printed or electronic form depending on how the player made the bet, and 
+must contain at least the identification number of the placed bet, information 
+about the organiser, the bet amount, information about the time of the bet, and 
+a QR code; 
+21) quick response code (QR code) is a standardized two -dimensions bar 
+code that, for the purpose of this law, contains a hyperlink for data verification 
+with at least the following set of data: identifier of the organiser, identification 
+number of the placed bet, amount and the time of bet placement; 
+22) a tournament is a format of games of chance in casinos in which 
+participants, in the form of a competition, based on a previously determined and 
+paid entry fee, gain the opportunity to play against each other from the same 
+starting position, and have the chance to win prizes in predetermined amounts 
+based on their in-game results; 
+23) player verification is the process of checking person's age using 
+electronic communication methods during the verification of birthdate 
+information in the identification document when registering their account for 
+participation in special games of chance by means of electronic communication;  
+24) registration account is a unique account containing data on all 
+transactions (bets, placed, winnings, payouts, transfers from promotional 
+accounts, etc.), which is opened and managed for each player by the organiser 
+of special games of chance by means of electronic communication in its 
+information-communication system; 
+25) promotional account is a unique account containing data on all 
+bonuses and transfers to specific registration accounts of the player, which is 
+opened and managed for each player by the organiser of special games of 
+chance by means of electronic communication in its information -communication 
+system exclusively for the purpose of awarding bonuses; 
+26) electronic bet confirmation is an electronic record confirming a bet 
+placed in relation to games of chance by means of electronic communication, 
+marked with the player's identification number (ID) and a QR code, and 
+electronically recorded in the player's registration account within the information 
+and communication system of the organiser of games of chance by means 
+electronic communication; 
+27) bonus is any incentive that an organiser of games of chance by means 
+of electronic communication grants to a player to encourage participation in a 
+game it organises; 
+28) jackpot is a prize that is randomly awarded to a selected player, 
+resulting from the accumulation of a portion of other player’s wagers; 
+29) jackpot system is an information and communication system that 
+collects data on placed wagers, processes it, and randomly awards the jackpot to 
+a selected player when the conditions for its awarding are met. 
+30) shortest safe pedestrian path is a path that ensures the safe 
+movement of pedestrians in accordance with regulations governing road safety; 
+31) self -exclusion or self -restriction is a measure of responsible 
+organisation of games of chance that allows a player to voluntarily exclude or 
+limit his/her access to activities related to participation in special games of 
+chance organised by organiser of games of chance by means of electronic 
+communication; 
+32) multiplayer automatic equipment is automatic equipment where 
+multiple players can play simultaneously, each using separate, undetachable part 
+of the equipment.” 
+Article 6 
+In Article 10, point 4 after word: „allow payment” words: „or placement” 
+are added.  
+In point 5) word: „bets” is replaced with: „wagers”. 
+In point 6) word: “bet” is replaced by: „wagers or orders related to 
+wagers”. 
+Points 7) to 9) are deleted. 
+Point 18) is amended to read: 
+“18) use words in violation of Article 56 hereof;” 
+In point 19), after word: „approval” words: „issued in accordance with this 
+law” are added. 
+In point 20), after word: „approval” words: „issued in accordance with this 
+law” are added. 
+Points 23) and 24) are amended to read:  
+“23) keep automatic equipment, multiplayer automatic equipment, betting 
+terminal, pay-in-pay-out desk equipment or desks for which the Administration 
+did not issue an approval or issued an approval, but the equipment was not put 
+in use in space where special games of chance are organised, except if such 
+equipment is subject to the pending procedure for issuance of certificate by 
+certified laboratory or in the procedure for obtaining the approval;  
+24) keep automatic equipment, multiplayer automatic equipment, betting 
+terminal, pay-in-pay-out desk equipment or desks in spaces where special games 
+of chance are organised, but which do not allow storing, archiving and real -time 
+exchange of data by electronic means with software solution of the 
+Administration;”. 
+Point 26) is amended to read: 
+“26) allow or enable registered player by organiser of special games of 
+chance by means of electronic communication to transfer funds from his 
+registration account to registration account of another player;”. 
+After point 26), points 27 to 37 are added that read:  
+“27) allow or enable natural persons by the organiser of special games of 
+chance by means of electronic communication to transfer funds from their 
+current account to other person’s registration account of a registered player or a 
+registered player to transfer funds from his registration account to other person’s 
+current account; 
+28) carry out pay -ins and pay -outs in cash, except in registered pay -in-
+pay-out desk in the betting shop that organises special betting games of chance 
+and for organisation of games of chance by means of electronic communication 
+in accordance with Article 115, paragraph 11 hereof, in slot machine club for 
+organisation of games of chance on automatic equipment, in casino for 
+organisation of games of chance in casinos and on automatic equipment and on 
+pay-in desk referred to in Article 115 hereof to top-up registration account of the 
+player for organisation of games of chance by means of electronic 
+communication; 
+29) receive cash payments to registration account of single player in the 
+amount exceeding 1.175.000 dinars and making cash payouts from registration 
+account to a single player in the amount exceeding 1.175.000 dinars within any 
+30-days period beginning or ending within calendar month, at the betting shops 
+of a single organiser of special games of chance by means of electronic 
+communication; 
+30) provide services of topping up registration account of player registered 
+for participation of games of chance by means of electronic communication, as 
+defined in Article 115 hereof, in a venue where games of chance are organized;  
+31) organise special games of chance by means of electronic 
+communication in which players play against each other (Texas Hold’em poker, 
+etc.);  
+32) enable participation in games of chance by means of electronic 
+communication during the period of self-exclusion; 
+33) register registration account and allow participation in games of 
+chance by means of electronic communication to a player without prior 
+verification of that person’ age (player verification); 
+34) organise jackpot in violation of provisions of this law; 
+35) receive wagers in relation to special betting games of chance without 
+issuing a bet slip or receiving wagers in relation to games of chance by means of 
+electronic communication without issuing the electronic bet confirmation; 
+36) organise games of chance on multiplayer automatic equipment which 
+outcome is note determined Random Number Generator;  
+37) organise tournament in games of chance, except by organiser holding 
+a license to organise special games of chance in casinos.” 
+Article 7 
+In Article 11, paragraph 3 after words: „games of chance” words: „in 
+accordance with this law” are added.  
+After paragraph 4, paragraphs 5 to 14 are added that read: 
+“For the purpose of obtaining the data referred to in paragraph 3 above, 
+the Administration ensures that the software solutions it manages are connected 
+with other electronic government systems. 
+For the purpose of performing the tasks in public interest and exercising 
+the authority provided by the law, the Administration, according to procedure 
+and in the manner provided by this law, collects personal data, which is either 
+submitted by the organiser or entities referred to in Article 115 hereof or by the 
+Administration directly accesses the data of the organiser or persons referred to 
+in Article 115 hereof. Such personal data includes data from identification card or 
+passport, such as: name, surname, identification card or passport number, 
+personal number, date and place of birth and place of temporary or permanent 
+residence, audio and video recordings from venues in which games of chance are 
+organised, information about location, time, amount, method and destination of 
+transferred prizes in goods and services, deposits, pay -ins, pay -outs, wagers, 
+winnings or losses of a player, data on registration and promotional account of a 
+player, as well as data related to self-exclusion. 
+Notwithstanding paragraph 6 above, for the purpose of performing the 
+tasks in public interest and exercising the authority provided by the law, acting in 
+accordance with the procedure and in the manner provided by the law, may 
+collect other personal data from the organiser, if so provided hereby. 
+Personal data referred to in paragraphs 6 and 7 above are stored and 
+retained for the period provided by this law, but no longer than ten years from 
+the date of: 
+1) termination of the business relationship between the organiser and the 
+player in the event of player’s account being closed, for data pertaining to the 
+player whose account was closed; 
+2) expiration of license, approval or consent for organisation of games of 
+chance, for all other personal data collected by that organiser. 
+After expiry of the period provided by paragraph 8 above, the collected 
+personal data is deleted, to the extent it is not data used by competent state 
+authority for a particular purpose. 
+Data referred to in paragraphs 6 and 7 above may only be used for the 
+purpose for which they were collected and cannot be disclosed to third parties or 
+publicly released, except otherwise explicitly provided herein. 
+Data about self -excluded players is provided to the Administration and 
+exchanged with organisers in order to prevent addiction among participants in 
+games of chance and to enable application on self-exclusion provided herein. 
+In case of an obligation or need to allow third parties access to funds or 
+data for the purpose of determining the technical correctness or repairing 
+equipment used for games of chance, the Administration and organisers are 
+required to implement appropriate technical, organisational, and staffing 
+measures for the protection of personal data in accordance with the law 
+governing the protection of personal data. 
+In the case of audio or video surveillance, the processing of personal data 
+may only be carried out for the purpose of verifying the entry of minors into 
+venues where games of chance are organised, detecting use of automatic 
+equipment, multiplayer automatic equipment, betting terminals, or pay -in-pay-
+out desk equipment or tables for which the organizer does not have approval 
+from the Administration or the Government's license, preventing rule violations, 
+as well as for the purpose of controls aimed at prevention of money laundering 
+and terrorist financing in the field of games of chance. 
+The Administration may not require organisers to store audio or video 
+surveillance recording for a period longer than 180 days.” 
+Article 8 
+In Article 12, paragraphs 2 and 3 are added that read:  
+“The Administration concludes its proceedings with a decision. 
+The decision referred to in paragraph 2 above, except decision referred to 
+in Article 124 hereof, is final and may be subject to administrative proceedings.” 
+Article 9 
+In Article 37, paragraph 5 is added that reads:  
+“The request referred to in paragraph 2 above is submitted in electronic 
+form via information-communication system of the Administration.”  
+Article 10 
+In Article 39, paragraph 4, number: „500.000” is replaced with number: 
+„1.000.000”. 
+Article 11 
+In Article 40, paragraph 2, number: „500.000” is replaced with number: 
+„1.000.000”.  
+In paragraph 3, after words: „to the competent authority” the text: „in 
+electronic form via information and communication system of the Administration” 
+is added. 
+After paragraph 3, new paragraph 4 is added that reads:   
+“When submitting the request referred to in paragraph 2 above, organiser 
+attaches documents referred to in Article 39, paragraph 3, points 2), 4), 7), 8) 
+and 9) of this law.” 
+Paragraph 4 becomes paragraph 5. 
+Article 12 
+In Article 42, paragraph 2, points 4) and 5) are deleted. 
+In paragraph 7, after words: „amendments” words: „referred to in 
+provisions of paragraph 2 above” are added. 
+Article 13 
+Article 43 is amended to read:  
+“Article 43 
+An organiser may submit a request to relocate the casino. Along with the 
+request the organiser must provide the following: 
+1) decision of the competent body of the organiser on relocation of casino;  
+2) detailed explanation of reasons for relocating the casino; 
+3) evidence of ownership or use rights over relevant premises at new 
+location where special games of chance will be organised in accordance with 
+Article 49, paragraph 3 hereof;  
+4) information about labels for tables and automatic equipment moved to 
+the new location with information from Articles 45 and 74 hereof; 
+The request referred to in paragraph 1 above is submitted to the ministry 
+in electronic form via information-communication system of the Administration. 
+Minister of finance, with prior consent of the Government, and the 
+organiser referred to in paragraph 1 above shall conclude an amendment to the 
+agreement on transfer of rights to organise games of chance in accordance with 
+Article 42, paragraph 7 hereof. 
+Before starting to organise games of chance on the new location the 
+organiser referred to in paragraph 1 above shall provide to the Administration 
+evidence on fulfilment of conditions from Articles 44, 45, 49, 50, 63 and 74 
+hereof.” 
+Article 14 
+Title and wording of Article 44 are changed and now read: 
+“Information and Communication System for Organising Special Games of 
+Chance in Casinos and Technical and Functional Characteristics of Gaming Tables” 
+Article 44 
+An organiser of special games of chance in casinos is obliged to use an 
+information and communication system for organising special games in casinos 
+(i.e. Casino Management System) that enables storage, archiving and electronic 
+exchange of data with software solution of the Administration for the purpose of 
+real-time supervision. 
+The organiser is liable for functioning and security of the casino 
+management system referred to in paragraph 1 above.  
+The organiser may obtain or acquire right to own or use the system 
+referred to in paragraph 1 above or may independently develop it in accordance 
+with applicable standards. 
+Prior to putting a table or casino management system into use the 
+organiser is obliged to submit to the Administration a certificate proving that the 
+table or casino management system have the required technical and functional 
+characteristics. 
+Before reusing a table which technical and functional characteristics have 
+been modified or in case of any modifications of the casino management system, 
+the organiser is obliged to submit to the Administration an additional certificate 
+proving that the table or casino management system have the required technical 
+and functional characteristics. 
+The certificates referred to in paragraphs 4 and 5 above are issued by the 
+laboratory authorized by the minister of finance. 
+The control of the fulfilment of technical and functional characteristics of 
+tables or casino management systems is performed by the laboratory referred to 
+in paragraph 6 above. 
+The organiser bears the costs of testing the compliance with technical and 
+functional characteristics of the tables or the casino management system.  
+Minister of finance sets detailed technical and functional characteristics of 
+tables and casino management system referred to in paragraph 1 above, 
+methods and procedures for testing the compliance with the technical and 
+functional characteristics and the casino management system, as well as detailed 
+conditions for storing, archiving and exchanging data with the Administration.” 
+Article 15 
+In title of Article 46, after words: „tables” words: „and game of chance 
+tournaments” are added. 
+In Article 46, paragraph 5 words: „paragraph 2” are replaced by: 
+„paragraph 5”.  
+After paragraph 5, paragraphs 6 to 9 are added that read: 
+“The organiser may organise a tournament in casino after obtaining prior 
+consent from the Administration. 
+The consent license referred to in paragraph 6 above is granted by 
+decision of the Administration. 
+The following information must be provided along with the request for 
+organisation of a tournament: 
+1) place and time period of the tournament;  
+2) minimum total entry fee;  
+3) minimum total prize fund of the tournament for payouts to the 
+participants (prize fund);  
+4) difference between minimum total entry fee and minimum total prize 
+fund for payouts to the participants; 
+5) label specifications for tables used in the tournament.  
+The request referred to in paragraphs 2, 3 and 8 above is submitted in 
+electronic form via information and communication system of the 
+Administration.” 
+Article 16 
+Title of Article 47 is amended to read:  
+“Repair and Verification of Functionality of Gaming Tables”. 
+In Article 47, after paragraph 2, new paragraph 3 is added that reads: 
+“Verification of table functionality is carried out as a part of the procedure 
+of functionality testing conducted by authorized entity referred to in paragraph 1 
+above.” 
+After existing paragraph 3, which becomes paragraph 4, paragraph 5 is 
+added that reads: 
+“Minister of finance more closely defined method and procedure of 
+verification gaming tables functionality.” 
+Article 17 
+In Article 49, paragraph 5 is added that reads:  
+“The casino must have at least 15 tables where special games of chance 
+are organised.” 
+Article 18 
+In Article 50, paragraph 2 is amended to read: 
+“The organiser is required to provide the Administration with a link 
+through which authorised representatives of the Administration can monitor live 
+video surveillance as referred to in paragraph 1 above, and to keep the video 
+surveillance recordings from paragraph 1 above for 90 days, or longer if so 
+instructed by the Administration.” 
+In paragraph 7, after words: „in the game” words: „and live monitoring of 
+video surveillance” are added.  
+Article 19 
+In Article 54, paragraph 1 words: “at percentage” are replaced by: „at the 
+prescribed percentage”. 
+In paragraph 2, point 1 word: “payment” is replaced by: “payments 
+received for participation in the game that the organiser retains from all 
+participants in the game”. 
+After point 1, point 1a) is added that reads: 
+“1a) For games in which participants play against each other in a 
+tournament referred to in Article 9, point 22) hereof - the difference between the 
+amount of payments received for participation (entry fees) and the prize fund 
+paid out to participants, not less than 5% of the total payments received for 
+participation (entry fees).” 
+In point 2), after word: „games” words: „where participants play against 
+the casino” are added, word: „payment” is replaced by word: “wager” and 
+words: „for certain type of game” are replaced by: „for all tables cumulatively”. 
+In paragraph 3 word: „payments” is replaced by word: „wagers”. 
+Paragraph 5 is amended to read: 
+“The fee for organising special games of chance in casinos is determined 
+at a rate of 25% of the base amount specified in paragraph 2 above.” 
+After paragraph 5, new paragraph 6 is added that reads:  
+“The minimum monthly fee for organising special games of chance in 
+casinos, as specified in paragraph 2, point 2) of this article, cannot be lower than 
+the product of the amount of 2,000 euros in dinar equivalent and the highest 
+number of registered tables for games against the casino during the month.” 
+In paragraph 6, which becomes paragraph 7 after word: „month” comma 
+and the words: “for the previous month in which the tournament referred to in 
+Article 9, point 22) of this law was completed” are added. 
+Article 20 
+In Article 55, paragraph 3 words: “for each type of game or gaming table 
+separately” are deleted. 
+After paragraph 4, new paragraphs 5 and 6 are added that read:  
+“In case a tournament referred to in Article 9, point 22) hereof is 
+organised, the organiser is obliged to keep separate records of payments 
+received for participation (entry fees) and the prize fund paid to the tournament 
+participants. 
+Based on the data from the records referred to in paragraph 5 above, the 
+organiser prepares the calculation of fees for organisation which is submitted to 
+the Administration by the fifth day of the month for the previous month during 
+which the tournament was completed.”  
+In paragraph 5, which becomes paragraph 7 words: „paragraph 1 to 4” are 
+replaced by: „1 to 6”. 
+Article 21 
+Article 56 is amended to read:  
+“Article 56 
+The terms "casino," "cazino," "kasino," "kazino" and their synonyms, 
+translations, and all derived words, including combinations of letters, numbers, 
+and special characters in these words, can be used in the name of the organiser, 
+inside the venue, as well as on the exterior of the venue where special games of 
+chance are organised, only by those organisers  who hold a valid license for 
+organising games of chance in casinos.” 
+Article 22 
+In Article 59, paragraphs 2 to 4 are added that read:  
+“In the premises where special games of chance on automatic equipment 
+are organised, serving and consumption of food and alcoholic beverages is 
+prohibited, except for low-alcohol beverages containing no more than 5% alcohol 
+by volume, as defined by the law governing excise duties. 
+The premises in which special games of chance on automatic equipment 
+are organised must not have direct access to the area where food or alcoholic 
+beverages are served, except low -alcohol beverages referred to in paragraph 2 
+above. 
+The organiser is obliged to display a notice in a visible location in the 
+premises where special games of chance are organised, regarding the prohibition 
+referred to in paragraph 2 above.” 
+ 
+Article 23 
+In Article 62, paragraph 1 words: “pays to players a minimum of” are 
+replaced by: „pays to players at least”, word: “payment” is replaced by: „amount 
+wagered”, and after word: „cycle” words: „(Return to Player - RTP)” are added. 
+In paragraph 2, after word: „automatic equipment” words: “and be directly 
+connected to the information and communication system of the organiser, while 
+in case of multiplayer automatic equipment each separate, undetachable part 
+must be separately connected to the information and communication system of 
+the organiser.” are added. 
+Article 24 
+In Article 63, paragraph 1 after word: „surveillance” words: “real time” are 
+added. 
+Article 25 
+Title of Article 64 is amended to read: 
+“Organiser’s Surveillance” 
+In Article 64, paragraph 1 after words: „from slot machine club” comma 
+and the words: „cash register” are added. 
+In paragraph 2, after word: “required to” text: „provide the Administration 
+with a link through which authorised representatives of the Administration can 
+monitor live video surveillance referred to in paragraph 1 above, and” is added, 
+and word: „thirty” is replaced by number: „90”. 
+In paragraph 6, after words: „participants in the game” words: „and live 
+monitoring of video surveillance” are added. 
+After paragraph 6, paragraph 7 is added that reads:  
+“In order to comply with the prohibition set forth in Article 10, point 13) 
+the organiser verifies the age of an individual solely by reviewing the photograph 
+and date of birth in the individual’s identification document and must not 
+process, store or use the data from the identification document for any other 
+purpose.” 
+Article 26 
+In Article 65, paragraph 1 words: „one year older” are replaced by: „older 
+than one year”. 
+After paragraph 2, paragraph 3 is added that reads:  
+“Controls of conditions referred to in paragraphs 1 and 2 above are carried 
+out by laboratory authorised by the minister of finance when testing the technical 
+and functional characteristics of the automatic equipment referred to in Article 62 
+hereof.” 
+Article 27 
+Title of Article 66 is amended to read:  
+“Repair and Verification of Functionality of Automatic Equipment” 
+In Article 66, paragraph 1 after words: „in proper working condition” 
+words: „in accordance with requirements of Article 62 hereof” are added. 
+After paragraph 1, new paragraph 2 is added that reads: 
+“Verification of automatic equipment functionality is carried out as a part 
+of the procedure of functionality testing conducted by authorized entity referred 
+to in paragraph 1 above.” 
+After existing paragraph 2, which becomes paragraph 3, paragraph 4 is 
+added that reads: 
+“Minister of finance more closely defined method and procedure of 
+verification automatic equipment functionality.” 
+Article 28 
+In Article 67, paragraph 1 after words: „(primary and secondary schools)” 
+text: “attended by children, minors and young adults up to the age of 19”. 
+In paragraph 2 words: „(primary and secondary schools) to the entrance 
+of the slot machine club where games of chance on automatic equipment is 
+organised” are replaced by: „referred to in paragraph 1 above to the nearest 
+entrance to the slot machine club”.  
+After paragraph 4, paragraph 5 is added that reads:  
+“Proof regarding the distance referred to in paragraphs 1 and 3 of this 
+article shall be considered a certificate issued by the Republic Geodetic Authority 
+and an expert opinion from a transport specialist on the shortest safe walking 
+path referred to in paragraphs 2 and 4 above have been fulfilled.” 
+Article 29 
+In Article 68, after paragraph 3, paragraphs 4 and 5 are added that read:  
+“The request with documentation referred to in paragraph 1 above is 
+submitted in electronic form via information -communication system of the 
+Administration.  
+Multiplayer automatic equipment for the purpose of paragraph 1, points 6 
+to 7 above is deemed a single gaming machine." 
+Paragraph 4 becomes paragraph 6. 
+Article 30 
+Article 69 is amended to read: 
+“Article 69 
+The approval for organising special games of chance on automatic 
+equipment is issued for a period of ten years. 
+At the request of the organiser, the approval referred to in paragraph 1 
+above can be renewed by a decision of the Administration for a period of ten 
+years, provided the organiser fulfils all conditions prescribed by law. 
+The request referred to in paragraph 2 above is submitted in electronic 
+form via information-communication system of the Administration within 90 days 
+before expiry of the approval. 
+When submitting the request referred to in paragraph 2 above, organiser 
+attaches documents referred to in Articles 67 and 68, paragraph 1, points 2), 4), 
+7), 8) and 9) of this law.  
+The organiser must commence organising special games of chance on 
+automatic equipment at the approved location within 120 days from the date of 
+obtaining approval. 
+If the organiser fails to commence organising the games of chance at the 
+location within the deadline specified in paragraph 5 above and in accordance 
+with the conditions set out in the approval, the Administration shall issue a 
+decision revoking the approval for that location. 
+An organiser whose approval has been revoked pursuant to the decision 
+referred to in paragraph 6 above shall not be granted approval to organise 
+special games of chance on automatic location at the same location for which the 
+approval was revoked.  
+The organiser may submit a request to cease the organisation of special 
+games of chance on automatic equipment through the Administration’s 
+information and communication system. 
+The Administration issues a decision on the approval, extension, or 
+cessation of organising special games of chance on automatic equipment based 
+on the organiser’s request.” 
+Article 31 
+Article 71 is deleted. 
+Article 32 
+In Article 73, paragraph 5 is amended to read: 
+“When multiplayer automatic equipment is put into use, the proof on 
+compliance with conditions from Article 62 hereof is submitted for each separate, 
+undetachable part that can be used by a player. 
+After paragraph 5, new paragraph 6 is added that reads: 
+Multiplayer automatic equipment can be put into use, withdrawn from use 
+or relocated only as a single machine, with all of its separate, undetachable parts 
+together, where approval referred to in paragraph 1 above is issued individually 
+for each separate, undetachable unit.” 
+In paragraph 6, which becomes paragraph 7 after words: „automatic 
+equipment” text: „or multiplayer automatic equipment” is always added. 
+In paragraph 7, which becomes paragraph 8 after words: „putting the 
+automatic equipment” words: „or multiplayer automatic equipment” are added. 
+After current paragraph 8, which becomes paragraph 9, paragraph 10 is 
+added that reads:  
+“The request referred to in paragraphs 2 to 4 above, as well as the 
+additional certificate referred to in paragraph 8 above is submitted via 
+information and communication system of the Administration.” 
+Article 33 
+In Article 74, after paragraph 2, paragraphs 3 and 4 are added that read: 
+“For the purpose of this article, each separate, undetachable part of the 
+multiplayer automatic equipment on which playing is possible is deemed a 
+separate gaming machine. 
+In case of automatic equipment that has been withdrawn from use and for 
+which a new request for putting into use has been submitted, the certified 
+laboratory referred to in Article 62, paragraph 6 above prepares and places the 
+same numerical designation of the label as the automatic equipment had before 
+it was withdrawn from use.” 
+Current paragraphs 3 and 4 become paragraphs 5 and 6. 
+Article 34 
+In Article 75, paragraph 1, number: „25” is replaced with number: „50”. 
+After paragraph 4, paragraph 5 is added that reads:  
+“For the purpose of this article, each separate, undetachable part of the 
+multiplayer automatic equipment on which playing is possible is deemed a 
+separate gaming machine.” 
+Article 35 
+In Article 76, paragraph 1 is amended to read:  
+“The organiser is obliged to calculate and pay a fee for organising games 
+of chance on automatic equipment, at a rate of 15% applied to the base which is 
+calculated as the difference between the total payments made by players and 
+total value of winnings paid to the players, but which cannot be less than the 
+product of 100 euro in dinar equivalent and the maximum number of registered 
+gaming machines during a month.” 
+Paragraph 2 is deleted.  
+In current paragraph 3, which becomes paragraph 2 words: „paragraphs 1 
+and 2” are replaced by: „of paragraph 1”. 
+In current paragraph 4, which becomes paragraph 3 words: „paragraphs 1 
+and 2” are replaced by: „of paragraph 1”. 
+In current paragraph 5, which becomes paragraph 4 words: “achieved 
+revenue” are replaced by: „received payments, payouts made, as well as wagers 
+made and winnings paid”, and words: „paragraphs 1 and 2” are replaced by: „of 
+paragraph 1”. 
+After existing paragraph 5, which becomes paragraph 4, new paragraph 5 
+is added that reads:  
+“For the purpose of this article, each separate, undetachable part of the 
+multiplayer automatic equipment on which playing is possible is deemed a 
+separate gaming machine.” 
+In paragraph 6 words: „of paragraph 5” are replaced by: „of paragraph 4”. 
+Article 36 
+In Article 80, paragraph 1 after words: „surveillance” words: “real time” 
+are added.  
+Article 37 
+After Article 80, the Article 80a and the title of that article are added, that 
+read: 
+“Special Conditions for Betting Terminals 
+Article 80a 
+The betting terminals that are put to use are subject to provisions of 
+Article 62, paragraph 2 to 9 hereof. 
+Repair and verification of technical functionality of betting terminals is 
+conducted in accordance with provisions of Article 66 hereof.”  
+Article 38 
+Title of Article 81 is amended to read: 
+“Organiser’s Surveillance” 
+In Article 81, paragraph 1 after words: „betting shop” comma and the 
+words: „betting terminal, cash register” are added. 
+In paragraph 2, after words: “required to” text: „provide the 
+Administration with a link through which authorised representatives of the 
+Administration can monitor live video surveillance referred to in paragraph 1 
+above, and” is added, and word: „thirty” is replaced by number: „90”. 
+In paragraph 6, after words: „in the game” words: „and live monitoring of 
+video surveillance” are added. 
+After paragraph 6, new paragraph 7 is added that reads: 
+“In order to comply with the prohibition set forth in Article 10, point 13) 
+the organiser verifies the age of an individual solely by reviewing the photograph 
+and date of birth in the individual’s identification document and must not 
+process, store or use the data from the identification document for any other 
+purpose.” 
+Paragraph 7 becomes paragraph 8. 
+Article 39 
+After Article 81, the Article 81a and the title of that article are added, that 
+read: 
+“Conditions for Premises 
+Article 81a 
+In the premises where special games of chance involving betting are 
+organised, serving and consumption of food and alcoholic beverages is 
+prohibited, except for low-alcohol beverages containing no more than 5% alcohol 
+by volume, as defined by the law governing excise duties. 
+The premises in which special games of chance involving betting are 
+organised must not have direct access to the area where food or alcoholic 
+beverages are served, except low -alcohol beverages referred to in paragraph 1 
+above. 
+The organiser is obliged to display a notice in a visible location in the 
+premises where special games of chance involving betting are organised, 
+regarding the prohibition referred to in paragraph 1 above.” 
+Article 40 
+In Article 82, paragraph 1 after words: „(primary and secondary schools)” 
+text: “attended by children, minors and young adults up to the age of 19”. 
+In paragraph 2 words: „(primary and secondary schools) to the entrance 
+to premises where games of chance involving betting are organised” are replaced 
+by: „referred to in paragraph 1 above to the nearest entrance to the betting 
+shop”.  
+After paragraph 4, paragraph 5 is added that reads:  
+“Proof regarding the distance referred to in paragraphs 1 and 3 of this 
+article shall be considered a certificate issued by the Republic Geodetic Authority 
+and an expert opinion from a transport specialist on the shortest safe walking 
+path referred to in paragraphs 2 and 4 above have been fulfilled.”  
+Article 41 
+In Article 83, after paragraph 3, new paragraph 4 is added that reads: 
+“The request with documentation referred to in paragraph 1 above is 
+submitted in electronic form via information -communication system of the 
+Administration. 
+Paragraph 4 becomes paragraph 5. 
+Article 42 
+In Article 84, after paragraph 3, paragraphs 4 to 9 are added that read: 
+“At the request of the organiser, the approval referred to in paragraph 1 
+above can be renewed by a decision of the Administration for a period of ten 
+years, provided the organiser fulfils all conditions prescribed by law. 
+The request referred to in paragraph 4 above is submitted in electronic 
+form via information-communication system of the Administration within 90 days 
+before expiry of the approval. 
+When submitting the request referred to in paragraph 4 above, organiser 
+attaches documents referred to in Article 83, paragraph 1, points 2, 4, 5, 8, 9 
+and 10 hereof. 
+The organiser must commence organising special games of chance 
+involving betting at the approved location within 120 days from the date of 
+obtaining approval. 
+If the organiser fails to commence organising the games of chance at the 
+location within the deadline specified in paragraph 7 above and in accordance 
+with the conditions set out in the approval, the Administration shall issue a 
+decision revoking the approval for that location. 
+An organiser whose approval has been revoked pursuant to the decision 
+referred to in paragraph 8 above shall not be granted approval to organise 
+special games of chance involving betting location at the same location for which 
+the approval was revoked.”  
+Paragraph 4 is deleted. 
+In paragraph 5, which becomes paragraph 10 after words: „betting” 
+words: “through the Administration’s information and communication system” 
+are added. 
+In paragraph 6, which becomes paragraph 11 after words: „decision on” 
+words: „approval, extension or” are added. 
+Article 43 
+Article 86 is deleted. 
+Article 44 
+In title of Article 88, after words: „Desks” words: „and Issuing Bet Slips” 
+are added. 
+In Article 88, after paragraph 6, paragraphs 7 and 8 are added that read: 
+“For each bet received related to the games of chance involving betting 
+the organiser is obliged to immediately issue a bet slip. 
+Minister of finance more closely defines the design and contents of the bet 
+slip.” 
+Article 45 
+In paragraph 89, after words: „pay -in-pay-out desk” comma and the 
+words: „or a betting terminal” are added. 
+Article 46 
+In Article 90, paragraph 1, number: „100” is replaced with number: „200”. 
+Article 47 
+In Article 91, paragraph 1 is amended to read:  
+“The organiser pays a fee for organising games of chance involving 
+betting, at a rate of 15% applied to the base which is calculated as the difference 
+between the total payments made by players and total value of winnings paid to 
+the players, but which cannot be less than the product of 1,000 euro in dinar 
+equivalent and the maximum number of registered betting shops where games 
+of chance are organised during a month.” 
+Paragraph 2 is deleted.  
+In current paragraph 3, which becomes paragraph 2 words: „paragraphs 1 
+and 2” are replaced by: „of paragraph 1”. 
+In current paragraph 4, which becomes paragraph 3 words: „paragraphs 1 
+and 2” are replaced by: „of paragraph 1”. 
+In current paragraph 5, which becomes paragraph 4 words: “achieved 
+revenue” are replaced by: „received payments, payouts made, as well as wagers 
+made and winnings paid”, and words: „paragraphs 1 and 2” are replaced by: „of 
+paragraph 1”. 
+In current paragraph 6, which becomes paragraph 5 words: „of paragraph 
+5” are replaced by: „of paragraph 4”. 
+Article 48 
+In Article 94, paragraph 1, number: „300.000” is replaced with number: 
+„500.000”. 
+Article 94, paragraph 3 is deleted. 
+Article 49 
+In Article 95, paragraph 1 before word: „supervision” words: “real -time” 
+are added. 
+After paragraph 1, new paragraphs 2 to 6 are added that read: 
+“The organiser referred to in paragraph 1 above is obliged to ensure that 
+the Administration can access its databases or mirror server which are located in 
+the territory of the Republic of Serbia. 
+Data bases referred to in paragraph 2 above contain tables with all 
+information reported to the Administration according to this law. 
+The organiser referred to in paragraph 1 above is obliged to provide the 
+Administration with access parameters for the account with selected privileges 
+for accessing the data referred in paragraphs 2 and 3 above have been fulfilled.  
+The organiser referred to in paragraph 1 above is obliged to make 
+information and communication system for organising special games of chance 
+available to the players through a single website only.  
+The organiser referred to in paragraph 1 above is obliged to use 
+exclusively one logo, trademark, trade name or sign of the organiser on the 
+website referred to in paragraph 5 above.” 
+Current paragraphs 2 to 5 become paragraphs 7 to 10. 
+In current paragraph 6, which becomes paragraph 11 words: „paragraphs 
+4 and 5” are replaced by: „paragraphs 9 and 10”. 
+Current paragraphs 7 and 8 become paragraphs 12 and 13” 
+Article 50 
+After Article 95, the Article 95a and the title of that article are added, that 
+read: 
+“Self-Exclusion and Self-Limitation of Players 
+Article 95a 
+An organiser of special games of chance through means of electronic 
+communication is obliged to provide players with the possibility of self -exclusion 
+and self-limitation. 
+A player may request, in writing or electronically, from an organiser 
+referred to in paragraph 1 to be excluded from participating in special games of 
+chance through means of electronic communication for a set period of time that 
+cannot be shorter than 24 hours or permanently, in which case the self-exclusion 
+cannot be withdrawn before expiry of 12 months. The player may also request to 
+limit the maximum amount they can pay within a specific period of time to such 
+organiser of games of chance through means of electronic communication (self -
+limitation). 
+Immediately after receiving a request for self -exclusion or self -limitation, 
+the organiser of special of games of chance through means of electronic 
+communication is obliged to prevent the player from accessing the user account 
+in case of self-exclusion or limit the payments in accordance with the request of 
+the player in case of self -limitation and electronically submit to Administration 
+the data about the player who has self -excluded, as well as information about 
+his/her request, and in particular the following: 
+1) personal number of the player; 
+2) date of the request for self-exclusion; 
+3) time period of self-exclusion. 
+After receiving the data referred to in paragraph 3 above, the 
+Administration shall exchange the data with all organisers of games of chance 
+through means of electronic communication with whom the self -excluded player 
+has active user accounts. 
+Immediately after receiving the data referred to in paragraph 4 above, the 
+organiser referred to in paragraph 4 of this article is obliged to prevent the player 
+from accessing the user account or from participating in games of chance 
+through means of electronic communication in accordance with the request. 
+An organiser which receives a player’s request to withdraw self -exclusion 
+from a player, is obliged to notify Administration thereof immediately upon 
+receiving such request. 
+Minister of finance more closely prescribes the technical procedure and the 
+manner in which data about a self -excluded player is exchanged between the 
+Administration and organiser of games of chance through means of electronic 
+communication.” 
+Article 51 
+In Article 96, paragraph 2, point after word: „electronic communication” 
+words: „in accordance with Article 95, paragraph hereof” are added. 
+After paragraph 4, new paragraph 5 is added that reads:  
+“The request with documentation referred to in paragraph 1 above is 
+submitted in electronic form via information -communication system of the 
+Administration.” 
+Paragraph 5 becomes paragraph 6. 
+Article 52 
+Article 97 is amended to read: 
+“Article 97 
+The approval for organising special games of chance through means of 
+electronic communication is issued for a period of ten years. 
+At the request of the organiser, the approval referred to in paragraph 1 
+above can be renewed by a decision of the Administration for a period of ten 
+years, provided the organiser fulfils all conditions prescribed by law. 
+The request referred to in paragraph 2 above is submitted by the organiser 
+in electronic form via information -communication system of the Administration 
+within 90 days before expiry of the approval. 
+When submitting the request referred to in paragraph 2 above, organiser 
+attaches documents referred to in Article 96, paragraph 2, points 2), 6), 8), 9) 
+and 10) of this law. 
+The organiser must commence organising special games of chance 
+through means of electronic communication within 120 days from the date of 
+obtaining approval. 
+If the organiser fails to commence organising the games of chance within 
+120 days, the Administration shall issue a decision revoking the approval. 
+The organiser may submit a request to cease the organisation of special 
+games of chance through means of electronic communication via the 
+Administration’s information and communication system. 
+The Administration issues a decision on the approval, extension, or 
+cessation of organising special games of chance through means of electronic 
+communication based on the organiser’s request.” 
+Article 53 
+Article 99 is deleted. 
+ 
+Article 54 
+In Article 101, paragraph 1, number: „2.500” is replaced with number: 
+„10.000”. 
+Article 55 
+In Article 102, paragraph 1 is amended to read:  
+“The organiser pays a fee for organising games of chance through means 
+of electronic communication, at a rate of 15% applied to the base which is 
+calculated as the difference between the total payments made by players and 
+total value of players’ winnings.” 
+After paragraph 1, new paragraphs 2 and 3 are added that read:  
+“Notwithstanding paragraph 1 above, a fee at a rate of 25% applied to the 
+base referred to in paragraph 1 of this article is paid to special games of chance 
+through means of electronic communication that are organised as a 
+(re)broadcasting, i.e. delayed or direct broadcast of live game played by the 
+players against the organiser (roulette, blackjack, baccarat, etc.). 
+Minimum total fee referred to in paragraphs 1 and 2 of this article cannot 
+be less than dinar equivalent of 50.000 euro monthly calculated proportionally to 
+the number of days left in the month on the date of receiving the decision of 
+approval.” 
+Current paragraphs 2 to 4 become paragraphs 4 to 6.  
+In current paragraph 5, which becomes paragraph 7 words: “achieved 
+revenue” are replaced by: „received payments, payouts made, as well as wagers 
+made and winnings paid”. 
+In current paragraph 6, which becomes paragraph 8 words: „of paragraph 
+5” are replaced by: „of paragraph 7”. 
+ 
+Article 56 
+After Article 102, the Articles 102a and 102b and their titles are added, 
+that read: 
+“Verification of Players and Electronic Wager Confirmation 
+Article 102a 
+In order to protect minors and enforce the ban on their participation in 
+games of chance, the organiser of special games of chance through means of 
+electronic communication is obliged to verify the player's age during the 
+registration of the player's account by checking the date of birth in the 
+identification document of that person using electronic communication means 
+(player verification). 
+For each bet received related to the games of chance through means of 
+electronic communication the organiser is obliged to immediately issue an 
+electronic wager confirmation. 
+More detailed conditions and procedure of verification, as well as the 
+design and contents of the electronic wager confirmation referred to in 
+paragraphs 1 to 2 above are defined by the minister of finance.  
+ 
+Special Rules regarding Bonuses 
+Article 102b 
+An organiser of games of chance through means of electronic 
+communication may grant bonuses to players, but exclusively through a 
+promotional account. 
+An organiser may open one promotional account for each registered player 
+who holds a transactional account with the organiser. 
+The bonus referred to in paragraph 1 of this article, which the organiser of 
+games of chance through means of electronic communication grants or approves 
+for a player via the promotional account, can only be used for play. Such a bonus 
+and the funds the player wins from the game through the promotional account 
+cannot be combined (mixed) with the funds in the player's transactional account 
+and cannot be withdrawn by the player directly from the promotional account. 
+The player is not allowed to make deposits into the promotional account 
+on their own. 
+The wager or winnings in the promotional account are not considered as a 
+wager or winnings in accordance with Article 102, paragraph 1 of this law. 
+The organizer may transfer funds won on the promotional account to the 
+player's transactional account. 
+The value referred to in paragraph 6 of this article is considered a wager, 
+as defined by Article 102, paragraph 1 hereof, both at the moment of transfer 
+from the promotional to transactional account and at the time of any actual 
+wager is placed through transactional account of the player.” 
+Article 57 
+In Article 103, paragraph 8 words: „of paragraph 1” are replaced by: 
+„paragraphs 1 to 5” 
+Article 58 
+Article 106 is deleted. 
+Article 59 
+In Article 109, paragraph 2 words: “and grants consent for rules of the 
+game” are deleted. 
+After paragraph 4, paragraphs 5 and 6 are added that read: 
+“In the event of organising games of chance through means of electronic 
+communication, the rules of the game must be clearly posted on the website or 
+portal of the organiser through which the participants engage in the games of 
+chance, in a prominent location and in the manner that they are easily accessible 
+for reading, downloading and storing by visitors of the website or portal of the 
+organiser. 
+The consent for the rules of the game referred to in paragraph 1 of this 
+article is issued by the Administration.” 
+Article 60 
+In title of Article 112, after words: „organisers” words: “of special” are 
+added. 
+In Article 112, after paragraph 2, new paragraph 3 is added that reads:  
+“The organiser is obliged to submit to the Administration the official 
+document of the competent state authority referred to in paragraph 2 above for 
+the founder, i.e. owner, beneficial owner and designated person of the organiser 
+by 30 June of the current year.”  
+In current paragraph 3, which becomes paragraph 4 words: „of paragraph 
+2” are replaced by: „paragraphs 2 and 3”.  
+Article 61 
+After Article 113, the Article 113a and the title of that article are added, 
+that read: 
+“Change in the Capital Structure 
+Article 113a 
+An interested party may, in accordance with the law, purchase stake or 
+shares, or join as a new member or shareholder in the capital structure of the 
+organiser of special games of chance on automatic equipment, special games of 
+chance involving betting and special games of chance through means of 
+electronic communication, with prior consent of the Administration. 
+Along with the request for consent referred to in paragraph 1 above, which 
+among other things contains information about the name and address of 
+registered offices of the legal entity or information about name, surname, 
+temporary or permanent residence (if any) of a natural person intending to 
+become a member of a shareholder, the following documentation must be 
+submitted: 
+1) decision on registration in the register of business entities or in other 
+appropriate register in case of foreign legal entities, including the information 
+about the amount and structure of capital or information from the identification 
+card, in case of a natural person; 
+2) evidence that tax liabilities have been dully settled in the Republic of 
+Serbia for legal or natural entity referred to in paragraph 1 above; 
+3) regulation of the competent state authority confirming that the 
+applicant, its founder, beneficial owner, associate, designated person have not 
+been sentenced to a fine, in case of legal entity, or to imprisonment, in case of 
+natural persons, for a criminal offence in the Republic of Serbia or a foreign 
+country and that they have not severely or repeatedly violated the regulations 
+governing the prevention of money laundering and terrorism financing during the 
+period of restrictive measures prohibiting performance of certain activities that 
+are the main business activity of the company for organisation of games of 
+chance or during the period of restrictive measures prohibiting the authorized 
+person to perform certain activities  which are the main business activity of the 
+company for organisation of games of chance and during the period of restrictive 
+measures prohibiting the authorized persons to perform certain duties in the 
+company which main business activity is organisation of games of chance; 
+4) if, for justifiable reasons, the evidence of non -conviction referred to in 
+point 3 above cannot be obtained, the persons referred to in point 3 above may 
+also submit a statement under full civil and criminal liability that they are have 
+not been convicted and they are not members of organised crime group; the 
+Administration may at any time request the person referred to in point 3) of this 
+paragraph or the competent authority to provide the evidence of non-conviction. 
+The Administration is obliged to issue a decision on granting the consent 
+referred to in paragraph 1 above or the decision on denying the request for 
+consent within 30 days from the date of receiving a due request and 
+documentation referred to in paragraph 2 above. 
+The request referred to in paragraph 2 above is submitted in electronic 
+form via information-communication system of the Administration.” 
+Article 62 
+Article 115 is amended to read: 
+“Article 115 
+Organiser of special games of chance through means of electronic 
+communication may engage a legal entity or entrepreneur for provision of 
+services of receiving top-ups of transactional account of the player registered for 
+participation in games of chance with that organiser, based on prior consent of 
+the Administration. 
+The organiser referred to in paragraph 1 above may conclude the legal 
+transaction referred to in paragraph 1 only with the entity referred to in 
+paragraph 1 of this article without any third parties (intermediaries). 
+Along with the request for consent, the organiser shall submit to the 
+Administration the following: 
+1) proof that the entity engaged for provision of service of receiving top -
+ups of transactional account is a legal entity or entrepreneur with registered 
+offices located in the territory of the Republic of Serbia; 
+2) certificate of the Republic Geodetic Authority as evidence that every 
+venue where top-ups of transactional account, as defined in paragraph 1 above, 
+are received located at a distance of at least 200 meters from educational 
+institutions attended by children, minors and young adults up to the 19 years of 
+age; 
+3) certificate of certified laboratory that the entity engaged to provide 
+services of receiving top -ups of transactional account uses the information and 
+communication system to receive top-ups of transactional account; 
+4) list of all venues with addresses in which the service of receiving top -
+ups of transactional account of players is provided; 
+5) evidence of the ownership structure of the entity referred to in 
+paragraph 1 above, all in accordance with regulations on the Central Records of 
+Beneficial Owners; 
+6) agreement concluded for provision of services of receiving top -ups for 
+transactional account, according to which such services cannot be provided 
+without consent of the Administration. 
+Certified laboratory shall issue the certificate referred to in paragraph 3, 
+point 3) of this article if it establishes that the information and communication 
+system for provision of service of top -up of transactional accounts used by the 
+entity referred to in paragraph 1 above: 
+1) represents a system independent from the information and 
+communication system of the organiser; 
+2) enables storage, archiving and real -time electronic exchange of data 
+with software solutions of the Administration and the organiser. 
+The Administration grants consent referred to in paragraph 1 above after 
+establishing that the conditions from paragraphs 3 and 4 above have been 
+fulfilled. 
+Mandatory elements of the service agreement for top -up of transactional 
+account are the following provisions: 
+1) that every venue where top -ups of transactional account, as defined in 
+paragraph 1 above, are received is located at a distance of at least 200 meters 
+from educational institutions attended by children, minors and young adults up to 
+the 19 years of age; 
+2) that the entity providing the transactional account top -up services has 
+continuous video surveillance of the location where top -ups are received, where 
+recordings are retained for 90 days;  
+3) that provision of transactional account top -up service to a player 
+registered for participation in games of chance with the organiser can start after 
+receiving consent of the Administration. 
+The organiser is obliged to notify the administration on every violation of 
+mandatory elements of the agreement within three days from the date he 
+becomes aware of such event or circumstances. 
+An entity referred to in paragraph 1 above is obliged to display a poster 
+referred to in Article 6, paragraph 5 hereof in location that is visible to registered 
+players that top-up their transactional account.  
+If an entity referred to in paragraph 1 above receives top -ups for 
+transactional accounts the poster referred to in paragraph 8 above may be on A4 
+paper format, i.e. dimensions 21 x 29.7 cm and placed on the exterior of the 
+facility or the counter (kiosk, etc.). 
+Provisions of this article do not apply to provision of services within the 
+meaning of regulations governing payment services. 
+Organiser of special games of chance through means of electronic 
+communication which also holds the approval for organisation of games of 
+chance involving betting may receive payments and pay out funds from the 
+transactional account of the player registered for participation in games of 
+chance with that organiser at pay-in-pay-out locations in betting shops which are 
+subject to such approval. 
+Closer conditions and manner of fulfilling conditions for provision of 
+transactional account top -up services, video surveillance, as well as storing, 
+archiving and electronic data exchange with software solution of the 
+Administration will be defined by the minister of finance.” 
+Article 63 
+After Article 115, the Articles 115a and 115b and their titles are added, 
+that read: 
+“General Conditions for Certified Laboratories and Legal Entities Authorized for 
+the Repair of Gaming Tables and Machines 
+Article 115a 
+A laboratory authorized by the minister of finance is obliged to verify 
+compliance with technical and functional characteristics of tables, automatic 
+equipment, multiplayer automatic equipment and betting terminals referred to in 
+Articles 44, 62 and 80a hereof, by affixing labels referred to in Articles 45, 74 
+and 89 hereof and information and communication system for organisation of 
+special games of chance referred to in Articles 44, 63, 80, 95, 115 and 115b at 
+the location where the subject of inspection is situated, if the specific activity 
+carried out by the laboratory requires physical presence at such place. 
+The laboratory referred to in paragraph 1 above and the entity for repair of 
+gaming tables and machines authorized by the minister of finance is obliged to 
+enable storing, archiving and electronic exchange of data with software solution 
+of the Administration. 
+A certified laboratory may, through a contract, delegate to third parties the 
+task of inspecting the compliance of technical and functional characteristics of 
+tables and automatic equipment, including multiplayer automatic equipment and 
+betting terminals, referred to in Articles 44, 62, and 80a of this law, as well as 
+affixing labels referenced in Articles 45, 74, and 89 of this law, at the location 
+where the subject of inspection is situated. 
+The certified laboratory is required to submit the agreement referred to in 
+paragraph 3 above to the Administration within three days from the date of 
+agreement. 
+The certified laboratory is liable for all actions entrusted to third parties in 
+accordance with paragraph 3 above. 
+The minister of finance may authorize a laboratory to perform one or 
+several activities related to the examination of conditions and issuance of 
+certificates provided by this law. 
+The minister of finance defines detailed conditions of storing, archiving and 
+exchange of data with the Administration referred to in paragraph 2 above. 
+ 
+ 
+Jackpot 
+Article 115b 
+Jackpot may be organised by an organiser holding an approval for 
+organising special games of chance with prior consent of the Administration. 
+The organiser is required to submit a request for organising jackpot to the 
+Administration at least 30 days before organising the jackpot, along with 
+certificate confirming the compliance of the jackpot system, as well as other 
+documentation provided by legislation referred to in paragraph 5 above. 
+The certificate referred to in paragraph 2 above is issued by the laboratory 
+authorised by the minister of finance. 
+The Administration is obliged to issue a decision on granting the consent 
+referred to in paragraph 1 above or the decision on denying the request for 
+consent within 30 days from the date of receiving a dully prepared request. 
+Closer conditions, documentation, manner and procedure of organising 
+jackpot, checking compliance of the jackpot system and data exchange with the 
+Administration are defined by the minister of finance. 
+Article 64 
+In Article 122, after paragraph 1, new paragraph 2 is added that reads:  
+“In case of multiplayer automatic equipment, the inspection procedure 
+measures referred to in paragraph 1 above apply to the multiplayer automatic 
+equipment as a whole. 
+Paragraph 2 becomes paragraph 3.  
+After existing paragraph 3, which becomes paragraph 4, new paragraph 5 
+is added that reads: 
+When during inspection an inspector of the Administration discovers that a 
+foreign individual is organising games of chance through means of electronic 
+communication without approval of the Administration issued in accordance with 
+this law, they will issue a decision prohibiting organisation of games of chance 
+and send it to the competent authority that will ensure that the internet address 
+of such entity cannot be accessed by blocking its IP address by operators of 
+electronic communication and public communication networks and by blocking 
+any payment transactions through banks and other providers of payment 
+services in the Republic of Serbia.”  
+Paragraph 4 becomes paragraph 6. 
+Article 65 
+Article 123 is amended to read: 
+“Article 123 
+When during an onsite inspection with the organiser of special games of 
+chance on automatic equipment, special games of chance involving betting or 
+special games of chance in casinos an inspector of the Administration discovers 
+automatic equipment, multiplayer automatic equipment, table or pay -in-pay-out 
+desk for which the organiser does not hold an approval of the Administration or a 
+license of the Government and which are not the subject of pending procedure 
+for issuance of certification by the certified laboratory or a pending procedure for 
+issuance of an approval, the inspector issues a decision to prohibit organisation 
+of special games of chance, and orders confiscation of the goods, equipment, 
+documentation and other items that have been or could have been used for 
+unauthorized organisation of special games of chance. 
+In case of multiplayer automatic equipment, the inspection procedure 
+measures referred to in paragraph 1 above will be applied to the multiplayer 
+automatic equipment as a single machine, regardless of the number of separate, 
+undetachable parts. 
+The ban on organisation of special games of chance in business premises 
+where the incompliance referred to in paragraph 1 above has been established is 
+issued to the organiser for the period of 30 days and applies to all types of 
+special games of chance. 
+If an inspector of Administration , during the inspection process, 
+determines that the same violation referred to in paragraph 1 above has been 
+committed in the business premises in which the organiser, to whom the 
+prohibition on organisation has been imposed under paragraph 3 above, 
+organises special games of chance on automatic equipment or special games of 
+chance involving betting, the inspector of the Administration will impose a ban on 
+organising special games of chance in that business premises. 
+The ban on organising special games of chance on automatic equipment or 
+special games of chance involving betting referred to in paragraph 4 above is 
+imposed for the validity period of the approval for organisation of games of 
+chance on automatic equipment or special games of chance involving betting. 
+The organiser of special games of chance on automatic equipment or 
+special games of chance involving betting referred to in paragraph 4 above will 
+have their approval for organisation of special games of chance for that business 
+premises revoked.  
+The decision revoking the approval referred to in paragraph 6 above is 
+issued by the Administration. 
+When in the course of onsite inspection the inspector of Administration 
+establishes that the organiser of special games of chance in casino repeated the 
+violation referred to in paragraph 1 above in the same business premises for 
+which the ban on organisation referred to in paragraph 3 above has been 
+imposed, the Administration sends a proposal to the minister of finance to revoke 
+the license of that organiser for organisation of special games of chance in casino 
+for that business premises.  
+The license referred to in paragraph 8 is revoked by the Government at 
+proposal of the minister of finance. 
+The business premises where the measure of banning the organization of 
+games of chance applies, as specified in paragraphs 3 and 4 of this article, must 
+be marked with a notice, tape, or poster issued by the Administration. 
+The method of marking, as well as the content and design of the signs 
+used to mark the business premises of an organizer subject to the measure of 
+prohibiting the organization of games of chance, will be prescribed by the 
+minister of finance." 
+Article 66 
+Article 132 is amended to read: 
+“Article 132 
+A monetary fine ranging from 100,000 dinars to 2,000,000 dinars will be 
+imposed for the offence on the State Lottery of Serbia and the legal entity that: 
+1) fails to display a poster with the appropriate text on the prevention of 
+addiction in accordance with Article 6, paragraph 5 hereof; 
+2) fails to provide the Administration with data or fails to allow access to 
+data on players who have self-excluded (Article 6, paragraph 8); 
+3) fails to ensure the conditions for conducting activities in accordance 
+with the provisions of this law within 60 days from the date of registration of the 
+status change, in accordance with the regulations governing registration, and 
+does not submit evidence to the Administration within the same period (Article 
+8a, paragraph 7); 
+4) in relation to the status change made, fails to ensure the alignment, 
+connection and the exchange of data from Article 63, paragraph 1, Article 80, 
+paragraph 1 and Article 95, paragraph 1 hereof within 15 days from the date of 
+registration of the status change in accordance with legislation governing 
+registration of companies (Article 8a, paragraph 8); 
+5) acts contrary to the prohibition set out in Article 10 hereof; 
+6) fails to guarantee the payment or allocation of winnings (Articles 17, 
+19, 20, and 21); 
+7) fails to provide the Administration with the decision on organising the 
+games of chance (Article 23, paragraph 1); 
+8) changes the rules of classic games after the sale of lottery tickets, 
+tickets, or cards for a specific round or series, or after the receipt of payments 
+(Article 25, paragraph 2); 
+9) fails to publish the rules of the game of chance in the daily or weekly 
+press before the start of the game, and does not allow persons interested in 
+participating in the game to get acquainted with the rules at the points of sale. 
+10) fails to conduct the draw or determine the winnings in the presence of 
+a committee consisting of at least three members appointed by the organiser, or 
+fails to conduct the draw publicly (Article 26); 
+11) fails to conduct the drawing in a live TV broadcast when the draw is 
+organised in front of TV cameras (Article 27); 
+12) fails to publish any change of place or date of the draw in the same 
+way the rules of the game of chance are published or fails to notify the 
+Administration on changing the date of the draw due to technical reasons (Article 
+28, paragraphs 2 and 3); 
+13) fails to refund the participants for sold lottery tickets, tickets or cards, 
+i.e. paid wagers in case of game of chance is cancelled (Article 28, paragraph 5); 
+14) fails to submit the report to the Administration on progress of the 
+draw within the timeframe provided (Article 29, paragraph 2); 
+15) fails to publish the results of a game of chance in the press or in its 
+official website within the timeframe provided (Article 30); 
+16) fails to pay out the cash prize of fails to ensure collection of another 
+prize in classic games of chance within the prescribe timeframe or fails to submit 
+a report to the Administration within the prescribed timeframe (Article 31, 
+paragraph 1 and 4); 
+17) publishes the identity of the winner in violation of the game rules 
+(Article 31, paragraph 5); 
+18) fails to pay the fee for organising classic games of chance in the 
+prescribed amount, manner, and within the prescribed timeframe (Article 33, 
+paragraphs 1 and 3, and Article 102, paragraph 4); 
+19) fails to submit records in the manner and within the timeframe 
+prescribed by this law (Article 33, paragraph 2, Article 55, paragraphs 4 and 6, 
+Article 76, paragraph 4, Article 91, paragraph 4, and Article 102, paragraph 7); 
+20) fails to maintain the amount of the share capital referred to in Articles 
+36, 60, 78, 93, and 113 hereof during the validity period of the licence or 
+approval; 
+21) purchases a stake or shares, or increases the existing stake or number 
+of shares in the capital structure of the organiser of games of chance in casinos, 
+without prior approval from the minister of finance (Article 37, paragraph 1); 
+22) fails to use the appropriate information and communication system for 
+organising special games of chance in casinos (Article 44, paragraph 1); 
+23) fails to provide the Administration with a certificate of compliance with 
+the technical and functional characteristics of the table before putting it into use, 
+or the information and communication system (Article 44, paragraph 4); 
+24) fails to provide the Administration with an additional certificate for any 
+change in the technical and functional characteristics of the table, or the 
+information and communication system (Article 44, paragraph 5); 
+25) fails to verify technical functionality of gaming tables (Article 47); 
+26) fails to arrange the premises in accordance with Article 49 hereof; 
+27) fails to ensure continuous audio and video surveillance, as well as 
+storing of recordings in the manner provided by this law (Article 50, 64 and 81); 
+28) fails to provide the Administration with the link that can be used by 
+authorised representatives of Administration to monitor the video surveillance 
+live (Article 50, paragraph 2, Article 64, paragraph 2 and Article 81, paragraph 
+2); 
+29) fails to ensure physical protection for players and visitors of the casino 
+(Article 50, paragraph 3); 
+30) fails to ensure a permanent database of individuals who are permitted 
+entry into the casino or fails to provide their appropriate written statements 
+(Article 51, paragraph 4); 
+31) allows employees of the organiser to participate in the games 
+organised by that organiser (Article 52, paragraph 1, Article 72, paragraph 1, 
+Article 87, paragraph 1, and Article 100); 
+32) allows employees to receive commissions, gifts, loans, or other 
+benefits for themselves or others from players, or to financially assist players 
+(Article 52, paragraph 2); 
+33) acts in violation of provisions of Article 54, paragraph 3 hereof; 
+34) fails to pay the fee for organising special games of chance in casino in 
+the prescribed amount, manner, and within the prescribed timeframe (Article 54, 
+5, 6 and 7); 
+35) fails to keep records of the fee base, which is used to calculate and 
+pay the fees, in the manner and under conditions defined by the minister of 
+finance or fails to submit monthly calculation of fees for organisation of games of 
+chance within provide timeframes (Article 55); 
+36) has less than five gaming machines in the premises where special 
+games of chance on automatic equipment are organised (Article 59, paragraph 
+1); 
+37) serves food or alcoholic beverages or allows their consumption in the 
+premises where special games of chance are organised, or allows direct access to 
+the area where food and alcoholic beverages are served contrary to provisions 
+hereof or fails to display a notice in a visible location no prohibition provided by 
+the law (Article 59, paragraphs 2 to 4 and Article 81a); 
+38) fails to set up the gaming machine in the manner provided by Article 
+62, paragraph 1 hereof; 
+39) fails to connect automatic equipment directly to this information and 
+communication system or fails to ensure appropriate accuracy, currency and 
+protection of technical and functional characteristics of automatic equipment 
+(Article 62, paragraphs 2 and 3); 
+40) fails to provide the Administration with a certificate of compliance with 
+the technical and functional characteristics of the automatic equipment before 
+putting it into use (Article 62, paragraph 4); 
+41) fails to provide the Administration with an additional certificate for any 
+change in the technical and functional characteristics of the automatic equipment 
+(Article 62, paragraph 5); 
+42) fails to use the appropriate information and communication system for 
+organising special games of chance on automatic equipment (Article 63, 
+paragraph 1); 
+43) fails to provide the Administration with a certificate of compliance with 
+the technical and functional characteristics of the information and communication 
+system putting it into use (Article 63, paragraph 4); 
+44) fails to provide the Administration with an additional certificate for any 
+change in characteristics of the information and communication system (Article 
+63, paragraph 5); 
+45) acts in violation of provisions of Article 64, paragraph 7 and Article 81, 
+paragraph 7 hereof; 
+46) fails to verify technical functionality of automatic equipment (Article 
+66); 
+47) acts in violation of provisions of Article 65, paragraphs 1 and 2 hereof; 
+48) organises games of chance in slot machine club or casino at a distance 
+that is shorter than the one provided by the law (Article 57, paragraphs 1 to 4 
+and Article 82, paragraphs 1 to 4); 
+49) fails to notify the Administration if during the validity period any 
+information of importance for issuance of the approval is changed (Article 68, 
+paragraph 3, Article 83, paragraph 3 and Article 96, paragraph 3); 
+50) fails to commence with the activity of organising special games of 
+chance on automatic equipment within 120 days from the date of receiving the 
+approval (Article 69, paragraph 5); 
+51) fails to pay the fee for the approval for organising special games of 
+chance on automatic equipment in the prescribed amount, manner, and within 
+the prescribed timeframe (Article 75); 
+52) fails to pay the fee for organising special games of chance on 
+automatic equipment in the prescribed amount, manner, and within the 
+prescribed timeframe (Article 76, paragraphs 1 to 3); 
+53) fails to keep records on received payments, payouts made, as well as 
+on wagers made and winnings paid per machine (Article 76, paragraph 4); 
+54) fails to use the appropriate information and communication system for 
+organising special games of chance involving betting (Article 80, paragraph 1); 
+55) fails to provide the Administration with a certificate of compliance with 
+the technical and functional characteristics of the information and communication 
+system putting it into use (Article 80, paragraph 4); 
+56) fails to provide the Administration with an additional certificate for any 
+change in the technical and functional characteristics of the information and 
+communication system (Article 80, paragraph 5); 
+57) fails to commence with the activity of organising special games of 
+chance involving betting within 120 days from the date of receiving the approval 
+(Article 84, paragraph 7); 
+58) fails to pay the fee for the approval for organising special games of 
+chance involving betting in the prescribed amount, manner, and within the 
+prescribed timeframe (Article 90); 
+59) fails to pay the fee for organising special games of chance involving 
+betting in the prescribed amount, manner, and within the prescribed timeframe 
+(Article 91, paragraphs 1 to 3); 
+60) fails to keep records on received payments, payouts made, as well as 
+on wagers made and winnings paid for each pay -in-pay-out desk (Article 91, 
+paragraph 4); 
+61) fails to use the appropriate information and communication system for 
+organising special games of chance through means of electronic communication 
+(Article 95, paragraph 1); 
+62) fails to provide access to its databases or mirror server which are 
+located in the territory of the Republic of Serbia (Article 95, paragraph 2); 
+63) fails to provide the Administration with access parameters for the 
+account with selected privileges for accessing the required data (Article 95, 
+paragraph 4); 
+64) makes information and communication system for organising games of 
+chance available to the players through more than one website (Article 95, 
+paragraph 5); 
+65) uses more than one logo, trademark, trade name or sign of the 
+organiser on the website (Article 95, paragraph 6); 
+66) fails to provide the Administration with a certificate of compliance with 
+the technical and functional characteristics of the information and communication 
+system putting it into use (Article 95, paragraph 9); 
+67) fails to provide the Administration with an additional certificate for any 
+change in the technical and functional characteristics of the system (Article 95, 
+paragraph 10); 
+68) fails to give a player the option of self -exclusion or self -limitation 
+(Article 95a, paragraph 1); 
+69) fails to immediately, upon receiving a request for self-exclusion or self-
+limitation, prevent access to the player's account or participation in games of 
+chance via electronic communication means in accordance with the player's 
+request, or fails to submit to the Administration data about the player who has 
+self-excluded (Article 95a, paragraph 3); 
+70) fails to, immediately upon receiving data from the Administration as 
+per Article 95a, paragraph 4, disable the player’s access to their user account or 
+prevent their participation in games of chance via electronic communication 
+means in accordance with their request (Article 95a, paragraph 5); 
+71) fails to commence with the activity of organising special games of 
+chance through means of electronic communication with the timeframe provided 
+(Article 97, paragraph 5); 
+72) grants bonuses or handles bonuses contrary to the provisions of 
+Article 102b hereof; 
+73) fails to pay the fee for the approval for organising special games of 
+chance through means of electronic communication in the prescribed amount, 
+manner, and within the prescribed timeframe (Article 101); 
+74) fails to pay the fee for organising special games of chance through 
+means of electronic communication in the prescribed amount, manner, and within 
+the prescribed timeframe (Article 102, paragraph 1 to 6); 
+75) fails to keep records on received payments, payouts made, as well as 
+on the payments made and winnings paid in the game of chance through means 
+of electronic communication in the prescribed manner (Article 102, paragraph 7); 
+76) fails to publish the rules of the game in at least daily newspaper 
+distributed throughout the territory of the Republic of Serbia at least eight days 
+before the start of the prize game and fails to submit proof to the Administration 
+that the rules have been published (Article 103, paragraph); 
+77) fails to pay the fee for organising prize games in the prescribed 
+amount, manner, and within the prescribed timeframe (Article 107) 
+78) fails to notify the Administration of results of the prize game within 30 
+days from the date the prize game was completed (Article 108, paragraph 1); 
+79) fails to display the rules of the game at visible location in the premises 
+where the game is organised or fails to publish them in another manner provided 
+by this law (Article 109, paragraphs 3 and 5); 
+80) changes the rules of the game during the course of the game (Article 
+109, paragraph 4); 
+81) acts contrary to the provisions of Article 110 hereof; 
+82) acts in violation of provisions of Article 112, paragraphs 2 to 4 hereof; 
+83) allows for change of capital structure without prior consent of the 
+Administration (Article 113a); 
+84) acts in violation of provisions of Article 115b; 
+85) fails to provide information, business documents and other documents 
+in accordance with the request of the Administration (Article 117); 
+86) fails to be present at the location of inspection, although it has been 
+dully notified about the forthcoming inspection (Article 118, paragraph 8); 
+87) fails to allow the inspector to conduct unhindered inspection (Article 
+118, paragraph 11). 
+For offences referred to in paragraph 1 of this Article the responsible 
+person in the National Lottery of Serbia and the responsible person in the legal 
+entity will be fined in the amount between 5.000 and 150.000 dinars. 
+For offences Tasks referred to in paragraph 1, points 76), 77), 78) and 85) 
+of this article an entrepreneur will be fined in the amount between 10.000 and 
+500.000 dinars. 
+Transitional Provisions 
+Article 67 
+Secondary legislation required for the enforcement of this law shall be 
+adopted within 230 days from the date of entry into force of this law. 
+Article 68 
+The organisers are obliged to ensure that their business activities are in 
+compliance with the provisions of Articles 2, 17, 23, 32, 44, 45, 49, 50, 56, 61 
+and provisions of Article 63 hereof related to jackpot, as well as the provisions 
+related to certified laboratories and legal entities authorized for repair of gaming 
+tables and machines in accordance with Article 63 hereof, within 180 days from 
+the effective date of this law.  
+The organisers are obliged to ensure that their business activities are in 
+compliance with the provisions of Articles 4, 9, 11, 13, 15, 29, 30, 41, 42, 51 
+and 52 hereof, which provide for obligation of submitting an electronic request 
+through information and communication system of the Administration within the 
+timeframe set forth in paragraph 1 above.  
+The organisers are obliged to ensure that their business activities are in 
+compliance with the provisions of Articles 14, 48 and 62 of this law, as well as 
+the provisions of Articles 18, 25 and 38 hereof, which provide for obligation to 
+provide the Administration with the link that allows authorized representatives to 
+monitor the video surveillance live and set the retention period for the video 
+recordings, by 1 January 2026.  
+The organisers are obliged to ensure that their business activities are in 
+compliance with the provisions of Articles 22 and 39 hereof by 1 July 2026. 
+Fees for approvals and organisation of games of chance in accordance with 
+provisions of Articles 19, 34, 35, 46, 47, 54 and 55 hereof are calculated from 
+the first day of the following month until the effective date of this law. 
+Notwithstanding paragraph 5 above, the fee for each separate, 
+undetachable part of the multiplayer automatic equipment referred to in Articles 
+34 and 35 hereof is calculated from the first day of the following month until the 
+date of expiry of the period defined in paragraph 1 above.  
+Article 69 
+Proceedings which have not been completed by the effective date of this 
+law shall be completed in accordance with the provisions of the law that was in 
+effect before the effective date of this law.  
+If the decision of the Administration is annulled or repealed after the 
+effective date of this law further proceedings will be carried out in accordance 
+with the provisions of this law. 
+Final Provision 
+Article 70 
+This law shall enter into force on the eighth day from the day it is 
+published in the “Official Gazette of the Republic of Serbia” and shall become 
+effective 30 days after the date of entry into force. 
